@@ -33,6 +33,15 @@ declare module "lodash" {
     deeply(fn: (...args: any[]) => any): (obj: any, ...fnArgs: any[]) => any;
 
     /**
+     * A "true _.throttle with 'trailing': false"
+     * More lightweight version which does not allocate unnecessary timer,
+     * comparing to lodash func (which invokes _.debounce under the hood)
+     * @param fn Function to throttle.
+     * @param interval Throttling interval.
+     * @returns Returns a throttled function.
+     */
+    onceIn(fn: (...args: any[]) => any, interval: number): (...args: any[]) => any;
+
     // A proper way to write this definition
     // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/adone/glosses/promise.d.ts
     /**

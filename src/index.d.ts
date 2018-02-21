@@ -15,7 +15,7 @@ declare module "lodash" {
      * Convert a string to Base64 format.
      * @param {string} string Input string.
      * @returns {string} Returns Base64-encoded string.
-    */
+     */
     base64(string: string): string;
 
     /**
@@ -29,14 +29,27 @@ declare module "lodash" {
      * Process an object and all of it's object properties depth-wise with a given `fn`.
      * @param fn A function to process each "level" of the object.
      * @returns Returns a function that accepts an object, on which `fn` will be invoked with a list of `args`.
-    */
+     */
     deeply(fn: (...args: any[]) => any): (obj: any, ...fnArgs: any[]) => any;
+
+    /**
+    // A proper way to write this definition
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/adone/glosses/promise.d.ts
+    /**
+     *
+     * @param fn Callback-based function to promisify.
+     * @param options Options object.
+     * @param {boolean} [options.callbackFirst='false'] Specifies if callback is a first arg.
+     * @param {boolean} [options.errorInCallback='true'] Specifies if the first arg of callback is an error.
+     * @returns Returns a Promise object wrapping original `fn`.
+     */
+    promisify(fn: (...args: any[]) => any, options: object): (...args: any[]) => any;
 
     /**
      * Decode Base64 string.
      * @param {string} string Input string in Base64 format.
      * @returns {string} Returns decoded string.
-    */
+     */
     unbase64(string: string): string;
   }
 }

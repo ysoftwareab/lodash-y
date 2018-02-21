@@ -65,7 +65,7 @@ test(`'onceIn' when invoked second time after 'interval' should invoke 'func' an
     expect(invocationResult).toBe(invocations); // fresh value
 
     done();
-  }, 100);
+  }, 150);
 });
 
 

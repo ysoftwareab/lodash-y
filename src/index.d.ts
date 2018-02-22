@@ -35,12 +35,13 @@ declare module "lodash" {
     /**
      * Part of `lodash-firecloud`.
      *
-     * Process an object and all of it's object properties depth-wise with a given `fn`.
+     * Map an object and all of its plain-object properties' values depth-wise with a given `fn`.
      *
-     * @param fn A function to process each "level" of the object.
+     * @param fn A function to process object and each of its plain-object properties.
+     * Should return a value (processed object).
      * @returns Returns a function that accepts an object, on which `fn` will be invoked with a list of `args`.
      */
-    deeply(fn: (...args: any[]) => any): (obj: any, ...fnArgs: any[]) => any;
+    mapValuesDeep(fn: (...args: any[]) => any): (obj: any, ...fnArgs: any[]) => any;
 
     /**
      * Part of `lodash-firecloud`.

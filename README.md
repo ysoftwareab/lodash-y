@@ -24,9 +24,9 @@ _.mixin(firecloudMixins);
 ```javascript
 // mix in only specific functions
 import _ from lodash;
-import deeply from 'lodash-firecloud/lib/deeply';
+import mapValuesDeep from 'lodash-firecloud/lib/mapValuesDeep';
 
-_.mixin({deeply});
+_.mixin({mapValuesDeep});
 ```
 
 ## License

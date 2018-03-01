@@ -1,134 +1,135 @@
 import _ from 'lodash';
-
 import onceIn from '../src/once-in';
 
-it(`'onceIn' when called first time should return a function that invokes 'func' and return its result`, function() {
-  let funcResult = 'zero';
-  let arg1 = 'one';
-  let arg2 = 'two';
-  let arg3 = 'threee';
+describe('onceIn', function() {
+  it(`returns a function that invokes 'func' and return its result, when called for the first time`, function() {
+    let funcResult = 'zero';
+    let arg1 = 'one';
+    let arg2 = 'two';
+    let arg3 = 'threee';
 
-  let func = jest.fn(function() {
-    return funcResult;
-  });
+    let func = jest.fn(function() {
+      return funcResult;
+    });
 
-  let throttled = onceIn(func, 100);
+    let throttled = onceIn(func, 100);
 
-  expect(typeof throttled).toBe('function');
+    expect(typeof throttled).toBe('function');
 
-  expect(func).not.toBeCalled();
-  let invocationResult = throttled(arg1, arg2, arg3);
-
-  expect(func).toBeCalledWith(arg1, arg2, arg3);
-  expect(invocationResult).toBe(funcResult);
-});
-
-
-it(`'onceIn' when called more than once in 'interval' should return cached result and not invoke 'func'`, function() {
-  let invocations = 0;
-  let func = jest.fn(function() {
-    invocations = invocations + 1;
-    return invocations;
-  });
-
-  let throttled = onceIn(func, 100);
-
-  // first invocations during 'interval'
-  _.times(10, function() {
-    let invocationResult = throttled();
-
-    expect(func).toHaveBeenCalledTimes(1);
-    expect(invocationResult).toBe(1);
-  });
-});
-
-
-it(`'onceIn' when invoked second time after 'interval' should invoke 'func' and return new result`, function(done) {
-  let invocations = 0;
-  let func = jest.fn(function() {
-    invocations = invocations + 1;
-    return invocations;
-  });
-
-  let throttled = onceIn(func, 100);
-
-  // first invocations during 'interval'
-  _.times(10, function() {
-    throttled();
-  });
-
-  // after interval passed
-  setTimeout(function() {
-    let invocationResult = throttled();
-
-    expect(func).toHaveBeenCalledTimes(2);
-    expect(invocationResult).toBe(invocations); // fresh value
-
-    done();
-  }, 150);
-});
-
-
-it(`'onceIn' when provided 0 'interval' should return a function which invokes a 'func' directly`, function() {
-  let arg1 = 'one';
-  let arg2 = 'two';
-  let arg3 = 'threee';
-
-  let invocations = 0;
-  let func = jest.fn(function() {
-    invocations = invocations + 1;
-    return invocations;
-  });
-
-  let throttled = onceIn(func, 0);
-
-  _.times(10, function() {
+    expect(func).not.toBeCalled();
     let invocationResult = throttled(arg1, arg2, arg3);
 
-    expect(invocationResult).toBe(invocations);
-
     expect(func).toBeCalledWith(arg1, arg2, arg3);
-
-    arg1 = arg1 + invocations;
-    arg2 = arg2 + invocations;
-    arg3 = arg3 + invocations;
+    expect(invocationResult).toBe(funcResult);
   });
 
-  expect(func).toHaveBeenCalledTimes(10);
-});
 
+  it(`returns cached result and doesn't invoke 'func' when called more than once in 'interval'`, function() {
+    let invocations = 0;
+    let func = jest.fn(function() {
+      invocations = invocations + 1;
+      return invocations;
+    });
 
-it(`'onceIn' should return a function which has a method 'flush' resetting timer`, function() {
-  let invocations = 0;
-  let func = jest.fn(function() {
-    invocations = invocations + 1;
-    return invocations;
+    let throttled = onceIn(func, 100);
+
+    // first invocations during 'interval'
+    _.times(10, function() {
+      let invocationResult = throttled();
+
+      expect(func).toHaveBeenCalledTimes(1);
+      expect(invocationResult).toBe(1);
+    });
   });
 
-  let throttled = onceIn(func, 0);
-  expect(throttled.flush).toBeDefined();
 
-  throttled();
-  throttled.flush();
-  throttled();
+  it(`invokes 'func' and returns a new result, when called the second time after 'interval'`, function(done) {
+    let invocations = 0;
+    let func = jest.fn(function() {
+      invocations = invocations + 1;
+      return invocations;
+    });
 
-  expect(func).toHaveBeenCalledTimes(2);
-});
+    let throttled = onceIn(func, 100);
 
+    // first invocations during 'interval'
+    _.times(10, function() {
+      throttled();
+    });
 
-it(`'onceIn' should return a function which has a method 'clear' resetting timer`, function() {
-  let invocations = 0;
-  let func = jest.fn(function() {
-    invocations = invocations + 1;
-    return invocations;
+    // after interval passed
+    setTimeout(function() {
+      let invocationResult = throttled();
+
+      expect(func).toHaveBeenCalledTimes(2);
+      expect(invocationResult).toBe(invocations); // fresh value
+
+      done();
+    }, 150);
   });
 
-  let throttled = onceIn(func, 0);
-  expect(throttled.flush).toBeDefined();
 
-  throttled();
-  throttled.flush();
-  throttled();
+  it(`returns a function which invokes a 'func' directly, when called with 'interval' = 0`, function() {
+    let arg1 = 'one';
+    let arg2 = 'two';
+    let arg3 = 'threee';
 
-  expect(func).toHaveBeenCalledTimes(2);
+    let invocations = 0;
+    let func = jest.fn(function() {
+      invocations = invocations + 1;
+      return invocations;
+    });
+
+    let throttled = onceIn(func, 0);
+
+    _.times(10, function() {
+      let invocationResult = throttled(arg1, arg2, arg3);
+
+      expect(invocationResult).toBe(invocations);
+
+      expect(func).toBeCalledWith(arg1, arg2, arg3);
+
+      arg1 = arg1 + invocations;
+      arg2 = arg2 + invocations;
+      arg3 = arg3 + invocations;
+    });
+
+    expect(func).toHaveBeenCalledTimes(10);
+  });
+
+
+  it(`returns a function which has a method 'flush' that resets the timer`, function() {
+    let invocations = 0;
+    let func = jest.fn(function() {
+      invocations = invocations + 1;
+      return invocations;
+    });
+
+    let throttled = onceIn(func, 0);
+    expect(throttled.flush).toBeDefined();
+
+    throttled();
+    throttled.flush();
+    throttled();
+
+    expect(func).toHaveBeenCalledTimes(2);
+  });
+
+
+  it(`returns a function which has a method 'clear' that resets the timer`, function() {
+    let invocations = 0;
+    let func = jest.fn(function() {
+      invocations = invocations + 1;
+      return invocations;
+    });
+
+    let throttled = onceIn(func, 0);
+    expect(throttled.flush).toBeDefined();
+
+    throttled();
+    throttled.flush();
+    throttled();
+
+    expect(func).toHaveBeenCalledTimes(2);
+  });
 });

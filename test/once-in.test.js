@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import onceIn from '../src/once-in';
 
-test(`'onceIn' when called first time should return a function that invokes 'func' and return its result`, function() {
+it(`'onceIn' when called first time should return a function that invokes 'func' and return its result`, function() {
   let funcResult = 'zero';
   let arg1 = 'one';
   let arg2 = 'two';
@@ -24,7 +24,7 @@ test(`'onceIn' when called first time should return a function that invokes 'fun
 });
 
 
-test(`'onceIn' when called more than once in 'interval' should return cached result and not invoke 'func'`, function() {
+it(`'onceIn' when called more than once in 'interval' should return cached result and not invoke 'func'`, function() {
   let invocations = 0;
   let func = jest.fn(function() {
     invocations = invocations + 1;
@@ -43,7 +43,7 @@ test(`'onceIn' when called more than once in 'interval' should return cached res
 });
 
 
-test(`'onceIn' when invoked second time after 'interval' should invoke 'func' and return new result`, function(done) {
+it(`'onceIn' when invoked second time after 'interval' should invoke 'func' and return new result`, function(done) {
   let invocations = 0;
   let func = jest.fn(function() {
     invocations = invocations + 1;
@@ -69,7 +69,7 @@ test(`'onceIn' when invoked second time after 'interval' should invoke 'func' an
 });
 
 
-test(`'onceIn' when provided 0 'interval' should return a function which invokes a 'func' directly`, function() {
+it(`'onceIn' when provided 0 'interval' should return a function which invokes a 'func' directly`, function() {
   let arg1 = 'one';
   let arg2 = 'two';
   let arg3 = 'threee';
@@ -98,7 +98,7 @@ test(`'onceIn' when provided 0 'interval' should return a function which invokes
 });
 
 
-test(`'onceIn' should return a function which has a method 'flush' resetting timer`, function() {
+it(`'onceIn' should return a function which has a method 'flush' resetting timer`, function() {
   let invocations = 0;
   let func = jest.fn(function() {
     invocations = invocations + 1;
@@ -116,7 +116,7 @@ test(`'onceIn' should return a function which has a method 'flush' resetting tim
 });
 
 
-test(`'onceIn' should return a function which has a method 'clear' resetting timer`, function() {
+it(`'onceIn' should return a function which has a method 'clear' resetting timer`, function() {
   let invocations = 0;
   let func = jest.fn(function() {
     invocations = invocations + 1;

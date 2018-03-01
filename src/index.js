@@ -17,7 +17,10 @@ export let mixins = {
   unbase64
 };
 
-export let _ = __.runInContext();
-_.mixin(mixins);
+export let _ = (function() {
+  let vanillaLodash = __.runInContext();
+  vanillaLodash.mixin(mixins);
+  return vanillaLodash;
+})();
 
 export default _;

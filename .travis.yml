@@ -7,7 +7,6 @@ notifications:
     on_success: change
     on_pull_requests: false
 
-
 # 2. Env
 # env:
 

@@ -74,6 +74,16 @@ declare module "lodash" {
     /**
      * Part of `lodash-firecloud`.
      *
+     * Return a promise that is resolved after the desired sleep time.
+     *
+     * @param {integer} ms=0 Number of milliseconds to sleep.
+     * @returns {Promise} Returns the.
+     */
+    sleep(ms: integer): Promise<void>;
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
      * Decode Base64 string.
      *
      * @param {string} string Input string in Base64 format.

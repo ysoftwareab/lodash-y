@@ -5,6 +5,7 @@ import consoleLogTime from './console-log-time';
 import mapValuesDeep from './map-values-deep';
 import onceIn from './once-in';
 import promisify from './promisify';
+import sleep from './sleep';
 import unbase64 from './unbase64';
 
 export let mixins = {
@@ -15,6 +16,7 @@ export let mixins = {
   onceIn,
   promisify,
   unbase64
+  sleep,
 };
 
 export let _ = (function() {

@@ -74,6 +74,16 @@ declare module "lodash" {
     /**
      * Part of `lodash-firecloud`.
      *
+     * Calculate a simple checksum of a string.
+     *
+     * @param {string} string String to calculate checksum of.
+     * @returns {string} Returns checksum.
+     */
+    simpleChecksum(string: string): string;
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
      * Return a promise that is resolved after the desired sleep time.
      *
      * @param {integer} ms=0 Number of milliseconds to sleep.

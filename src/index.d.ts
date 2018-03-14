@@ -30,7 +30,7 @@ declare module "lodash" {
      * @param {string} label Label for current measurement, that will be displayed in the console.
      * @param fn A function to measure execution time of.
      */
-    consoleLogTime(label: string, fn: () => any): void;
+    consoleLogTime(label: string, fn: () => any): Promise<void>;
 
     /**
      * Part of `lodash-firecloud`.

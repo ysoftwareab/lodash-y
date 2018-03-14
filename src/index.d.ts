@@ -46,6 +46,16 @@ declare module "lodash" {
     /**
      * Part of `lodash-firecloud`.
      *
+     * Calculate a naïve checksum of a string.
+     *
+     * @param {string} string String to calculate checksum of.
+     * @returns {string} Returns checksum.
+     */
+    naiveChecksum(string: string): string;
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
      * A "true _.throttle with 'trailing': false"
      * More lightweight version which does not allocate unnecessary timer,
      * comparing to lodash func (which invokes _.debounce under the hood)
@@ -70,16 +80,6 @@ declare module "lodash" {
      * @returns Returns a Promise object wrapping original `fn`.
      */
     promisify(fn: (...args: any[]) => any, options: object): (...args: any[]) => any;
-
-    /**
-     * Part of `lodash-firecloud`.
-     *
-     * Calculate a simple checksum of a string.
-     *
-     * @param {string} string String to calculate checksum of.
-     * @returns {string} Returns checksum.
-     */
-    simpleChecksum(string: string): string;
 
     /**
      * Part of `lodash-firecloud`.

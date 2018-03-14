@@ -1,4 +1,4 @@
-export let simpleChecksum = function(str) {
+export let naiveChecksum = function(str) {
   // eslint-disable-next-line consistent-this, no-invalid-this
   let _ = this;
   let checksums = [];
@@ -22,4 +22,4 @@ export let simpleChecksum = function(str) {
   return checksums;
 };
 
-export default simpleChecksum;
+export default naiveChecksum;

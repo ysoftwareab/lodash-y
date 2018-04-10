@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import onceIn from '../src/once-in';
+import onceIn from '../lib/once-in';
 
 describe('onceIn', function() {
   it(`returns a function that invokes 'func' and return its result, when called for the first time`, function() {

@@ -13,6 +13,7 @@ export let mixins = {
   abstract,
   base64,
   consoleLogTime,
+  deeply: mapValuesDeep, // FIXME deprecated
   mapValuesDeep,
   naiveChecksum,
   onceIn,

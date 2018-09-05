@@ -8,13 +8,14 @@ export let consoleLogTime = async function(label, fn) {
   // eslint-disable-next-line no-console
   console.time(label);
 
-  let maybeThenable = fn();
-  if (_.isFunction(maybeThenable.then)) {
-    await maybeThenable;
+  let returnValue = fn();
+  if (returnValue && _.isFunction(returnValue.then)) {
+    returnValue = await returnValue;
   }
 
   // eslint-disable-next-line no-console
   console.timeEnd(label);
+  return returnValue;
 };
 
 export default consoleLogTime;

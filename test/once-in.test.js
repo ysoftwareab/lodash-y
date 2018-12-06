@@ -2,7 +2,7 @@ import _ from 'lodash';
 import onceIn from '../lib/once-in';
 
 describe('onceIn', function() {
-  it(`returns a function that invokes 'func' and return its result, when called for the first time`, function() {
+  it("returns a function that invokes 'func' and return its result, when called for the first time", function() {
     let funcResult = 'zero';
     let arg1 = 'one';
     let arg2 = 'two';
@@ -24,7 +24,7 @@ describe('onceIn', function() {
   });
 
 
-  it(`returns cached result and doesn't invoke 'func' when called more than once in 'interval'`, function() {
+  it("returns cached result and doesn't invoke 'func' when called more than once in 'interval'", function() {
     let invocations = 0;
     let func = jest.fn(function() {
       invocations = invocations + 1;
@@ -43,7 +43,7 @@ describe('onceIn', function() {
   });
 
 
-  it(`invokes 'func' and returns a new result, when called the second time after 'interval'`, function(done) {
+  it("invokes 'func' and returns a new result, when called the second time after 'interval'", function(done) {
     let invocations = 0;
     let func = jest.fn(function() {
       invocations = invocations + 1;
@@ -69,7 +69,7 @@ describe('onceIn', function() {
   });
 
 
-  it(`returns a function which invokes a 'func' directly, when called with 'interval' = 0`, function() {
+  it("returns a function which invokes a 'func' directly, when called with 'interval' = 0", function() {
     let arg1 = 'one';
     let arg2 = 'two';
     let arg3 = 'threee';
@@ -98,7 +98,7 @@ describe('onceIn', function() {
   });
 
 
-  it(`returns a function which has a method 'flush' that resets the timer`, function() {
+  it("returns a function which has a method 'flush' that resets the timer", function() {
     let invocations = 0;
     let func = jest.fn(function() {
       invocations = invocations + 1;
@@ -116,7 +116,7 @@ describe('onceIn', function() {
   });
 
 
-  it(`returns a function which has a method 'clear' that resets the timer`, function() {
+  it("returns a function which has a method 'clear' that resets the timer", function() {
     let invocations = 0;
     let func = jest.fn(function() {
       invocations = invocations + 1;

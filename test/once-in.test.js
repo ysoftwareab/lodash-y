@@ -1,5 +1,4 @@
-import _ from 'lodash';
-import onceIn from '../lib/once-in';
+import _ from '../lib';
 
 describe('onceIn', function() {
   it("returns a function that invokes 'func' and return its result, when called for the first time", function() {
@@ -12,7 +11,7 @@ describe('onceIn', function() {
       return funcResult;
     });
 
-    let throttled = onceIn(func, 100);
+    let throttled = _.onceIn(func, 100);
 
     expect(typeof throttled).toBe('function');
 
@@ -31,7 +30,7 @@ describe('onceIn', function() {
       return invocations;
     });
 
-    let throttled = onceIn(func, 100);
+    let throttled = _.onceIn(func, 100);
 
     // first invocations during 'interval'
     _.times(10, function() {
@@ -50,7 +49,7 @@ describe('onceIn', function() {
       return invocations;
     });
 
-    let throttled = onceIn(func, 100);
+    let throttled = _.onceIn(func, 100);
 
     // first invocations during 'interval'
     _.times(10, function() {
@@ -80,7 +79,7 @@ describe('onceIn', function() {
       return invocations;
     });
 
-    let throttled = onceIn(func, 0);
+    let throttled = _.onceIn(func, 0);
 
     _.times(10, function() {
       let invocationResult = throttled(arg1, arg2, arg3);
@@ -105,7 +104,7 @@ describe('onceIn', function() {
       return invocations;
     });
 
-    let throttled = onceIn(func, 0);
+    let throttled = _.onceIn(func, 0);
     expect(throttled.flush).toBeDefined();
 
     throttled();
@@ -123,7 +122,7 @@ describe('onceIn', function() {
       return invocations;
     });
 
-    let throttled = onceIn(func, 0);
+    let throttled = _.onceIn(func, 0);
     expect(throttled.flush).toBeDefined();
 
     throttled();

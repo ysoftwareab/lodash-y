@@ -16,6 +16,18 @@ declare module "lodash" {
     /**
      * Part of `lodash-firecloud`.
      *
+     * Always return a Promise out of a Promise-like (passthrough) or something else (promisify).
+     * Useful for cases where you allow for a function to return a Promise or not.
+     * e.g. await alwaysPromise(fn(arg1, arg2));
+     *
+     * @param maybePromiseLike An instance of a Promise-like or just about anything.
+     * @returns Returns a Promise, the one given or one that resolve.
+     */
+    alwaysPromise(maybePromiseLike: any): Promise;
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
      * Convert a string to Base64 format.
      * @param {string} string Input string.
      * @returns {string} Returns Base64-encoded string.

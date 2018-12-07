@@ -1,5 +1,6 @@
 import __ from 'lodash';
 import abstract from './abstract';
+import alwaysPromise from './always-promise';
 import base64 from './base64';
 import consoleLogTime from './console-log-time';
 import mapValuesDeep from './map-values-deep';
@@ -11,6 +12,7 @@ import unbase64 from './unbase64';
 
 export let mixins = {
   abstract,
+  alwaysPromise,
   base64,
   consoleLogTime,
   deeply: mapValuesDeep, // FIXME deprecated

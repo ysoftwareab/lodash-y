@@ -15,10 +15,10 @@ describe('onceIn', function() {
 
     expect(typeof throttled).toBe('function');
 
-    expect(func).not.toBeCalled();
+    expect(func).not.toHaveBeenCalled();
     let invocationResult = throttled(arg1, arg2, arg3);
 
-    expect(func).toBeCalledWith(arg1, arg2, arg3);
+    expect(func).toHaveBeenCalledWith(arg1, arg2, arg3);
     expect(invocationResult).toBe(funcResult);
   });
 
@@ -42,7 +42,8 @@ describe('onceIn', function() {
   });
 
 
-  it("invokes 'func' and returns a new result, when called the second time after 'interval'", function(done) {
+  // eslint-disable-next-line jest/no-test-callback
+  it("invokes 'func' and returns a new result, when called the second time after 'interval'", async function(done) {
     let invocations = 0;
     let func = jest.fn(function() {
       invocations = invocations + 1;
@@ -86,7 +87,7 @@ describe('onceIn', function() {
 
       expect(invocationResult).toBe(invocations);
 
-      expect(func).toBeCalledWith(arg1, arg2, arg3);
+      expect(func).toHaveBeenCalledWith(arg1, arg2, arg3);
 
       arg1 = arg1 + invocations;
       arg2 = arg2 + invocations;

@@ -15,7 +15,6 @@ export let mixins = {
   alwaysPromise,
   base64,
   consoleLogTime,
-  deeply: mapValuesDeep, // FIXME deprecated
   mapValuesDeep,
   naiveChecksum,
   onceIn,

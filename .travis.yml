@@ -1,15 +1,15 @@
 # 0. Misc
 matrix:
   include:
-    - name: "Node.js latest"
-      language: node_js
-      node_js: latest
-      env: CACHE_NAME=node
-
     - name: "Node.js 8.10"
       language: node_js
       node_js: 8.10
       env: CACHE_NAME=node-8.10
+
+    - name: "Node.js latest"
+      language: node_js
+      node_js: latest
+      env: CACHE_NAME=node
 
 # 1. Notifications
 notifications:

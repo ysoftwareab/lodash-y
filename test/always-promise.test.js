@@ -1,4 +1,4 @@
-import _ from '../lib';
+import _ from '../src';
 
 describe('alwaysPromise', function() {
   it('returns the input Promise', function() {

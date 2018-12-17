@@ -2,10 +2,14 @@
 matrix:
   include:
     - name: "Node.js latest"
-      env: CACHE_NAME=node NVM_NODE=node
+      language: node_js
+      node_js: latest
+      env: CACHE_NAME=node
 
     - name: "Node.js 8.10"
-      env: CACHE_NAME=node-8.10 NVM_NODE=8.10
+      language: node_js
+      node_js: 8.10
+      env: CACHE_NAME=node-8.10
 
 # 1. Notifications
 notifications:
@@ -31,7 +35,6 @@ branches:
 # 4. Bootstrap
 os: linux
 dist: xenial
-language: generic
 # addons:
 before_cache: ./.travis.sh before_cache
 cache:

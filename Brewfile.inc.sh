@@ -2,7 +2,5 @@
 
 source ${SUPPORT_FIRECLOUD_DIR}/ci/brew-install-minimal.inc.sh
 source ${SUPPORT_FIRECLOUD_DIR}/ci/brew-install-node.inc.sh
-
-export NVM_DELETE_PREFIX=1
 nvm install ${NVM_NODE}
-nvm use ${NVM_NODE}
+nvm use --delete-prefix --silent ${NVM_NODE}

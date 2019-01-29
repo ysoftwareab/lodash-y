@@ -78,6 +78,17 @@ declare module "lodash" {
      */
     onceIn(fn: (...args: any[]) => any, interval: number): (...args: any[]) => any;
 
+    /**
+     * Part of `lodash-firecloud`.
+     *
+     * Tag to outdent template literals.
+     *
+     * @param {array} strings Template strings.
+     * @param {...*} values Values.
+     * @returns Returns an outdented string.
+     */
+     outdent(strings: TemplateStringsArray, ...values: Array<any>) => string;
+
     // A proper way to write this definition
     // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/adone/glosses/promise.d.ts
     /**

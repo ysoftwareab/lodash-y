@@ -10,7 +10,8 @@
     "/src/"
   ],
   "dependencies": {
-    "lodash": "^4.17.5"
+    "lodash": "^4.17.5",
+    "outdent": "^0.7.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.0",

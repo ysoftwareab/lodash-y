@@ -6,6 +6,7 @@ import consoleLogTime from './console-log-time';
 import mapValuesDeep from './map-values-deep';
 import naiveChecksum from './naive-checksum';
 import onceIn from './once-in';
+import outdent from 'outdent';
 import promisify from './promisify';
 import sleep from './sleep';
 import unbase64 from './unbase64';
@@ -18,6 +19,7 @@ export let mixins = {
   mapValuesDeep,
   naiveChecksum,
   onceIn,
+  outdent,
   promisify,
   sleep,
   unbase64

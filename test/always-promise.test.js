@@ -8,7 +8,9 @@ describe('alwaysPromise', function() {
   });
 
   it('returns the input Promise-like (object)', function() {
-    let pIn = {then: _.noop};
+    let pIn = {
+      then: _.noop
+    };
     let pOut = _.alwaysPromise(pIn);
     expect(pIn).toBe(pOut);
   });
@@ -22,13 +24,14 @@ describe('alwaysPromise', function() {
   });
 
   it('returns a Promise for anything else that resolves to the input', async function() {
+    let emptyObj = {};
     let inputs = [
       undefined,
       0,
       '',
       true,
       _.noop,
-      {}
+      emptyObj
     ];
 
     await Promise.all(_.map(inputs, async function(input) {

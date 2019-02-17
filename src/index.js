@@ -2,6 +2,7 @@ import __ from 'lodash';
 import abstract from './abstract';
 import alwaysPromise from './always-promise';
 import base64 from './base64';
+import callbackify from './callbackify';
 import consoleLogTime from './console-log-time';
 import mapValuesDeep from './map-values-deep';
 import naiveChecksum from './naive-checksum';
@@ -15,6 +16,7 @@ export let mixins = {
   abstract,
   alwaysPromise,
   base64,
+  callbackify,
   consoleLogTime,
   mapValuesDeep,
   naiveChecksum,

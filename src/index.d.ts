@@ -34,6 +34,21 @@ declare module "lodash" {
      */
     base64(string: string): string;
 
+    // A proper way to write this definition
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/adone/glosses/promise.d.ts
+    /**
+     * Part of `lodash-firecloud`.
+     *
+     * Convert Promise into callback-like function.
+     *
+     * @param fn Promise to callbackify.
+     * @param options Options object.
+     * @param {boolean} [options.callbackFirst='false'] Specifies if callback is a first arg.
+     * @param {boolean} [options.errorInCallback='true'] Specifies if the first arg of callback is an error.
+     * @returns Returns a callback-like function wrapping original `fn`.
+     */
+    callbackify(fn: (...args: any[]) => any): (...args: any[]) => any;
+
     /**
      * Part of `lodash-firecloud`.
      *

@@ -11,10 +11,7 @@ export let callbackify = function(origFn, {
     } else {
       origCallback = args.unshift();
     }
-    let callback = (...args) => {
-      // eslint-disable-next-line no-invalid-this
-      Reflect.apply(origCallback, this, args);
-    };
+    let callback = origCallback;
 
     let onFullfilled = function(result) {
       if (errorInCallback) {
@@ -32,8 +29,7 @@ export let callbackify = function(origFn, {
       }
     };
 
-    // eslint-disable-next-line no-invalid-this
-    Reflect.apply(origFn, this, args).then(onFullfilled, onRejected);
+    origFn(...args).then(onFullfilled, onRejected);
   };
 
   Object.setPrototypeOf(fn, Object.getPrototypeOf(origFn));

@@ -7,13 +7,14 @@ export let callbackify = function(origFn, {
   let fn = function(...args) {
     let origCallback;
     if (callbackFirst) {
-      origCallback = args.pop();
+      origCallback = args.shift();
     } else {
-      origCallback = args.unshift();
+      origCallback = args.pop();
     }
     let callback = (...args) => {
       // eslint-disable-next-line no-invalid-this
       Reflect.apply(origCallback, this, args);
+      // origCallback(...args);
     };
 
     let onFullfilled = function(result) {
@@ -34,6 +35,7 @@ export let callbackify = function(origFn, {
 
     // eslint-disable-next-line no-invalid-this
     Reflect.apply(origFn, this, args).then(onFullfilled, onRejected);
+    // origFn(...args).then(onFullfilled, onRejected);
   };
 
   Object.setPrototypeOf(fn, Object.getPrototypeOf(origFn));

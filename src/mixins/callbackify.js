@@ -2,14 +2,24 @@
 
 export let callbackify = function(origFn, {
   callbackFirst = false,
-  errorInCallback = true
+  errorInCallback = true,
+  keepCallback = false
 } = {}) {
+  // eslint-disable-next-line consistent-this, no-invalid-this
+  let _ = this;
+
   let fn = function(...args) {
     let origCallback;
     if (callbackFirst) {
-      origCallback = args.shift();
+      origCallback = _.head(args);
+      if (!keepCallback) {
+        args.shift();
+      }
     } else {
-      origCallback = args.pop();
+      origCallback = _.last(args);
+      if (!keepCallback) {
+        args.pop();
+      }
     }
     let callback = (...args) => {
       // eslint-disable-next-line no-invalid-this

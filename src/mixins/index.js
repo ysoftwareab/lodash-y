@@ -1,3 +1,7 @@
+// This module run at compile-time and produce a map of mixinVarName to mixinModule.
+// This allows for new mixins to be added just by placing a new module under the `mixins` folder.
+// Have a look at `src/index.js` for how this module's exports are used.
+
 // @preval
 let _ = require('lodash');
 let fs = require('fs');

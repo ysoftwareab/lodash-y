@@ -1,8 +1,10 @@
+// NOTE follows closely Node.js util.promisify
+
 export let promisify = function(origFn, {
   callbackFirst = false,
   errorInCallback = true
 } = {}) {
-  return function(...args) {
+  let fn = function(...args) {
     return new Promise(function(resolve, reject) {
       let callback = function(...results) {
         if (errorInCallback) {
@@ -36,6 +38,11 @@ export let promisify = function(origFn, {
       origFn(...args);
     });
   };
+
+  Object.setPrototypeOf(fn, Object.getPrototypeOf(origFn));
+  Object.defineProperties(fn, Object.getOwnPropertyDescriptors(origFn));
+
+  return fn;
 };
 
 export default promisify;

@@ -1,5 +1,5 @@
 /* eslint-disable jest/no-test-callback */
-import _ from '../src';
+import _ from '../../src';
 
 describe('callbackify', function() {
   it('calls next', function(done) {

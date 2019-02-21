@@ -1,4 +1,4 @@
-import _ from '../src';
+import _ from '../../src';
 
 describe('onceIn', function() {
   it("returns a function that invokes 'func' and return its result, when called for the first time", function() {

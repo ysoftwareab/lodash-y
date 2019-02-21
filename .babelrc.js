@@ -12,6 +12,10 @@ module.exports = {
     }]
   ],
 
+  plugins: [
+    'preval'
+  ],
+
   sourceMaps: true,
 
   retainLines: true

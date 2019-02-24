@@ -5,6 +5,8 @@
   "version": "0.2.4",
   "license": "Apache-2.0",
   "files": [
+    "/BUILD",
+    "/VERSION",
     "/index.js",
     "/lib/",
     "/src/"

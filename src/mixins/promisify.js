@@ -44,5 +44,3 @@ export let promisify = function(origFn, {
 
   return fn;
 };
-
-export default promisify;

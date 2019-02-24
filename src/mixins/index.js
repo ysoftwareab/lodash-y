@@ -17,6 +17,6 @@ module.exports = _.reduce(mixinModules, function(acc, mixinModule) {
     return acc;
   }
 
-  acc[_.camelCase(path.basename(mixinModule, '.js'))] = mixinModule;
+  acc.push(mixinModule);
   return acc;
-}, {});
+}, []);

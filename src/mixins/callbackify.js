@@ -53,5 +53,3 @@ export let callbackify = function(origFn, {
 
   return fn;
 };
-
-export default callbackify;

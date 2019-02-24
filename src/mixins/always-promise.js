@@ -12,5 +12,3 @@ export let alwaysPromise = function(maybePromiseLike) {
 
   return maybePromiseLike;
 };
-
-export default alwaysPromise;

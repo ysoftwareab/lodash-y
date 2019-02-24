@@ -1,12 +1,18 @@
 import __ from 'lodash';
 import _mixins from './mixins';
 
-export let mixins = __.mapValues(_mixins, function(mixinModule) {
+export let mixins = __.reduce(_mixins, function(mixins, mixinModule) {
   mixinModule = `./mixins/${mixinModule}`;
 
   // eslint-disable-next-line global-require
-  return require(mixinModule).default;
-});
+  mixinModule = require(mixinModule);
+
+  mixins = __.merge(mixins, __.omit(mixinModule, [
+    'default'
+  ]));
+
+  return mixins;
+}, {});
 
 // eslint-disable-next-line firecloud/no-underscore-prefix-exported
 export let _ = (function() {

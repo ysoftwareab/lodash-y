@@ -6,5 +6,3 @@ export let base64 = function(string) {
   result = _.replace(result, /=+$/, '');
   return result;
 };
-
-export default base64;

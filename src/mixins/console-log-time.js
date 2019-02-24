@@ -14,5 +14,3 @@ export let consoleLogTime = async function(label, fn) {
   console.timeEnd(label);
   return returnValue;
 };
-
-export default consoleLogTime;

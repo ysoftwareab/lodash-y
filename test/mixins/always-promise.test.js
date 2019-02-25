@@ -1,26 +1,12 @@
 import _ from '../../src';
 
 describe('alwaysPromise', function() {
-  it('returns the input Promise', function() {
-    let pIn = Promise.resolve();
+  it('returns a Promise that resolves the same way as the input Promise', async function() {
+    let result = Symbol('result');
+    let pIn = Promise.resolve(result);
     let pOut = _.alwaysPromise(pIn);
-    expect(pIn).toBe(pOut);
-  });
-
-  it('returns the input Promise-like (object)', function() {
-    let pIn = {
-      then: _.noop
-    };
-    let pOut = _.alwaysPromise(pIn);
-    expect(pIn).toBe(pOut);
-  });
-
-  it('returns the input Promise-like (function)', function() {
-    // eslint-disable-next-line no-empty-function, lodash/prefer-noop
-    let pIn = function() {};
-    pIn.then = _.noop;
-    let pOut = _.alwaysPromise(pIn);
-    expect(pIn).toBe(pOut);
+    expect(await pIn).toBe(result);
+    expect(await pOut).toBe(result);
   });
 
   it('returns a Promise for anything else that resolves to the input', async function() {

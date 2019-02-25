@@ -6,5 +6,3 @@ export let sleep = function(ms = 0) {
     _.delay(resolve, ms);
   });
 };
-
-export default sleep;

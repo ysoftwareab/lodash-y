@@ -21,5 +21,3 @@ export let naiveChecksum = function(str) {
 
   return checksums;
 };
-
-export default naiveChecksum;

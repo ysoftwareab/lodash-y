@@ -8,5 +8,3 @@ export let mapValuesDeep = function(fn) {
     }), ...args);
   };
 };
-
-export default mapValuesDeep;

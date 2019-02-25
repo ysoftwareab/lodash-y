@@ -31,5 +31,3 @@ export let onceIn = function(fn, interval) {
 
   return toInvoke;
 };
-
-export default onceIn;

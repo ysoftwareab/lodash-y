@@ -3,6 +3,10 @@
 // Have a look at `src/index.js` for how this module's exports are used.
 
 // @preval
+
+// eslint-disable-next-line import/no-unassigned-import
+require('@babel/register');
+
 let _ = require('lodash');
 let fs = require('fs');
 let path = require('path');
@@ -21,6 +25,13 @@ module.exports = _.reduce(mixinModules, function(acc, mixinModule) {
     return acc;
   }
 
-  acc.push(mixinModule);
+  // eslint-disable-next-line global-require
+  mixinModule = require(`./${mixinModule}`);
+
+  let mixins = _.omit(mixinModule, [
+    'default'
+  ]);
+
+  acc = _.merge(acc, mixins);
   return acc;
-}, []);
+}, {});

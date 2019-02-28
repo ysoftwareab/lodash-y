@@ -13,6 +13,10 @@ module.exports = _.reduce(mixinModules, function(acc, mixinModule) {
     return acc;
   }
 
+  if (mixinModule === '.eslintrc.js') {
+    return acc;
+  }
+
   if (mixinModule === 'index.js') {
     return acc;
   }

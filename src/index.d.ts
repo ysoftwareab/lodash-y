@@ -63,6 +63,27 @@ declare module "lodash" {
     /**
      * Part of `lodash-firecloud`.
      *
+     * Convert a string to Base64 format.
+     * @param {string} string Input string.
+     * @returns {string} Returns Base64-encoded string.
+     */
+    base64(string: string): string;
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
+     * Create a Deferred object that references the promise, the resolve and reject functions.
+     * @returns Returns the Deffered object.
+     */
+    defer(): {
+      promise: Promise<void>,
+      resolve: () => void,
+      reject: () => void
+    };
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
      * Map an object and all of its plain-object properties' values depth-wise with a given `fn`.
      *
      * @param fn A function to process object and each of its plain-object properties.

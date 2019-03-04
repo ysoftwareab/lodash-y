@@ -63,6 +63,13 @@ declare module "lodash" {
     /**
      * Part of `lodash-firecloud`.
      *
+     * Create Proxy to a process.env (or similar) object that will throw if a variable is undefined.
+     */
+    safeProxy({ [key: string]: string }): { [key: string]: string };
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
      * Convert a string to Base64 format.
      * @param {string} string Input string.
      * @returns {string} Returns Base64-encoded string.

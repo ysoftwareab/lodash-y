@@ -13,9 +13,9 @@ include support-firecloud/repo/mk/js.publish.npg.mk
 
 # ------------------------------------------------------------------------------
 
-SF_BUILD_TARGETS := \
+SF_DEPS_TARGETS := \
+	$(SF_DEPS_TARGETS) \
 	src/mixins/index.js \
-	$(SF_BUILD_TARGETS) \
 
 JEST_ARGS := \
 	$(JEST_ARGS) \

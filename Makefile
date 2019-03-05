@@ -13,8 +13,16 @@ include support-firecloud/repo/mk/js.publish.npg.mk
 
 # ------------------------------------------------------------------------------
 
+SF_BUILD_TARGETS := \
+	src/mixins/index.js \
+	$(SF_BUILD_TARGETS) \
+
 JEST_ARGS := \
 	$(JEST_ARGS) \
 	--no-cache \
 
 # ------------------------------------------------------------------------------
+
+.PHONY: src/mixins/index.js
+src/mixins/index.js: src/mixins/tpl.index.js
+	$^ > $@

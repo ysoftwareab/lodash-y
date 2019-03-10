@@ -1,4 +1,4 @@
-#!/usr/bin/env babel-node
+#!/usr/bin/env node-esm
 
 import _ from 'lodash';
 import fs from 'fs';

@@ -5,6 +5,10 @@ export let safeProxy = function(env) {
   // eslint-disable-next-line fp/no-proxy
   return new Proxy(env, {
     get: function(target, property, _receiver) {
+      // handle checks like _.isArrayLike
+      if (property === 'length') {
+        return;
+      }
       if (property === '_') {
         return target;
       }

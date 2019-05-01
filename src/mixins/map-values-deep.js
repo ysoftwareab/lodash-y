@@ -1,5 +1,5 @@
 export let mapValuesDeep = function(fn) {
-  // eslint-disable-next-line consistent-this, no-invalid-this
+  // eslint-disable-next-line consistent-this, babel/no-invalid-this
   let _ = this;
 
   return function(obj, ...args) {

@@ -6,7 +6,6 @@ module.exports = {
   ]
 };
 
-
 let tsConfig = {
   files: [
     '*.ts'

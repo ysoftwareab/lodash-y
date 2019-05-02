@@ -67,12 +67,11 @@ declare module 'lodash' {
      *
      * Create Proxy to a process.env (or similar) object that will throw if a variable is undefined.
      */
-    // safeProxy({
-    //   [key: string]: string
-    // }): {
-    //   [key: String]: string
-    // };
-    safeProxy(object): object;
+    safeProxy(env: {
+      [key: string]: string
+    }): {
+      [key: String]: string
+    };
 
     /**
      * Part of `lodash-firecloud`.

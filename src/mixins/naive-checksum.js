@@ -1,5 +1,5 @@
 export let naiveChecksum = function(str) {
-  // eslint-disable-next-line consistent-this, no-invalid-this
+  // eslint-disable-next-line consistent-this, babel/no-invalid-this
   let _ = this;
   let checksums = [];
   let checksum = 0;

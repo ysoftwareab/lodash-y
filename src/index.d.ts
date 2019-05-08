@@ -1,8 +1,10 @@
 import lodash from 'lodash';
+
 export = lodash;
 
-declare module "lodash" {
+declare module 'lodash' {
   interface LoDashStatic {
+
     /**
      * Part of `lodash-firecloud`.
      *
@@ -65,16 +67,11 @@ declare module "lodash" {
      *
      * Create Proxy to a process.env (or similar) object that will throw if a variable is undefined.
      */
-    safeProxy({ [key: string]: string }): { [key: string]: string };
-
-    /**
-     * Part of `lodash-firecloud`.
-     *
-     * Convert a string to Base64 format.
-     * @param {string} string Input string.
-     * @returns {string} Returns Base64-encoded string.
-     */
-    base64(string: string): string;
+    safeProxy(env: {
+      [key: string]: string
+    }): {
+      [key: String]: string
+    };
 
     /**
      * Part of `lodash-firecloud`.
@@ -131,7 +128,7 @@ declare module "lodash" {
      * @param {...*} values Values.
      * @returns Returns an outdented string.
      */
-     outdent(strings: TemplateStringsArray, ...values: Array<any>) => string;
+    outdent(strings: TemplateStringsArray, ...values: any[]): string;
 
     // A proper way to write this definition
     // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/adone/glosses/promise.d.ts

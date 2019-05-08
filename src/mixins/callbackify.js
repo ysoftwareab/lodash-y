@@ -5,7 +5,7 @@ export let callbackify = function(origFn, {
   errorInCallback = true,
   keepCallback = false
 } = {}) {
-  // eslint-disable-next-line consistent-this, no-invalid-this
+  // eslint-disable-next-line consistent-this, babel/no-invalid-this
   let _ = this;
 
   let fn = function(...args) {
@@ -22,7 +22,7 @@ export let callbackify = function(origFn, {
       }
     }
     let callback = (...args) => {
-      // eslint-disable-next-line no-invalid-this
+      // eslint-disable-next-line babel/no-invalid-this
       Reflect.apply(origCallback, this, args);
       // origCallback(...args);
     };
@@ -43,7 +43,7 @@ export let callbackify = function(origFn, {
       }
     };
 
-    // eslint-disable-next-line no-invalid-this
+    // eslint-disable-next-line babel/no-invalid-this
     Reflect.apply(origFn, this, args).then(onFullfilled, onRejected);
     // origFn(...args).then(onFullfilled, onRejected);
   };

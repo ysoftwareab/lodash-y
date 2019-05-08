@@ -4,6 +4,7 @@
   "description": "Collection of lodash mixins.",
   "version": "0.2.15",
   "license": "Apache-2.0",
+  "module": "lib/index.js",
   "files": [
     "/BUILD",
     "/LICENSE",

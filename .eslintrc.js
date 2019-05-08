@@ -24,8 +24,8 @@ let tsConfig = {
 // temporary workaround because overrides doesn't allow extends (yet!)
 // see https://github.com/eslint/eslint/issues/8813#issuecomment-456034732
 
-// let _ = require('lodash-firecloud').default;
-let _ = require('.').default;
+// let _ = require('lodash-firecloud');
+let _ = require('.');
 
 let _defaultsValues = function(...objs) {
   let keys = _.reduce(objs, function(acc, obj, _index) {

@@ -88,6 +88,16 @@ declare module 'lodash' {
     /**
      * Part of `lodash-firecloud`.
      *
+     * Checks if value is defined.
+     *
+     * @param value The value to check.
+     * @return Returns true if value is defined, else false.
+     */
+    isDefined(value: T | undefined): value is T;
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
      * Map an object and all of its plain-object properties' values depth-wise with a given `fn`.
      *
      * @param fn A function to process object and each of its plain-object properties.

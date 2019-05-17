@@ -9,6 +9,7 @@
     "/BUILD",
     "/LICENSE",
     "/VERSION",
+    "/index.d.ts",
     "/index.js",
     "/lib/",
     "/src/"

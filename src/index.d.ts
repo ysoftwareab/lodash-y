@@ -13,7 +13,7 @@ declare module 'lodash' {
      * @param {string} [name='it] Name of the method to be abstracted.
      * @returns Returns a function that throws error when invoked.
      */
-    abstract(name: string = 'it'): () => void;
+    abstract(name: string): () => void;
 
     /**
      * Part of `lodash-firecloud`.
@@ -25,7 +25,7 @@ declare module 'lodash' {
      * @param maybePromiseLike An instance of a Promise-like or just about anything.
      * @returns Returns a Promise, the one given or one that resolve.
      */
-    alwaysPromise(maybePromiseLike: any): Promise;
+    alwaysPromise(maybePromiseLike: any): Promise<any>;
 
     /**
      * Part of `lodash-firecloud`.
@@ -70,7 +70,7 @@ declare module 'lodash' {
     safeProxy(env: {
       [key: string]: string
     }): {
-      [key: String]: string
+      [key: string]: string
     };
 
     /**
@@ -93,7 +93,7 @@ declare module 'lodash' {
      * @param value The value to check.
      * @return Returns true if value is defined, else false.
      */
-    isDefined(value: T | undefined): value is T;
+    isDefined<T>(value: T | undefined): value is T;
 
     /**
      * Part of `lodash-firecloud`.
@@ -153,17 +153,20 @@ declare module 'lodash' {
      * @param {boolean} [options.errorInCallback='true'] Specifies if the first arg of callback is an error.
      * @returns Returns a Promise object wrapping original `fn`.
      */
-    promisify(fn: (...args: any[]) => any, options: object): (...args: any[]) => any;
+    promisify(
+      fn: (...args: any[]) => any,
+      options?: object
+    ): (...args: any[]) => any;
 
     /**
      * Part of `lodash-firecloud`.
      *
      * Return a promise that is resolved after the desired sleep time.
      *
-     * @param {integer} ms=0 Number of milliseconds to sleep.
+     * @param {number} ms=0 Number of milliseconds to sleep.
      * @returns {Promise} Returns the.
      */
-    sleep(ms: integer): Promise<void>;
+    sleep(ms: number): Promise<void>;
 
     /**
      * Part of `lodash-firecloud`.

@@ -169,13 +169,44 @@ declare module 'lodash' {
     sleep(ms: number): Promise<void>;
 
     /**
-     * Part of `lodash-firecloud`.
-     *
-     * Decode Base64 string.
-     *
-     * @param {string} string Input string in Base64 format.
-     * @returns {string} Returns decoded string.
-     */
+    * Part of `lodash-firecloud`.
+    *
+    * Throttle exponentially
+    *
+    * @param func Function to throttle
+    * @param wait Starting (minimum) wait time.
+    * @param options Options object.
+    * @param {boolean} [options.leading='true'] Specifies if `func` should be invoked on leading edge.
+    * @param {boolean} [options.trailing='true'] Specifies if `func` should be invoked on trailing edge.
+    * @param {boolean} [options.maxWait=Infinity] Specifies max value of `wait` as it exponentially grows.
+    * @param {boolean} [options.multiplier=2] Specifies a multiplier for `wait` applied on every actual invocation.
+    * @param {boolean} [options.divider=Infinity] Specifies a divider for `wait` used on actual invocation
+    * if the previous call was not throttled.
+    * @returns Returns a function which is `func` throttled. Has `cancel` and `flush` methods, same to _.throttle.
+    */
+    throttleExp<T extends (...args: any) => any>(func: T, wait?: number, options?: ThrottleExpSettings): T & Cancelable;
+
+    /**
+    * Part of `lodash-firecloud`.
+    *
+    * Decode Base64 string.
+    *
+    * @param {string} string Input string in Base64 format.
+    * @returns {string} Returns decoded string.
+    */
     unbase64(string: string): string;
+  }
+
+  interface ThrottleExpSettings {
+    leading?: boolean;
+    trailing?: boolean;
+    multiplier?: number;
+    divider?: number;
+    maxWait?: number;
+  }
+
+  interface Cancelable {
+    cancel(): void;
+    flush(): void;
   }
 }

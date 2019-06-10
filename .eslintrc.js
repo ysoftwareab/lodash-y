@@ -57,7 +57,10 @@ let ecfTypescript = require('eslint-config-firecloud/configs/typescript');
 delete ecfTypescript.extends;
 let tsEslintRecommended = require('@typescript-eslint/eslint-plugin/dist/configs/recommended.json');
 
-tsConfig = _defaultsValues(tsConfig, ecfTypescript, tsEslintRecommended);
+delete tsEslintRecommended.extends;
+let tsEslintBase = require('@typescript-eslint/eslint-plugin/dist/configs/base.json');
+
+tsConfig = _defaultsValues(tsConfig, ecfTypescript, tsEslintRecommended, tsEslintBase);
 
 module.exports.overrides = [
   tsConfig

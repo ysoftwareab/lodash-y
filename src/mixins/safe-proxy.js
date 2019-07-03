@@ -16,6 +16,13 @@ export let safeProxy = function(env) {
         return target[property];
       }
 
+      if (property === 'clone') {
+        return function(newTarget = {}) {
+          newTarget = _.defaultsDeep(newTarget, target);
+          return safeProxy(newTarget);
+        };
+      }
+
       if (!_.isString(target[property])) {
         throw new Error(`${property} is undefined.`);
       }

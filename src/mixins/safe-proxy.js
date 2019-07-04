@@ -17,9 +17,9 @@ export let safeProxy = function(env) {
       }
 
       if (property === 'clone') {
-        return function(newTarget = {}) {
-          newTarget = _.defaultsDeep(newTarget, target);
-          return safeProxy(newTarget);
+        return function() {
+          let newTarget = _.clone(target);
+          return _.safeProxy(newTarget);
         };
       }
 

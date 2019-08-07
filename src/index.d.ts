@@ -1,5 +1,10 @@
 import lodash from 'lodash';
 
+// eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
+import {
+  CallSite
+} from 'callsite';
+
 export = lodash;
 
 declare module 'lodash' {
@@ -31,6 +36,7 @@ declare module 'lodash' {
      * Part of `lodash-firecloud`.
      *
      * Convert a string to Base64 format.
+     *
      * @param {string} string Input string.
      * @returns {string} Returns Base64-encoded string.
      */
@@ -66,6 +72,7 @@ declare module 'lodash' {
      * Part of `lodash-firecloud`.
      *
      * Create a Deferred object that references the promise, the resolve and reject functions.
+     *
      * @returns Returns the Deffered object.
      */
     defer(): {
@@ -73,6 +80,30 @@ declare module 'lodash' {
       resolve: () => void,
       reject: () => void
     };
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
+     * Gets info about the V8 open handles.
+     *
+     * @param {Object} args Named args.
+     * @param {Array.<RegExp>} args.skipFiles RegExps to test against when removing call sites.
+     *   By default a RegExp for internal filenames is provided.
+     * @returns Returns a list of V8 open handles.
+     */
+    getV8OpenHandles(args: {
+      skipFiles: RegExp[]
+    }): {[name: string]: any};
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
+     * Gets the current stacktrace.
+     *
+     * @param {Number} level The maximum stacktrace length.
+     * @returns Returns a structured stacktrace, that is a list of CallSite objects.
+     */
+    getStackTrace(level: Number): CallSite[];
 
     /**
      * Part of `lodash-firecloud`.

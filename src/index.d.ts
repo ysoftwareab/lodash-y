@@ -1,8 +1,9 @@
 import lodash from 'lodash';
 
-// eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
+// eslint-disable-next-line import/no-extraneous-dependencies
 import {
   CallSite
+// eslint-disable-next-line import/no-unresolved
 } from 'callsite';
 
 export = lodash;

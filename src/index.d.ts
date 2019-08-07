@@ -80,7 +80,7 @@ declare module 'lodash' {
      * Checks if value is defined.
      *
      * @param value The value to check.
-     * @return Returns true if value is defined, else false.
+     * @returns Returns true if value is defined, else false.
      */
     isDefined<T>(value: T | undefined): value is T;
 

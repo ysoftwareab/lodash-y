@@ -48,8 +48,10 @@ export let getV8OpenHandles = function(cfg = {}) {
   });
 
   _asyncHooks = _.attempt(function() {
-    // eslint-disable-next-line global-require
-    return require('async_hooks');
+    // eval is a trick for webpack to ignore require
+    // see https://stackoverflow.com/questions/34828722/how-can-i-make-webpack-skip-a-require
+    // eslint-disable-next-line no-eval
+    return eval('require')('async_hooks');
   });
 
   if (_.isError(_asyncHooks)) {

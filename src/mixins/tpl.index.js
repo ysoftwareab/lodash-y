@@ -38,8 +38,10 @@ let _tpl = _.template(outdent`
   <% _.forEach(_mixinData, function(mixins, mixinModule) { %>
   import {
     <%= _.join(mixins, ',\\n  ') %>
-  } from '<%= mixinModule %>';
+  } from '<%= _.replace(mixinModule, /\.js$/, '') %>';
   <% }) %>
+
+  // eslint-disable-next-line import/no-default-export
   export default {
     <%= _.join(_.flatten(_.values(_mixinData)), ',\\n  ') %>
   };

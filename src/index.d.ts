@@ -65,17 +65,6 @@ declare module 'lodash' {
     /**
      * Part of `lodash-firecloud`.
      *
-     * Create Proxy to a process.env (or similar) object that will throw if a variable is undefined.
-     */
-    safeProxy(env: {
-      [key: string]: string
-    }): {
-      [key: string]: string
-    };
-
-    /**
-     * Part of `lodash-firecloud`.
-     *
      * Create a Deferred object that references the promise, the resolve and reject functions.
      * @returns Returns the Deffered object.
      */
@@ -157,6 +146,17 @@ declare module 'lodash' {
       fn: (...args: any[]) => any,
       options?: object
     ): (...args: any[]) => any;
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
+     * Create Proxy to a process.env (or similar) object that will throw if a variable is undefined.
+     */
+    safeProxy(env: {
+      [key: string]: string
+    }): {
+      [key: string]: string
+    };
 
     /**
      * Part of `lodash-firecloud`.

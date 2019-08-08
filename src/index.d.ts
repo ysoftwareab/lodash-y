@@ -182,6 +182,16 @@ declare module 'lodash' {
     /**
      * Part of `lodash-firecloud`.
      *
+     * Require all Node.js modules in a directory.
+     *
+     * @param {string} dir The directory.
+     * @returns {Array} Returns an array of required modules.
+     */
+    requireDir(dir: string): any[];
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
      * Create Proxy to a process.env (or similar) object that will throw if a variable is undefined.
      * @param {Object} env The env.
      * @returns {Proxy} Return a safe Proxy to env.

@@ -101,7 +101,7 @@ declare module 'lodash' {
      *
      * Gets the current stacktrace.
      *
-     * @param {Number} level The maximum stacktrace length.
+     * @param {number} level The maximum stacktrace length.
      * @returns Returns a structured stacktrace, that is a list of CallSite objects.
      */
     getStackTrace(level: Number): CallSite[];
@@ -155,7 +155,7 @@ declare module 'lodash' {
      *
      * Tag to outdent template literals.
      *
-     * @param {array} strings Template strings.
+     * @param {Array} strings Template strings.
      * @param {...*} values Values.
      * @returns Returns an outdented string.
      */
@@ -183,6 +183,8 @@ declare module 'lodash' {
      * Part of `lodash-firecloud`.
      *
      * Create Proxy to a process.env (or similar) object that will throw if a variable is undefined.
+     * @param {Object} env The env.
+     * @returns {Proxy} Return a safe Proxy to env.
      */
     safeProxy(env: {
       [key: string]: string
@@ -196,7 +198,7 @@ declare module 'lodash' {
      * Return a promise that is resolved after the desired sleep time.
      *
      * @param {number} ms=0 Number of milliseconds to sleep.
-     * @returns {Promise} Returns the.
+     * @returns {Promise} Returns the promise.
      */
     sleep(ms: number): Promise<void>;
 

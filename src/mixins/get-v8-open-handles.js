@@ -1,3 +1,5 @@
+// NOTE global.require is a trick for webpack to ignore bundling the module
+
 let _asyncHooks;
 let _openHandles;
 
@@ -47,16 +49,11 @@ export let getV8OpenHandles = function(cfg = {}) {
     ]
   });
 
-  _asyncHooks = _.attempt(function() {
-    // eval is a trick for webpack to ignore require
-    // see https://stackoverflow.com/questions/34828722/how-can-i-make-webpack-skip-a-require
-    // eslint-disable-next-line no-eval
-    return eval('require')('async_hooks');
-  });
+  // see https://github.com/lodash/lodash/blob/4ea8c2ec249be046a0f4ae32539d652194caf74f/.internal/freeGlobal.js
+  // eslint-disable-next-line eqeqeq, no-null/no-null
+  let freeGlobal = typeof global == 'object' && global !== null && global.Object === Object && global;
 
-  if (_.isError(_asyncHooks)) {
-    throw _asyncHooks;
-  }
+  _asyncHooks = freeGlobal.require('async_hooks');
 
   if (_.isUndefined(getV8OpenHandles.hook)) {
     getV8OpenHandles.hook = _init(_);

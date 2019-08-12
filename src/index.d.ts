@@ -185,9 +185,10 @@ declare module 'lodash' {
      * Require all Node.js modules in a directory.
      *
      * @param {string} dir The directory.
+     * @param {Array.<string>} requireExtensions The allowed extensions for 'require'.
      * @returns {Array} Returns an array of required modules.
      */
-    requireDir(dir: string): any[];
+    requireDir(dir: string, requireExtensions: string[]): any[];
 
     /**
      * Part of `lodash-firecloud`.

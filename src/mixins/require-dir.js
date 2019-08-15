@@ -28,6 +28,8 @@ export let requireDir = function(dir, filter = [
 
   files = _.filter(files, filter);
 
+  files = _.sortBy(files);
+
   files = _.map(files, function(file) {
     return path.join(dir, file);
   });

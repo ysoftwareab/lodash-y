@@ -19,7 +19,9 @@ declare module 'lodash' {
      * @param {string} [name='it] Name of the method to be abstracted.
      * @returns Returns a function that throws error when invoked.
      */
-    abstract(name: string): () => void;
+    abstract(
+      name: string
+    ): () => void;
 
     /**
      * Part of `lodash-firecloud`.
@@ -31,7 +33,9 @@ declare module 'lodash' {
      * @param maybePromiseLike An instance of a Promise-like or just about anything.
      * @returns Returns a Promise, the one given or one that resolve.
      */
-    alwaysPromise(maybePromiseLike: any): Promise<any>;
+    alwaysPromise(
+      maybePromiseLike: any
+    ): Promise<any>;
 
     /**
      * Part of `lodash-firecloud`.
@@ -41,7 +45,9 @@ declare module 'lodash' {
      * @param {string} string Input string.
      * @returns {string} Returns Base64-encoded string.
      */
-    base64(string: string): string;
+    base64(
+      string: string
+    ): string;
 
     // A proper way to write this definition
     // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/adone/glosses/promise.d.ts
@@ -57,7 +63,9 @@ declare module 'lodash' {
      * @param {boolean} [options.keepCallback='false'] Specifies if the callback arg should be passed to the Promise.
      * @returns Returns a callback-like function wrapping original `fn`.
      */
-    callbackify(fn: (...args: any[]) => any): (...args: any[]) => any;
+    callbackify(
+      fn: (...args: any[]) => any
+    ): (...args: any[]) => any;
 
     /**
      * Part of `lodash-firecloud`.
@@ -67,7 +75,9 @@ declare module 'lodash' {
      * @param {string} label Label for current measurement, that will be displayed in the console.
      * @param fn A function to measure execution time of.
      */
-    consoleLogTime(label: string, fn: () => any): Promise<void>;
+    consoleLogTime(
+      label: string, fn: () => any
+    ): Promise<void>;
 
     /**
      * Part of `lodash-firecloud`.
@@ -104,7 +114,9 @@ declare module 'lodash' {
      * @param {number} level The maximum stacktrace length.
      * @returns Returns a structured stacktrace, that is a list of CallSite objects.
      */
-    getStackTrace(level: Number): CallSite[];
+    getStackTrace(
+      level: Number
+    ): CallSite[];
 
     /**
      * Part of `lodash-firecloud`.
@@ -114,7 +126,9 @@ declare module 'lodash' {
      * @param value The value to check.
      * @returns Returns true if value is defined, else false.
      */
-    isDefined<T>(value: T | undefined): value is T;
+    isDefined<T>(
+      value: T | undefined
+    ): value is T;
 
     /**
      * Part of `lodash-firecloud`.
@@ -125,7 +139,9 @@ declare module 'lodash' {
      * Should return a value (processed object).
      * @returns Returns a function that accepts an object, on which `fn` will be invoked with a list of `args`.
      */
-    mapValuesDeep(fn: (...args: any[]) => any): (obj: any, ...fnArgs: any[]) => any;
+    mapValuesDeep(
+      fn: (...args: any[]) => any
+    ): (obj: any, ...fnArgs: any[]) => any;
 
     /**
      * Part of `lodash-firecloud`.
@@ -151,7 +167,9 @@ declare module 'lodash' {
      * @param {string} string String to calculate checksum of.
      * @returns {string} Returns checksum.
      */
-    naiveChecksum(string: string): string;
+    naiveChecksum(
+      string: string
+    ): string;
 
     /**
      * Part of `lodash-firecloud`.
@@ -164,7 +182,10 @@ declare module 'lodash' {
      * @param interval Throttling interval.
      * @returns Returns a throttled function.
      */
-    onceIn(fn: (...args: any[]) => any, interval: number): (...args: any[]) => any;
+    onceIn(
+      fn: (...args: any[]) => any,
+      interval: number
+    ): (...args: any[]) => any;
 
     /**
      * Part of `lodash-firecloud`.
@@ -175,7 +196,10 @@ declare module 'lodash' {
      * @param {...*} values Values.
      * @returns Returns an outdented string.
      */
-    outdent(strings: TemplateStringsArray, ...values: any[]): string;
+    outdent(
+      strings: TemplateStringsArray,
+      ...values: any[]
+    ): string;
 
     // A proper way to write this definition
     // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/adone/glosses/promise.d.ts
@@ -204,7 +228,10 @@ declare module 'lodash' {
      * @param {Array.<string>|function} filter The allowed extensions for 'require' or a filtering function.
      * @returns {Array} Returns an array of required modules.
      */
-    requireDir(dir: string, filter: string[] | ((string) => Boolean)): any[];
+    requireDir(
+      dir: string,
+      filter: string[] | ((string) => Boolean)
+    ): any[];
 
     /**
      * Part of `lodash-firecloud`.
@@ -227,7 +254,9 @@ declare module 'lodash' {
      * @param {number} ms=0 Number of milliseconds to sleep.
      * @returns {Promise} Returns the promise.
      */
-    sleep(ms: number): Promise<void>;
+    sleep(
+      ms: number
+    ): Promise<void>;
 
     /**
     * Part of `lodash-firecloud`.
@@ -245,7 +274,11 @@ declare module 'lodash' {
     * if the previous call was not throttled.
     * @returns Returns a function which is `func` throttled. Has `cancel` and `flush` methods, same to _.throttle.
     */
-    throttleExp<T extends (...args: any) => any>(func: T, wait?: number, options?: ThrottleExpSettings): T & Cancelable;
+    throttleExp<T extends (...args: any) => any>(
+      func: T,
+      wait?: number,
+      options?: ThrottleExpSettings
+    ): T & Cancelable;
 
     /**
     * Part of `lodash-firecloud`.
@@ -255,7 +288,9 @@ declare module 'lodash' {
     * @param {string} string Input string in Base64 format.
     * @returns {string} Returns decoded string.
     */
-    unbase64(string: string): string;
+    unbase64(
+      string: string
+    ): string;
   }
 
   interface ThrottleExpSettings {

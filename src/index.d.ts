@@ -130,6 +130,22 @@ declare module 'lodash' {
     /**
      * Part of `lodash-firecloud`.
      *
+     * Create a function that memoizes the result of func for a specific TTL time window.
+     *
+     * @param ttl The number of milliseconds to keep the output memoized.
+     * @param fn The function to have its output memoized.
+     * @param resolver The function to resolve the cache key.
+     * @returns Returns the new memoizing function.
+     */
+    memoizeTtl<T extends (...args: any[]) => any>(
+      ttl: number,
+      fn: T,
+      resolver?: (...args: any[]) => any
+    ): T & MemoizedFunction;
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
      * Calculate a naïve checksum of a string.
      *
      * @param {string} string String to calculate checksum of.

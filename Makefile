@@ -5,22 +5,20 @@ undefine INSTALL_SUPPORT_FIRECLOUD
 endif
 endif
 
-include support-firecloud/repo/mk/js.common.node.mk
+include support-firecloud/repo/mk/node.common.mk
 include support-firecloud/repo/mk/js.build.d.ts.mk
 include support-firecloud/repo/mk/js.check.eslint.mk
 include support-firecloud/repo/mk/js.check.d.ts.mk
 include support-firecloud/repo/mk/js.test.jest.mk
-include support-firecloud/repo/mk/js.publish.npg.mk
+include support-firecloud/repo/mk/core.misc.release.npg.mk
 
 # ------------------------------------------------------------------------------
 
-SF_DEPS_TARGETS := \
-	$(SF_DEPS_TARGETS) \
-	src/mixins/index.js \
-
-JEST_ARGS := \
-	$(JEST_ARGS) \
+JEST_ARGS += \
 	--no-cache \
+
+SF_DEPS_TARGETS += \
+	src/mixins/index.js \
 
 # ------------------------------------------------------------------------------
 

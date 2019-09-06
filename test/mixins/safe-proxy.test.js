@@ -15,7 +15,7 @@ describe('safeProxy', function() {
     let target = {};
     let proxy = _.safeProxy(target);
     expect(proxy.constructor).toStrictEqual(target.constructor);
-    expect(proxy.length).toStrictEqual(target.length);
+    expect(proxy).toHaveLength(target.length);
   });
 
   it('throws on non-string properties', async function() {

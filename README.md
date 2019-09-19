@@ -2,7 +2,7 @@
 
 `lodash-firecloud` is a collection of [lodash](https://github/lodash/lodash) mixins.
 
-See the [src folder](src) and/or the [TypeScript definitions](src/index.d.ts) for available functions.
+See the [src/mixins folder](src/mixins) and/or the [TypeScript definitions](src/index.d.ts) for available functions.
 
 ## Example
 

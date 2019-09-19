@@ -23,8 +23,8 @@ export let safeProxy = function(env) {
         };
       }
 
-      if (!_.isString(target[property])) {
-        throw new Error(`${property} is undefined.`);
+      if (_.isNil(target[property])) {
+        throw new Error(`${property} is not set.`);
       }
 
       return target[property];

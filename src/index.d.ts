@@ -236,14 +236,14 @@ declare module 'lodash' {
     /**
      * Part of `lodash-firecloud`.
      *
-     * Create Proxy to a process.env (or similar) object that will throw if a variable is undefined.
-     * @param {Object} env The env.
+     * Create Proxy to an object object that will throw if a property is not set (nil).
+     * @param {Object} env The object.
      * @returns {Proxy} Return a safe Proxy to env.
      */
     safeProxy(env: {
-      [key: string]: string
+      [key: string]: any
     }): {
-      [key: string]: string
+      [key: string]: any
     };
 
     /**

@@ -23,6 +23,11 @@ export let safeProxy = function(env) {
         };
       }
 
+      // support async/await syntax
+      if (property === 'then') {
+        return;
+      }
+
       if (_.isNil(target[property])) {
         throw new Error(`${property} is not set.`);
       }

@@ -225,12 +225,12 @@ declare module 'lodash' {
      * Require all Node.js modules in a directory.
      *
      * @param {string} dir The directory.
-     * @param {Array.<string>|function} filter The allowed extensions for 'require' or a filtering function.
+     * @param {Array.<string>|RegExp|function} filter The allowed extensions for 'require' or a filtering function.
      * @returns {Array} Returns an array of required modules.
      */
     requireDir(
       dir: string,
-      filter: string[] | ((string) => Boolean)
+      filter: string[] | RegExp | ((string) => Boolean)
     ): any[];
 
     /**

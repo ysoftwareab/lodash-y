@@ -11,6 +11,11 @@ export let requireDir = function(dir, filter = [
     filter = function(filename) {
       return _.includes(requireExtensions, path.extname(filename));
     };
+  } else if (_.isRegExp(filter)) {
+    let re = filter;
+    filter = function(filename) {
+      return re.test(filename);
+    };
   } else if (_.isFunction(filter)) {
     // noop
   } else {

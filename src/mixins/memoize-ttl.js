@@ -1,4 +1,4 @@
-export let memoizeTtl = function(ttl, func, resolver) {
+export let memoizeTtl = function(ttl, fn, resolver) {
   // eslint-disable-next-line consistent-this, babel/no-invalid-this
   let _ = this;
 
@@ -19,7 +19,7 @@ export let memoizeTtl = function(ttl, func, resolver) {
       }
     }
 
-    let value = func(...args);
+    let value = fn(...args);
     let expires = Date.now() + ttl;
     memoized.cache = cache.set(key, {
       value,

@@ -1,5 +1,5 @@
 
-export let throttleExp = function(func, wait, options = {}) {
+export let throttleExp = function(fn, wait, options = {}) {
   // eslint-disable-next-line consistent-this, babel/no-invalid-this
   let _ = this;
 
@@ -26,7 +26,7 @@ export let throttleExp = function(func, wait, options = {}) {
   let curWait;
   let wasThrottled = false;
 
-  let invokeFunc = function() {
+  let invokeFn = function() {
     let {
       lastThis,
       lastArgs
@@ -34,20 +34,20 @@ export let throttleExp = function(func, wait, options = {}) {
 
     lastCall = undefined;
 
-    lastResult = func.apply(lastThis, lastArgs);
+    lastResult = fn.apply(lastThis, lastArgs);
   };
 
   let tryLeading = function() {
     setTimer();
     if (leading) {
-      invokeFunc();
+      invokeFn();
     }
   };
 
   let tryTrailing = function() {
     if (trailing && lastCall) {
       setTimer();
-      invokeFunc();
+      invokeFn();
     }
   };
 
@@ -85,7 +85,7 @@ export let throttleExp = function(func, wait, options = {}) {
     timer = setTimeout(onTimer, curWait);
   };
 
-  let fn = function(...args) {
+  let throttledFn = function(...args) {
     lastCall = {
       // eslint-disable-next-line babel/no-invalid-this
       lastThis: this,
@@ -102,16 +102,16 @@ export let throttleExp = function(func, wait, options = {}) {
     return lastResult;
   };
 
-  fn.cancel = function() {
+  throttledFn.cancel = function() {
     clearTimer();
     lastCall = undefined;
   };
 
-  fn.flush = function() {
+  throttledFn.flush = function() {
     clearTimer();
     tryTrailing();
     return lastResult; // as per original _.debounce
   };
 
-  return fn;
+  return throttledFn;
 };

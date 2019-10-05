@@ -146,7 +146,7 @@ declare module 'lodash' {
     /**
      * Part of `lodash-firecloud`.
      *
-     * Create a function that memoizes the result of func for a specific TTL time window.
+     * Create a function that memoizes the result of fn for a specific TTL time window.
      *
      * @param ttl The number of milliseconds to keep the output memoized.
      * @param fn The function to have its output memoized.
@@ -158,6 +158,21 @@ declare module 'lodash' {
       fn: T,
       resolver?: (...args: any[]) => any
     ): T & MemoizedFunction;
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
+     * Create a function that can only run maximum n times in parallel.
+     *
+     * @param fn The function to have its parallelism limited.
+     * @param {number} [options.limit='1'] Specifies the maximum number of parallel executions.
+     * @param {boolean} [options.throwErr='false'] Specifies whether to throw an error when the limit has been reached.
+     * @returns Returns the new limited function.
+     */
+    limitInParallel(
+      fn: (...args: any[]) => any,
+      options?: object
+    ): (...args: any[]) => any;
 
     /**
      * Part of `lodash-firecloud`.
@@ -174,9 +189,11 @@ declare module 'lodash' {
     /**
      * Part of `lodash-firecloud`.
      *
-     * A "true _.throttle with 'trailing': false"
-     * More lightweight version which does not allocate unnecessary timer,
-     * comparing to lodash func (which invokes _.debounce under the hood)
+     * Backward compatible alias to _.throttleTrue.
+     *
+     * A "true" _.throttle with 'trailing': false"
+     * A lightweight version which does not allocate unnecessary timer,
+     * comparing to the original _.throttle (which invokes _.debounce under the hood).
      *
      * @param fn Function to throttle.
      * @param interval Throttling interval.
@@ -263,22 +280,38 @@ declare module 'lodash' {
     *
     * Throttle exponentially
     *
-    * @param func Function to throttle
+    * @param fn Function to throttle.
     * @param wait Starting (minimum) wait time.
     * @param options Options object.
-    * @param {boolean} [options.leading='true'] Specifies if `func` should be invoked on leading edge.
-    * @param {boolean} [options.trailing='true'] Specifies if `func` should be invoked on trailing edge.
+    * @param {boolean} [options.leading='true'] Specifies if `fn` should be invoked on leading edge.
+    * @param {boolean} [options.trailing='true'] Specifies if `fn` should be invoked on trailing edge.
     * @param {boolean} [options.maxWait=Infinity] Specifies max value of `wait` as it exponentially grows.
     * @param {boolean} [options.multiplier=2] Specifies a multiplier for `wait` applied on every actual invocation.
     * @param {boolean} [options.divider=Infinity] Specifies a divider for `wait` used on actual invocation
     * if the previous call was not throttled.
-    * @returns Returns a function which is `func` throttled. Has `cancel` and `flush` methods, same to _.throttle.
+    * @returns Returns a function which is `fn` throttled. Has `cancel` and `flush` methods, same to _.throttle.
     */
     throttleExp<T extends (...args: any) => any>(
-      func: T,
+      fn: T,
       wait?: number,
       options?: ThrottleExpSettings
     ): T & Cancelable;
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
+     * A "true" _.throttle with 'trailing': false"
+     * A lightweight version which does not allocate unnecessary timer,
+     * comparing to the original _.throttle (which invokes _.debounce under the hood).
+     *
+     * @param fn Function to throttle.
+     * @param interval Throttling interval.
+     * @returns Returns a throttled function.
+     */
+    throttleTrue(
+      fn: (...args: any[]) => any,
+      interval: number
+    ): (...args: any[]) => any;
 
     /**
     * Part of `lodash-firecloud`.

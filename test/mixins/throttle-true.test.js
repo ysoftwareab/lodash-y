@@ -1,6 +1,6 @@
 import _ from '../../src';
 
-describe('onceIn', function() {
+describe('throttleTrue', function() {
   it("returns a function that invokes 'func' and return its result, when called for the first time", function() {
     let funcResult = 'zero';
     let arg1 = 'one';
@@ -11,7 +11,7 @@ describe('onceIn', function() {
       return funcResult;
     });
 
-    let throttled = _.onceIn(func, 100);
+    let throttled = _.throttleTrue(func, 100);
 
     expect(typeof throttled).toBe('function');
 
@@ -30,7 +30,7 @@ describe('onceIn', function() {
       return invocations;
     });
 
-    let throttled = _.onceIn(func, 100);
+    let throttled = _.throttleTrue(func, 100);
 
     // first invocations during 'interval'
     _.times(10, function() {
@@ -50,7 +50,7 @@ describe('onceIn', function() {
       return invocations;
     });
 
-    let throttled = _.onceIn(func, 100);
+    let throttled = _.throttleTrue(func, 100);
 
     // first invocations during 'interval'
     _.times(10, function() {
@@ -80,7 +80,7 @@ describe('onceIn', function() {
       return invocations;
     });
 
-    let throttled = _.onceIn(func, 0);
+    let throttled = _.throttleTrue(func, 0);
 
     _.times(10, function() {
       let invocationResult = throttled(arg1, arg2, arg3);
@@ -105,7 +105,7 @@ describe('onceIn', function() {
       return invocations;
     });
 
-    let throttled = _.onceIn(func, 0);
+    let throttled = _.throttleTrue(func, 0);
     expect(throttled.flush).toBeDefined();
 
     throttled();
@@ -123,7 +123,7 @@ describe('onceIn', function() {
       return invocations;
     });
 
-    let throttled = _.onceIn(func, 0);
+    let throttled = _.throttleTrue(func, 0);
     expect(throttled.flush).toBeDefined();
 
     throttled();

@@ -162,6 +162,21 @@ declare module 'lodash' {
     /**
      * Part of `lodash-firecloud`.
      *
+     * Create a function that can only run maximum n times in parallel.
+     *
+     * @param fn The function to have its parallelism limited.
+     * @param {number} [options.limit='1'] Specifies the maximum number of parallel executions.
+     * @param {boolean} [options.throwErr='false'] Specifies whether to throw an error when the limit has been reached.
+     * @returns Returns the new limited function.
+     */
+    limitInParallel(
+      fn: (...args: any[]) => any,
+      options?: object
+    ): (...args: any[]) => any;
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
      * Calculate a naïve checksum of a string.
      *
      * @param {string} string String to calculate checksum of.

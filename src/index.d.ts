@@ -189,8 +189,10 @@ declare module 'lodash' {
     /**
      * Part of `lodash-firecloud`.
      *
-     * A "true _.throttle with 'trailing': false"
-     * More lightweight version which does not allocate unnecessary timer,
+     * Backward compatible alias to _.throttleTrue.
+     *
+     * A "true" _.throttle with 'trailing': false"
+     * A lightweight version which does not allocate unnecessary timer,
      * comparing to lodash func (which invokes _.debounce under the hood)
      *
      * @param fn Function to throttle.
@@ -294,6 +296,22 @@ declare module 'lodash' {
       wait?: number,
       options?: ThrottleExpSettings
     ): T & Cancelable;
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
+     * A "true" _.throttle with 'trailing': false"
+     * A lightweight version which does not allocate unnecessary timer,
+     * comparing to lodash func (which invokes _.debounce under the hood)
+     *
+     * @param fn Function to throttle.
+     * @param interval Throttling interval.
+     * @returns Returns a throttled function.
+     */
+    throttleTrue(
+      fn: (...args: any[]) => any,
+      interval: number
+    ): (...args: any[]) => any;
 
     /**
     * Part of `lodash-firecloud`.

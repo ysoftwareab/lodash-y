@@ -15,21 +15,15 @@ describe('safeProxy', function() {
     let target = {};
     let proxy = _.safeProxy(target);
     expect(proxy.constructor).toStrictEqual(target.constructor);
-    expect(proxy).toHaveLength(target.length);
+    // eslint-disable-next-line jest/prefer-to-have-length
+    expect(proxy.length).toStrictEqual(target.length);
   });
 
   it('throws on non-string properties', async function() {
-    let target = {
-      notAString: true
-    };
+    let target = {};
     let proxy = _.safeProxy(target);
-
     expect(function() {
       return proxy.foo;
-    }).toThrow(/foo is undefined/);
-
-    expect(function() {
-      return proxy.notAString;
-    }).toThrow(/notAString is undefined/);
+    }).toThrow(/foo is not set/);
   });
 });

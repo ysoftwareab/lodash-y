@@ -146,7 +146,7 @@ declare module 'lodash' {
     /**
      * Part of `lodash-firecloud`.
      *
-     * Create a function that memoizes the result of func for a specific TTL time window.
+     * Create a function that memoizes the result of fn for a specific TTL time window.
      *
      * @param ttl The number of milliseconds to keep the output memoized.
      * @param fn The function to have its output memoized.
@@ -193,7 +193,7 @@ declare module 'lodash' {
      *
      * A "true" _.throttle with 'trailing': false"
      * A lightweight version which does not allocate unnecessary timer,
-     * comparing to lodash func (which invokes _.debounce under the hood)
+     * comparing to the original _.throttle (which invokes _.debounce under the hood).
      *
      * @param fn Function to throttle.
      * @param interval Throttling interval.
@@ -280,19 +280,19 @@ declare module 'lodash' {
     *
     * Throttle exponentially
     *
-    * @param func Function to throttle
+    * @param fn Function to throttle.
     * @param wait Starting (minimum) wait time.
     * @param options Options object.
-    * @param {boolean} [options.leading='true'] Specifies if `func` should be invoked on leading edge.
-    * @param {boolean} [options.trailing='true'] Specifies if `func` should be invoked on trailing edge.
+    * @param {boolean} [options.leading='true'] Specifies if `fn` should be invoked on leading edge.
+    * @param {boolean} [options.trailing='true'] Specifies if `fn` should be invoked on trailing edge.
     * @param {boolean} [options.maxWait=Infinity] Specifies max value of `wait` as it exponentially grows.
     * @param {boolean} [options.multiplier=2] Specifies a multiplier for `wait` applied on every actual invocation.
     * @param {boolean} [options.divider=Infinity] Specifies a divider for `wait` used on actual invocation
     * if the previous call was not throttled.
-    * @returns Returns a function which is `func` throttled. Has `cancel` and `flush` methods, same to _.throttle.
+    * @returns Returns a function which is `fn` throttled. Has `cancel` and `flush` methods, same to _.throttle.
     */
     throttleExp<T extends (...args: any) => any>(
-      func: T,
+      fn: T,
       wait?: number,
       options?: ThrottleExpSettings
     ): T & Cancelable;
@@ -302,7 +302,7 @@ declare module 'lodash' {
      *
      * A "true" _.throttle with 'trailing': false"
      * A lightweight version which does not allocate unnecessary timer,
-     * comparing to lodash func (which invokes _.debounce under the hood)
+     * comparing to the original _.throttle (which invokes _.debounce under the hood).
      *
      * @param fn Function to throttle.
      * @param interval Throttling interval.

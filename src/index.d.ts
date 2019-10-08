@@ -162,6 +162,34 @@ declare module 'lodash' {
     /**
      * Part of `lodash-firecloud`.
      *
+     * Same as _.merge but don't merge arrays. Just concat them.
+     *
+     * @param object The destination object.
+     * @param ...sources The source objects.
+     * @returns Returns object.
+     */
+    mergeConcatArrays(
+      object: any,
+      ...sources: any[]
+    ): any;
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
+     * Same as _.merge but don't merge arrays. Just override them.
+     *
+     * @param object The destination object.
+     * @param ...sources The source objects.
+     * @returns Returns object.
+     */
+    mergeWithoutArrays(
+      object: any,
+      ...sources: any[]
+    ): any;
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
      * Create a function that can only run maximum n times in parallel.
      *
      * @param fn The function to have its parallelism limited.

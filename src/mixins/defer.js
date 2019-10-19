@@ -1,24 +1,5 @@
-export let defer = function() {
-  let deferred = {
-    promise: undefined,
-    resolve: undefined,
-    reject: undefined,
+import {
+  deferred
+} from './deferred';
 
-    value: undefined,
-    err: undefined
-  };
-
-  deferred.promise = new Promise(function(resolve, reject) {
-    deferred.resolve = function(value) {
-      deferred.value = value;
-      resolve(value);
-    };
-
-    deferred.reject = function(err) {
-      deferred.err = err;
-      reject(err);
-    };
-  });
-
-  return deferred;
-};
+export let defer = deferred;

@@ -80,6 +80,8 @@ declare module 'lodash' {
     ): Promise<void>;
 
     /**
+     * DEPRECATED. Use _.deferred() instead.
+     *
      * Part of `lodash-firecloud`.
      *
      * Create a Deferred object that references the promise, the resolve and reject functions.
@@ -87,6 +89,21 @@ declare module 'lodash' {
      * @returns Returns the Deffered object.
      */
     defer(): {
+      promise: Promise<void>,
+      resolve: () => void,
+      reject: () => void,
+      value: any,
+      err: any
+    };
+
+    /**
+     * Part of `lodash-firecloud`.
+     *
+     * Create a Deferred object that references the promise, the resolve and reject functions.
+     *
+     * @returns Returns the Deffered object.
+     */
+    deferred(): {
       promise: Promise<void>,
       resolve: () => void,
       reject: () => void,

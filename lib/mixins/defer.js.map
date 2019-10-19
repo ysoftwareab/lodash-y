@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/mixins/defer.js"],"names":[],"mappings":"kGAAA;;;;AAIO,IAAI,KAAK,GAAG,kBAAZ,C","file":"defer.js","sourcesContent":["import {\n  deferred\n} from './deferred';\n\nexport let defer = deferred;\n"]}

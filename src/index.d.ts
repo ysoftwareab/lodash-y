@@ -89,7 +89,9 @@ declare module 'lodash' {
     defer(): {
       promise: Promise<void>,
       resolve: () => void,
-      reject: () => void
+      reject: () => void,
+      value: any,
+      err: any
     };
 
     /**

@@ -14,7 +14,7 @@ let _init = function(_) {
       // ignore ourselves
       stackTrace.shift();
 
-      _openHandles.set(asyncId, {
+      let openHandle = {
         time: Date.now(), // not `new Date()` for performance reasons
         asyncId,
         type,
@@ -22,7 +22,8 @@ let _init = function(_) {
         resource,
         executionAsyncId,
         stackTrace
-      });
+      };
+      _openHandles.set(asyncId, openHandle);
     },
 
     destroy: function(asyncId) {
@@ -39,20 +40,45 @@ let _init = function(_) {
   return hook;
 };
 
-export let getV8OpenHandles = function(cfg = {}) {
+/**
+ * @typedef {Object} V8OpenHandles
+ * @property {number} time,
+ * @property {number} asyncId
+ * @property {number} triggerAsyncId
+ * @property {Object} resource,
+ * @property {number} executionAsyncId
+ * @property {string[]} stackTrace
+ */
+
+/**
+ * Part of `lodash-firecloud`.
+ *
+ * Gets info about the V8 open handles.
+ *
+ * @param {Object} args Named args.
+ * @param {RegExp[]=} args.skipFiles RegExps to test against when removing call sites.
+ *   By default a RegExp for internal filenames is provided.
+ * @returns {V8OpenHandles[]} Returns a list of V8 open handles.
+ */
+export let getV8OpenHandles = function(args = {}) {
   // eslint-disable-next-line consistent-this, babel/no-invalid-this
   let _ = this;
 
-  cfg = _.defaults(cfg, {
+  args = _.defaults(args, {
     skipFiles: [
       /^internal\//
     ]
   });
 
+  let {
+    skipFiles
+  } = args;
+
   // see https://github.com/lodash/lodash/blob/4ea8c2ec249be046a0f4ae32539d652194caf74f/.internal/freeGlobal.js
   // eslint-disable-next-line eqeqeq, no-null/no-null
   let freeGlobal = typeof global == 'object' && global !== null && global.Object === Object && global;
 
+  // @ts-ignore
   _asyncHooks = freeGlobal.require('async_hooks');
 
   if (_.isUndefined(getV8OpenHandles.hook)) {
@@ -64,7 +90,7 @@ export let getV8OpenHandles = function(cfg = {}) {
   ];
 
   for (let handle of v8OpenHandles) {
-    for (let skipFile of cfg.skipFiles) {
+    for (let skipFile of skipFiles) {
       handle.stackTrace = _.filter(handle.stackTrace, function(callSite) {
         let fileName = callSite.getFileName();
         if (_.isDefined(fileName) && skipFile.test(fileName)) {
@@ -160,3 +186,5 @@ export let getV8OpenHandles = function(cfg = {}) {
 
   return v8OpenHandles;
 };
+
+getV8OpenHandles.hook = undefined;

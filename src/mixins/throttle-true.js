@@ -31,6 +31,7 @@ export let throttleTrue = function(origFn, interval) {
 
   // special case for direct call
   if (interval === 0) {
+    // @ts-ignore
     toInvoke = function(...args) {
       return origFn(...args);
     };

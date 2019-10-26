@@ -3,3 +3,5 @@
 /coverage/
 /lib/
 /src/mixins/index.js
+/src/mixins-browser/index.js
+/src/mixins-node/index.js

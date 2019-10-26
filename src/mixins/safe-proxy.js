@@ -37,6 +37,7 @@ export let safeProxy = function(env) {
       }
 
       if (_.isNil(target[property])) {
+        // @ts-ignore
         throw new Error(`${property} is not set.`);
       }
 

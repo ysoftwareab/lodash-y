@@ -6,9 +6,8 @@ endif
 endif
 
 include support-firecloud/repo/mk/node.common.mk
-include support-firecloud/repo/mk/js.build.d.ts.mk
+include support-firecloud/repo/mk/js.build.ts.mk
 include support-firecloud/repo/mk/js.check.eslint.mk
-include support-firecloud/repo/mk/js.check.d.ts.mk
 include support-firecloud/repo/mk/js.test.jest.mk
 include support-firecloud/repo/mk/core.misc.release.npg.mk
 
@@ -17,11 +16,24 @@ include support-firecloud/repo/mk/core.misc.release.npg.mk
 JEST_ARGS += \
 	--no-cache \
 
-SF_DEPS_TARGETS += \
+SF_BUILD_TARGETS := \
 	src/mixins/index.js \
+	src/mixins-browser/index.js \
+	src/mixins-node/index.js \
+	$(SF_BUILD_TARGETS) \
 
 # ------------------------------------------------------------------------------
 
 .PHONY: src/mixins/index.js
 src/mixins/index.js: src/mixins/tpl.index.js
+	$^ > $@
+
+
+.PHONY: src/mixins-browser/index.js
+src/mixins-browser/index.js: src/mixins-browser/tpl.index.js
+	$^ > $@
+
+
+.PHONY: src/mixins-node/index.js
+src/mixins-node/index.js: src/mixins-node/tpl.index.js
 	$^ > $@

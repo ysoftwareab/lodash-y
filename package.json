@@ -17,6 +17,7 @@
   "dependencies": {
     "@types/callsite": "^1.0.30",
     "@types/lodash": "^4.14.129",
+    "@types/node": "^12.7.12",
     "hard-rejection": "^2.1.0",
     "lodash": "^4.17.5",
     "outdent": "^0.7.0"
@@ -28,6 +29,7 @@
     "@babel/register": "^7.0.0",
     "@babel/runtime": "^7.2.0",
     "@getify/eslint-plugin-proper-arrows": "^8.0.1",
+    "@types/jest": "^24.0.19",
     "@typescript-eslint/eslint-plugin": "^1.6.0",
     "@typescript-eslint/parser": "^1.4.2",
     "babel-core": "^7.0.0-bridge.0",
@@ -50,7 +52,7 @@
     "eslint-plugin-no-null": "^1.0.2",
     "jest": "^24.1.0",
     "npm-publish-git": "git://github.com/andreineculau/npm-publish-git.git#semver:~0.0.8",
-    "typescript": "^3.4.5"
+    "typescript": "^3.7.0-beta"
   },
   "scripts": {
     "prepare": "make package-json-prepare"

@@ -1,3 +1,12 @@
+/**
+ * Part of `lodash-firecloud`.
+ *
+ * Require all Node.js modules in a directory.
+ *
+ * @param {string} dir The directory.
+ * @param {string[]|RegExp|Function} filter The allowed extensions for 'require' or a filtering function.
+ * @returns {Array} Returns an array of required modules.
+ */
 export let requireDir = function(dir, filter = [
   '.js',
   '.json',
@@ -12,7 +21,8 @@ export let requireDir = function(dir, filter = [
       return _.includes(requireExtensions, path.extname(filename));
     };
   } else if (_.isRegExp(filter)) {
-    let re = filter;
+    // let re = filter;
+    let re = /** @type {RegExp} */ (filter);
     filter = function(filename) {
       return re.test(filename);
     };

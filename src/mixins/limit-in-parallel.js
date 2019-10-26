@@ -1,4 +1,4 @@
-// TODO is there a way not to duplicate the function just because fn is sync or async?
+// TODO is there a way not to duplicate the function just because origFn is sync or async?
 
 // eslint-disable-next-line firecloud/underscore-prefix-non-exported
 let AsyncFunction = Object.getPrototypeOf(async function() { /* noop */ }).constructor;
@@ -7,6 +7,17 @@ let AsyncFunction = Object.getPrototypeOf(async function() { /* noop */ }).const
 export class LimitInParallelError extends Error {
 }
 
+/**
+ * Part of `lodash-firecloud`.
+ *
+ * Create a function that can only run maximum n times in parallel.
+ *
+ * @param {Function} origFn The function to have its parallelism limited.
+ * @param {Object} options The options.
+ * @param {number} [options.limit=1] Specifies the maximum number of parallel executions.
+ * @param {boolean} [options.throwErr=false] Specifies whether to throw an error when the limit has been reached.
+ * @returns {Function} Returns the new limited function.
+ */
 export let limitInParallel = function(origFn, options = {}) {
   // eslint-disable-next-line consistent-this, babel/no-invalid-this
   let _ = this;

@@ -2,6 +2,14 @@
 // '<var>' in someProxy
 // e.g. if ('PATH' in _.safeProxy(process.env)) { ...do smth with _.safeProxy(process.env).PATH... }
 
+/**
+ * Part of `lodash-firecloud`.
+ *
+ * Create Proxy to an object object that will throw if a property is not set (nil).
+ *
+ * @param {Object} env The object.
+ * @returns {Proxy} Return a safe Proxy to env.
+ */
 export let safeProxy = function(env) {
   // eslint-disable-next-line consistent-this, babel/no-invalid-this
   let _ = this;

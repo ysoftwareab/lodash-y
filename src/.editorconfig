@@ -1,3 +1,4 @@
-[*.d.ts]
-indent_style = space
+root = false
+
+[*.js]
 indent_size = none

@@ -1,3 +1,19 @@
+/**
+  * Part of `lodash-firecloud`.
+  *
+  * Throttle a function exponentially.
+  *
+  * @param {Function} origFn Function to throttle.
+  * @param {number} wait Starting (minimum) wait time.
+  * @param {Object} options Options.
+  * @param {boolean} [options.leading=true] Specifies if `origFn` should be invoked on leading edge.
+  * @param {boolean} [options.trailing=true] Specifies if `origFn` should be invoked on trailing edge.
+  * @param {number} [options.maxWait=Infinity] Specifies max value of `wait` as it exponentially grows.
+  * @param {number} [options.multiplier=2] Specifies a multiplier for `wait` applied on every actual invocation.
+  * @param {number} [options.divider=Infinity] Specifies a divider for `wait` used on actual invocation
+  * if the previous call was not throttled.
+  * @returns {Function} The throttled function.
+  */
 export let throttleExp = function(origFn, wait, options = {}) {
   // eslint-disable-next-line consistent-this, babel/no-invalid-this
   let _ = this;

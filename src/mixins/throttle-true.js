@@ -1,3 +1,19 @@
+/**
+ * @typedef {import("lodash").Cancelable} Cancelable
+ * @typedef {Function & Cancelable} CancelableFunction
+ */
+
+/**
+ * Part of `lodash-firecloud`.
+ *
+ * A "true" _.throttle with 'trailing': false"
+ * A lightweight version which does not allocate unnecessary timer,
+ * comparing to the original _.throttle (which invokes _.debounce under the hood).
+ *
+ * @param {Function} origFn Function to throttle.
+ * @param {number} interval Throttling interval.
+ * @returns {CancelableFunction} The throttled function.
+ */
 export let throttleTrue = function(origFn, interval) {
   let lastInvokeTime = 0;
   let lastInvokeResult;

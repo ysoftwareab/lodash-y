@@ -1,3 +1,17 @@
+/**
+ * @typedef {import("lodash").MemoizedFunction} MemoizedFunction
+ */
+
+/**
+ * Part of `lodash-firecloud`.
+ *
+ * Create a function that memoizes the result of origFn for a specific TTL time window.
+ *
+ * @param {number} ttl The number of milliseconds to keep the output memoized.
+ * @param {Function} origFn The function to have its output memoized.
+ * @param {Function=} resolver The function to resolve the cache key.
+ * @returns {MemoizedFunction} Returns the new memoizing function.
+ */
 export let memoizeTtl = function(ttl, origFn, resolver) {
   // eslint-disable-next-line consistent-this, babel/no-invalid-this
   let _ = this;

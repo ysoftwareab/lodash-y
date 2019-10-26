@@ -1,5 +1,23 @@
+/**
+ * @typedef {Function} AsyncFunction
+ * @returns {Promise}
+ */
+
 // NOTE follows closely Node.js util.promisify
 
+// A proper way to write this definition
+// https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/adone/glosses/promise.d.ts
+/**
+ * Part of `lodash-firecloud`.
+ *
+ * Convert callback-like function into Promise.
+ *
+ * @param {Function} origFn Callback-based function to promisify.
+ * @param {Object} options Options.
+ * @param {boolean} [options.callbackFirst=false] Specifies if the callback is the first argument to origFn.
+ * @param {boolean} [options.errorInCallback=true] Specifies if error is the first argument to the callback.
+ * @returns {AsyncFunction} Returns an async function wrapping the original function.
+ */
 export let promisify = function(origFn, {
   callbackFirst = false,
   errorInCallback = true

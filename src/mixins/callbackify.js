@@ -1,5 +1,19 @@
 // NOTE follows closely Node.js util.callbackify
 
+// A proper way to write this definition
+// https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/adone/glosses/promise.d.ts
+/**
+ * Part of `lodash-firecloud`.
+ *
+ * Convert Promise into callback-like function.
+ *
+ * @param {Function} origFn Promise to callbackify.
+ * @param {Object} options Options object.
+ * @param {boolean} [options.callbackFirst='false'] Specifies if callback is a first arg.
+ * @param {boolean} [options.errorInCallback='true'] Specifies if the first arg of callback is an error.
+ * @param {boolean} [options.keepCallback='false'] Specifies if the callback arg should be passed to the Promise.
+ * @returns {Function} Returns a callback-like function wrapping original `fn`.
+ */
 export let callbackify = function(origFn, {
   callbackFirst = false,
   errorInCallback = true,

@@ -1,3 +1,11 @@
+/**
+ * Part of `lodash-firecloud`.
+ *
+ * Calculate a naïve checksum of a string.
+ *
+ * @param {string} string String to calculate checksum of.
+ * @returns {string} Returns checksum.
+ */
 export let naiveChecksum = function(string) {
   // eslint-disable-next-line consistent-this, babel/no-invalid-this
   let _ = this;

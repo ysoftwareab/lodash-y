@@ -24,7 +24,7 @@ export let throttleTrue = function(origFn, interval) {
   toInvoke.flush = function() {
     lastInvokeTime = 0;
   };
-  toInvoke.clear = toInvoke.flush;
+  toInvoke.cancel = toInvoke.flush;
 
   return toInvoke;
 };

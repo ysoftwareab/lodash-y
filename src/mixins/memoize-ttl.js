@@ -1,12 +1,12 @@
-export let memoizeTtl = function(ttl, fn, resolver) {
+export let memoizeTtl = function(ttl, origFn, resolver) {
   // eslint-disable-next-line consistent-this, babel/no-invalid-this
   let _ = this;
 
-  let memoized = function(...args) {
+  let fn = function(...args) {
     let key = _.isDefined(resolver) ? resolver(...args) : _.head(args);
     let {
       cache
-    } = memoized;
+    } = fn;
 
     if (cache.has(key)) {
       let {
@@ -19,17 +19,17 @@ export let memoizeTtl = function(ttl, fn, resolver) {
       }
     }
 
-    let value = fn(...args);
+    let value = origFn(...args);
     let expires = Date.now() + ttl;
-    memoized.cache = cache.set(key, {
+    fn.cache = cache.set(key, {
       value,
       expires
     }) || cache;
 
     return value;
   };
-  memoized.cache = new (memoizeTtl.Cache || Map)();
-  return memoized;
+  fn.cache = new (memoizeTtl.Cache || Map)();
+  return fn;
 };
 
 memoizeTtl.Cache = Map;

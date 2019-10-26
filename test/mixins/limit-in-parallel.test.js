@@ -32,7 +32,7 @@ describe('limitInParallel', function() {
     };
     fn = _.limitInParallel(fn);
     fn();
-    await expect(fn()).resolves.toBeInstanceOf(_.limitInParallel.Error);
+    await expect(fn()).resolves.toBeInstanceOf(_.LimitInParallelError);
   });
 
   it('should throw a LimitInParallelError after parallelism limit is reached, when throwErr=true', async function() {
@@ -45,6 +45,6 @@ describe('limitInParallel', function() {
       throwErr: true
     });
     fn();
-    await expect(fn()).rejects.toBeInstanceOf(_.limitInParallel.Error);
+    await expect(fn()).rejects.toBeInstanceOf(_.LimitInParallelError);
   });
 });

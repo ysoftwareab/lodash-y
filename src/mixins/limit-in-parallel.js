@@ -3,10 +3,11 @@
 // eslint-disable-next-line firecloud/underscore-prefix-non-exported
 let AsyncFunction = Object.getPrototypeOf(async function() { /* noop */ }).constructor;
 
-class LimitInParallelError extends Error {
+// useful for checks like `err instanceof _.LimitInParallelError`
+export class LimitInParallelError extends Error {
 }
 
-export let limitInParallel = function(fn, options = {}) {
+export let limitInParallel = function(origFn, options = {}) {
   // eslint-disable-next-line consistent-this, babel/no-invalid-this
   let _ = this;
 
@@ -18,8 +19,8 @@ export let limitInParallel = function(fn, options = {}) {
   let activeCount = 0;
 
   // eslint-disable-next-line no-undef
-  if (fn instanceof AsyncFunction) {
-    let maxFun = async function() {
+  if (origFn instanceof AsyncFunction) {
+    let fn = async function() {
       if (activeCount >= options.limit) {
         let err = new LimitInParallelError(`Can only run this function maximum ${options.limit} times in parallel.`);
         if (options.throwErr) {
@@ -32,7 +33,7 @@ export let limitInParallel = function(fn, options = {}) {
       let result;
       let err;
       try {
-        result = await fn();
+        result = await origFn();
       } catch (err2) {
         err = err2;
       } finally {
@@ -44,10 +45,10 @@ export let limitInParallel = function(fn, options = {}) {
       }
       return result;
     };
-    return maxFun;
+    return fn;
   }
 
-  let maxFun = function() {
+  let fn = function() {
     if (activeCount >= options.limit) {
       let err = new LimitInParallelError(`Can only run this function maximum ${options.limit} times in parallel.`);
       if (options.throwErr) {
@@ -60,7 +61,7 @@ export let limitInParallel = function(fn, options = {}) {
     let result;
     let err;
     try {
-      result = fn();
+      result = origFn();
     } catch (err2) {
       err = err2;
     } finally {
@@ -72,8 +73,5 @@ export let limitInParallel = function(fn, options = {}) {
     }
     return result;
   };
-  return maxFun;
+  return fn;
 };
-
-// useful for checks like `err instanceof _.limitInParallel.Error`
-limitInParallel.Error = LimitInParallelError;

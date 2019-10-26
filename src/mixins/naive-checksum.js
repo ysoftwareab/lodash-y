@@ -1,11 +1,11 @@
-export let naiveChecksum = function(str) {
+export let naiveChecksum = function(string) {
   // eslint-disable-next-line consistent-this, babel/no-invalid-this
   let _ = this;
   let checksums = [];
   let checksum = 0;
 
-  _.forEach(str, function(_char, index) {
-    let charChecksum = str.charCodeAt(index) * (index + 1);
+  _.forEach(string, function(_char, index) {
+    let charChecksum = string.charCodeAt(index) * (index + 1);
     if (!Number.isSafeInteger(checksum + charChecksum)) {
       checksums.push(checksum);
       checksum = 0;

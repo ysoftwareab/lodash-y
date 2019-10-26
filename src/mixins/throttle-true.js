@@ -1,4 +1,4 @@
-export let throttleTrue = function(fn, interval) {
+export let throttleTrue = function(origFn, interval) {
   let lastInvokeTime = 0;
   let lastInvokeResult;
 
@@ -9,14 +9,14 @@ export let throttleTrue = function(fn, interval) {
     }
 
     lastInvokeTime = now;
-    lastInvokeResult = fn(...args);
+    lastInvokeResult = origFn(...args);
     return lastInvokeResult;
   };
 
   // special case for direct call
   if (interval === 0) {
     toInvoke = function(...args) {
-      return fn(...args);
+      return origFn(...args);
     };
   }
 

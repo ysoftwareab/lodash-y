@@ -5,8 +5,9 @@ import fs from 'fs';
 import outdent from 'outdent';
 import path from 'path';
 
-let _mixinData = fs.readdirSync(__dirname);
-_mixinData = _.reduce(_mixinData, function(acc, mixinModule) {
+let _mixinFiles = fs.readdirSync(__dirname);
+
+let _mixinData = _.reduce(_mixinFiles, function(acc, mixinModule) {
   if (path.extname(mixinModule) !== '.js') {
     return acc;
   }

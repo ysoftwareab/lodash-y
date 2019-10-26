@@ -8,7 +8,7 @@ export let consoleLogTime = async function(label, fn) {
   // eslint-disable-next-line no-console
   console.time(label);
 
-  let returnValue = await _.alwaysPromise(fn());
+  let returnValue = await fn();
 
   // eslint-disable-next-line no-console
   console.timeEnd(label);

@@ -19,7 +19,7 @@ export let requireDir = function(dir, filter = [
   } else if (_.isFunction(filter)) {
     // noop
   } else {
-    throw new Error(`Unknown type for requireExtensions '${typeof requireExtensions}.'`);
+    throw new Error(`Unknown type for filter '${typeof filter}.'`);
   }
 
   // eval('require') is a trick for webpack to ignore bundling the module

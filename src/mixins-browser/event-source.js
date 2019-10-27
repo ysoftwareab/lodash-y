@@ -1,6 +1,5 @@
 /* eslint-disable max-classes-per-file */
 
-import CustomEvent from 'custom-event';
 import _ from 'lodash';
 
 export class EventSourceCustomEvent extends CustomEvent {

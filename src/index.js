@@ -1,19 +1,15 @@
 import __ from 'lodash';
 import _mixins from './mixins';
-import _mixinsBrowser from './mixins-browser';
-import _mixinsNode from './mixins-node';
 
 /**
  * @typedef {import('lodash').LoDashStatic} LoDashStatic
- * @typedef {typeof _mixins & typeof _mixinsBrowser & typeof _mixinsNode} FirecloudLoDashMixins
+ * @typedef {typeof _mixins} FirecloudLoDashMixins
  * @typedef {LoDashStatic & FirecloudLoDashMixins} FirecloudLoDashStatic
  */
 
 /** @type {FirecloudLoDashMixins} */
 export let mixins = {
-  ..._mixins,
-  ..._mixinsBrowser,
-  ..._mixinsNode
+  ..._mixins
 };
 
 /** @type {FirecloudLoDashStatic} */

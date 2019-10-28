@@ -18,7 +18,8 @@ const getGlobalThis = () => {
 // Note: `var` is used instead of `const` to ensure `globalThis`
 // becomes a global variable (as opposed to a variable in the
 // top-level lexical scope) when running in the global scope.
-var globalThis = getGlobalThis();
+
+var globalThis = /** @type {typeof window} */ (getGlobalThis());
 
 // -----------------------------------------------------------------------------
 

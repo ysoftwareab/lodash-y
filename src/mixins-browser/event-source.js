@@ -1,13 +1,7 @@
 import _ from 'lodash';
 import globalThis from './.global-this';
 
-/**
- * @type {typeof CustomEvent}
- */
-export let CustomEventPolyfill = globalThis.CustomEvent || class CustomEvent {
-};
-
-export class EventSourceCustomEvent extends CustomEventPolyfill {
+export class EventSourceCustomEvent extends globalThis.CustomEvent {
 }
 
 /**

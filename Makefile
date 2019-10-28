@@ -6,12 +6,14 @@ endif
 endif
 
 include support-firecloud/repo/mk/node.common.mk
-include support-firecloud/repo/mk/js.build.ts.mk
 include support-firecloud/repo/mk/js.check.eslint.mk
 include support-firecloud/repo/mk/js.test.jest.mk
 include support-firecloud/repo/mk/core.misc.release.npg.mk
 
 # ------------------------------------------------------------------------------
+
+TSC = $(call npm-which,TSC,tsc)
+$(foreach VAR,TSC,$(call make-lazy,$(VAR)))
 
 JEST_ARGS += \
 	--no-cache \
@@ -21,7 +23,7 @@ SF_BUILD_TARGETS := \
 	src/mixins-browser/index.js \
 	src/mixins-node/index.js \
 	$(SF_BUILD_TARGETS) \
-	build-d-ts \
+	build-dts \
 
 # ------------------------------------------------------------------------------
 
@@ -40,6 +42,6 @@ src/mixins-node/index.js: src/mixins-node/tpl.index.js
 	$^ > $@
 
 
-.PHONY: build-d-ts
-build-d-ts:
+.PHONY: build-dts
+build-dts:
 	$(TSC) -p tsconfig.declaration.json

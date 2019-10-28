@@ -2,13 +2,10 @@
   "compilerOptions": {
     "allowJs": true,
     "checkJs": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
     "esModuleInterop": true,
     "module": "es6",
     "moduleResolution": "node",
-    "outDir": "lib",
-    "rootDir": "src",
+    "noEmit": true,
     "target": "es2018"
   },
   "include": [

@@ -21,6 +21,7 @@ SF_BUILD_TARGETS := \
 	src/mixins-browser/index.js \
 	src/mixins-node/index.js \
 	$(SF_BUILD_TARGETS) \
+	build-d-ts \
 
 # ------------------------------------------------------------------------------
 
@@ -37,3 +38,8 @@ src/mixins-browser/index.js: src/mixins-browser/tpl.index.js
 .PHONY: src/mixins-node/index.js
 src/mixins-node/index.js: src/mixins-node/tpl.index.js
 	$^ > $@
+
+
+.PHONY: build-d-ts
+build-d-ts:
+	$(TSC) -p tsconfig.declaration.json

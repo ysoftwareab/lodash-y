@@ -1,8 +1,15 @@
 /* eslint-disable max-classes-per-file */
 
 import _ from 'lodash';
+import globalThis from './.global-this';
 
-export class EventSourceCustomEvent extends CustomEvent {
+/**
+ * @type {typeof CustomEvent}
+ */
+export let CustomEventPolyfill = globalThis.CustomEvent || class CustomEvent {
+};
+
+export class EventSourceCustomEvent extends CustomEventPolyfill {
 }
 
 /**

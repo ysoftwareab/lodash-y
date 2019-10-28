@@ -1,5 +1,5 @@
+import * as _mixins from './mixins';
 import __ from 'lodash';
-import _mixins from './mixins';
 
 /**
  * @typedef {import('lodash').LoDashStatic} LoDashStatic

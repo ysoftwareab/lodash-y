@@ -26,7 +26,6 @@
     "@babel/cli": "^7.2.0",
     "@babel/core": "^7.2.0",
     "@babel/node": "^7.2.0",
-    "@babel/parser": "^7.2.0",
     "@babel/register": "^7.0.0",
     "@babel/runtime": "^7.2.0",
     "@getify/eslint-plugin-proper-arrows": "^8.0.1",
@@ -53,7 +52,7 @@
     "eslint-plugin-no-null": "^1.0.2",
     "jest": "^24.1.0",
     "npm-publish-git": "git://github.com/andreineculau/npm-publish-git.git#semver:~0.0.8",
-    "typescript": "^3.7.0-beta"
+    "typescript": "^3.7.1-rc"
   },
   "scripts": {
     "prepare": "make package-json-prepare"

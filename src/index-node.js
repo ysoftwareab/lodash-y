@@ -1,6 +1,6 @@
+import * as _mixins from './mixins';
+import * as _mixinsNode from './mixins-node';
 import __ from 'lodash';
-import _mixins from './mixins';
-import _mixinsNode from './mixins-node';
 
 /**
  * @typedef {import('lodash').LoDashStatic} LoDashStatic

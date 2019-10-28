@@ -1,6 +1,6 @@
+import * as _mixins from './mixins';
+import * as _mixinsBrowser from './mixins-browser';
 import __ from 'lodash';
-import _mixins from './mixins';
-import _mixinsBrowser from './mixins-browser';
 
 /**
  * @typedef {import('lodash').LoDashStatic} LoDashStatic

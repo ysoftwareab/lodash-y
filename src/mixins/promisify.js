@@ -5,8 +5,6 @@
 
 // NOTE follows closely Node.js util.promisify
 
-// A proper way to write this definition
-// https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/adone/glosses/promise.d.ts
 /**
  * Part of `lodash-firecloud`.
  *

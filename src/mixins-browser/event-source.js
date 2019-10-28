@@ -1,5 +1,3 @@
-/* eslint-disable max-classes-per-file */
-
 import _ from 'lodash';
 import globalThis from './.global-this';
 

@@ -3,5 +3,9 @@ module.exports = {
 
   extends: [
     'firecloud/node'
-  ]
+  ],
+
+  rules: {
+    'max-classes-per-file': 'off'
+  }
 };

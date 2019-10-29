@@ -56,7 +56,7 @@ let _init = function(_) {
  * Gets info about the V8 open handles.
  *
  * @param {Object} args Named args.
- * @param {RegExp[]=} args.skipFiles RegExps to test against when removing call sites.
+ * @param {RegExp[]} [args.skipFiles] RegExps to test against when removing call sites.
  *   By default a RegExp for internal filenames is provided.
  * @returns {V8OpenHandles[]} Returns a list of V8 open handles.
  */

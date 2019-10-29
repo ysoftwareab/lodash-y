@@ -25,6 +25,9 @@ SF_BUILD_TARGETS := \
 	$(SF_BUILD_TARGETS) \
 	build-dts \
 
+SF_BUILD_TARGETS += \
+	check-tsc \
+
 # ------------------------------------------------------------------------------
 
 .PHONY: src/mixins/index.js
@@ -45,3 +48,8 @@ src/mixins-node/index.js: src/mixins-node/tpl.index.js
 .PHONY: build-dts
 build-dts:
 	$(TSC) -p tsconfig.declaration.json
+
+
+.PHONY: check-tsc
+check-tsc:
+	$(TSC) --noEmit

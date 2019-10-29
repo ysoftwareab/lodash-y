@@ -1,4 +1,3 @@
-// TODO is there a way not to duplicate the function just because origFn is sync or async?
 
 // eslint-disable-next-line firecloud/underscore-prefix-non-exported
 let AsyncFunction = Object.getPrototypeOf(async function() { /* noop */ }).constructor;
@@ -6,6 +5,8 @@ let AsyncFunction = Object.getPrototypeOf(async function() { /* noop */ }).const
 // useful for checks like `err instanceof _.LimitInParallelError`
 export class LimitInParallelError extends Error {
 }
+
+// TODO is there a way not to duplicate the function just because origFn is sync or async?
 
 /**
  * Part of `lodash-firecloud`.

@@ -31,7 +31,7 @@ export let limitInParallel = function(origFn, options = {}) {
 
   // eslint-disable-next-line no-undef
   if (origFn instanceof AsyncFunction) {
-    let fn = async function() {
+    let fn = async function(...args) {
       if (activeCount >= options.limit) {
         let err = new LimitInParallelError(`Can only run this function maximum ${options.limit} times in parallel.`);
         if (options.throwErr) {
@@ -44,7 +44,7 @@ export let limitInParallel = function(origFn, options = {}) {
       let result;
       let err;
       try {
-        result = await origFn();
+        result = await origFn(...args);
       } catch (err2) {
         err = err2;
       } finally {
@@ -59,7 +59,7 @@ export let limitInParallel = function(origFn, options = {}) {
     return fn;
   }
 
-  let fn = function() {
+  let fn = function(...args) {
     if (activeCount >= options.limit) {
       let err = new LimitInParallelError(`Can only run this function maximum ${options.limit} times in parallel.`);
       if (options.throwErr) {
@@ -72,7 +72,7 @@ export let limitInParallel = function(origFn, options = {}) {
     let result;
     let err;
     try {
-      result = origFn();
+      result = origFn(...args);
     } catch (err2) {
       err = err2;
     } finally {

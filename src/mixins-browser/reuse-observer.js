@@ -1,3 +1,6 @@
+import _ from 'lodash';
+import globalThis from './.global-this';
+
 // Create an reusable matchy-match (and normalized) observer.
 // - reusable because it's the observe method that takes a callback, which will only fire for the matching entries
 // - matchy-match because the observe method takes a _.isMatch object to filter matching entries
@@ -37,9 +40,6 @@
 //
 // Similarly
 
-import _ from 'lodash';
-import globalThis from './.global-this';
-
 let _observerIsElementObserver = function(observer) {
   if (observer instanceof globalThis.IntersectionObserver) {
     return true;
@@ -51,6 +51,10 @@ let _observerIsElementObserver = function(observer) {
     return true;
   }
   return false;
+};
+
+let _memoizeResolver = function(Observer, isEntryMatch = '') {
+  return Observer.toString() + isEntryMatch.toString();
 };
 
 /**
@@ -70,7 +74,7 @@ let _observerIsElementObserver = function(observer) {
    * @returns {Observer} Returns a reused Observer.
   *
   */
-export let reuseObserver = function(Observer, isEntryMatch = _.isMatch) {
+export let reuseObserver = _.memoize(function(Observer, isEntryMatch = _.isMatch) {
   let matchListenerPairs = []; // [{match, listeners}]
   let cb = function(entries, ...args) {
     // normalize cb signature to always pass a reference to the observer
@@ -162,8 +166,4 @@ export let reuseObserver = function(Observer, isEntryMatch = _.isMatch) {
   };
 
   return observer;
-};
-// reuseObserver = _.memoize(reuseObserver, function(Observer, isEntryMatch = _.isMatch) {
-reuseObserver = _.memoize(reuseObserver, function(Observer, isEntryMatch = '') {
-  return Observer.toString() + isEntryMatch.toString();
 });

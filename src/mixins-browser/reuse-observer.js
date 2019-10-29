@@ -65,15 +65,15 @@ let _memoizeResolver = function(Observer, isEntryMatch = '') {
  */
 
 /**
-   * Part of `lodash-firecloud`.
-   *
-   * Gets info about the V8 open handles.
-   *
-   * @param {Observer} Observer The Observer class.
-   * @param {Function} [isEntryMatch=_.isMatch] The function to check if entries match.
-   * @returns {Observer} Returns a reused Observer.
-  *
-  */
+ * Part of `lodash-firecloud`.
+ *
+ * Gets info about the V8 open handles.
+ *
+ * @param {Observer} Observer The Observer class.
+ * @param {Function} [isEntryMatch=_.isMatch] The function to check if entries match.
+ * @returns {Observer} Returns a reused Observer.
+ *
+ */
 export let reuseObserver = _.memoize(function(Observer, isEntryMatch = _.isMatch) {
   let matchListenerPairs = []; // [{match, listeners}]
   let cb = function(entries, ...args) {

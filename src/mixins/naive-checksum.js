@@ -25,7 +25,8 @@ export let naiveChecksum = function(string) {
   checksums = _.map(checksums, function(checksum) {
     return checksum.toString(16);
   });
-  checksums = _.join(checksums, '');
 
-  return checksums;
+  let joinedChecksum = _.join(checksums, '');
+
+  return joinedChecksum;
 };

@@ -174,13 +174,13 @@ export let getV8OpenHandles = function(args = {}) {
           handleLines.push(`  at ${callSite.toString()}`);
         }
 
-        handleLines = _.join(handleLines, '\n');
-        lines.push(handleLines);
+        let joinedHandleLines = _.join(handleLines, '\n');
+        lines.push(joinedHandleLines);
       }
 
-      lines = _.join(lines, '\n\n');
+      let joinedLines = _.join(lines, '\n\n');
 
-      return lines;
+      return joinedLines;
     }
   });
 

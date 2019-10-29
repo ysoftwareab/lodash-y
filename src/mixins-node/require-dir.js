@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 /**
  * Part of `lodash-firecloud`.
  *
@@ -12,9 +14,6 @@ export let requireDir = function(dir, filter = [
   '.json',
   '.node'
 ]) {
-  // eslint-disable-next-line consistent-this, babel/no-invalid-this
-  let _ = this;
-
   if (_.isArray(filter)) {
     let requireExtensions = filter;
     filter = function(filename) {

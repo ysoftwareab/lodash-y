@@ -1,3 +1,4 @@
+import _ from 'lodash';
 
 // eslint-disable-next-line firecloud/underscore-prefix-non-exported
 let AsyncFunction = Object.getPrototypeOf(async function() { /* noop */ }).constructor;
@@ -23,9 +24,6 @@ export let limitInParallel = function(origFn, {
   limit = 1,
   throwErr = false
 } = {}) {
-  // eslint-disable-next-line consistent-this, babel/no-invalid-this
-  let _ = this;
-
   let activeCount = 0;
 
   // eslint-disable-next-line no-undef

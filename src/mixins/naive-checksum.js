@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 /**
  * Part of `lodash-firecloud`.
  *
@@ -7,8 +9,6 @@
  * @returns {string} Returns checksum.
  */
 export let naiveChecksum = function(string) {
-  // eslint-disable-next-line consistent-this, babel/no-invalid-this
-  let _ = this;
   let checksums = [];
   let checksum = 0;
 

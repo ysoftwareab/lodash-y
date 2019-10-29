@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 // NOTE if you need to check if an env var exist, use
 // '<var>' in someProxy
 // e.g. if ('PATH' in _.safeProxy(process.env)) { ...do smth with _.safeProxy(process.env).PATH... }
@@ -11,9 +13,6 @@
  * @returns {Proxy} Return a safe Proxy to env.
  */
 export let safeProxy = function(env) {
-  // eslint-disable-next-line consistent-this, babel/no-invalid-this
-  let _ = this;
-
   // eslint-disable-next-line fp/no-proxy
   return new Proxy(env, {
     get: function(target, property, _receiver) {
@@ -27,7 +26,7 @@ export let safeProxy = function(env) {
       if (property === 'clone') {
         return function() {
           let newTarget = _.clone(target);
-          return _.safeProxy(newTarget);
+          return safeProxy(newTarget);
         };
       }
 

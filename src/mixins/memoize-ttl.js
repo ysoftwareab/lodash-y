@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 /**
  * @typedef {import("lodash").MemoizedFunction} MemoizedFunction
  */
@@ -13,11 +15,8 @@
  * @returns {MemoizedFunction} Returns the new memoizing function.
  */
 export let memoizeTtl = function(ttl, origFn, resolver) {
-  // eslint-disable-next-line consistent-this, babel/no-invalid-this
-  let _ = this;
-
   let fn = function(...args) {
-    let key = _.isDefined(resolver) ? resolver(...args) : _.head(args);
+    let key = _.isUndefined(resolver) ? _.head(args) : resolver(...args);
     let {
       cache
     } = fn;

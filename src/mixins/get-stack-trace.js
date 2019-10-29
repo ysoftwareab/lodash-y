@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 /**
  * @typedef {import("callsite").CallSite} CallSite
  */
@@ -11,9 +13,6 @@
  * @returns {CallSite[]} Returns a structured stacktrace, that is a list of CallSite objects.
  */
 export let getStackTrace = function(level = Infinity) {
-  // eslint-disable-next-line consistent-this, babel/no-invalid-this
-  let _ = this;
-
   let {
     prepareStackTrace,
     stackTraceLimit

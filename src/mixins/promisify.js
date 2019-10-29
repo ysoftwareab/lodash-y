@@ -1,3 +1,9 @@
+import _ from 'lodash';
+
+import {
+  deferred
+} from './deferred';
+
 // NOTE follows closely Node.js util.promisify
 
 /**
@@ -20,32 +26,29 @@ export let promisify = function(origFn, {
   callbackFirst = false,
   errorInCallback = true
 } = {}) {
-  // eslint-disable-next-line consistent-this, babel/no-invalid-this
-  let _ = this;
-
   let fn = async function(...args) {
-    let deferred = _.deferred();
+    let d = deferred();
 
     let callback = function(...results) {
       if (errorInCallback) {
         let err = results.shift();
         if (err) {
-          deferred.reject(err);
+          d.reject(err);
           return;
         }
       }
 
       switch (results.length) {
       case 0:
-        deferred.resolve();
+        d.resolve();
         break;
 
       case 1:
-        deferred.resolve(results[0]);
+        d.resolve(results[0]);
         break;
 
       default:
-        deferred.resolve(results);
+        d.resolve(results);
         break;
       }
     };
@@ -57,7 +60,7 @@ export let promisify = function(origFn, {
     }
     origFn(...args);
 
-    return deferred.promise;
+    return d.promise;
   };
 
   Object.setPrototypeOf(fn, Object.getPrototypeOf(origFn));

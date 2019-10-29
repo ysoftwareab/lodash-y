@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 // NOTE global.require is a trick for webpack to ignore bundling the module
 
 let _asyncHooks;
@@ -61,9 +63,6 @@ let _init = function(_) {
  * @returns {V8OpenHandles[]} Returns a list of V8 open handles.
  */
 export let getV8OpenHandles = function(args = {}) {
-  // eslint-disable-next-line consistent-this, babel/no-invalid-this
-  let _ = this;
-
   args = _.defaults(args, {
     skipFiles: [
       /^internal\//
@@ -93,7 +92,7 @@ export let getV8OpenHandles = function(args = {}) {
     for (let skipFile of skipFiles) {
       handle.stackTrace = _.filter(handle.stackTrace, function(callSite) {
         let fileName = callSite.getFileName();
-        if (_.isDefined(fileName) && skipFile.test(fileName)) {
+        if (!_.isUndefined(fileName) && skipFile.test(fileName)) {
           return false;
         }
         return true;

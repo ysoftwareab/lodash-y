@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 // NOTE follows closely Node.js util.callbackify
 
 /**
@@ -17,9 +19,6 @@ export let callbackify = function(origFn, {
   errorInCallback = true,
   keepCallback = false
 } = {}) {
-  // eslint-disable-next-line consistent-this, babel/no-invalid-this
-  let _ = this;
-
   let fn = function(...args) {
     let origCallback;
     if (callbackFirst) {

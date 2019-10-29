@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 /**
   * Part of `lodash-firecloud`.
   *
@@ -15,9 +17,6 @@
   * @returns {Function} The throttled function.
   */
 export let throttleExp = function(origFn, wait, options = {}) {
-  // eslint-disable-next-line consistent-this, babel/no-invalid-this
-  let _ = this;
-
   _.defaults(options, {
     leading: true,
     trailing: true,

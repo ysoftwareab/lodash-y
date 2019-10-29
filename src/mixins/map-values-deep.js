@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 /**
  * Part of `lodash-firecloud`.
  *
@@ -8,12 +10,9 @@
  * @returns {Function} Returns a function that accepts an object, on which `fn` will be invoked with a list of `args`.
  */
 export let mapValuesDeep = function(fn) {
-  // eslint-disable-next-line consistent-this, babel/no-invalid-this
-  let _ = this;
-
   return function(obj, ...args) {
     return fn(_.mapValues(obj, function(v) {
-      return _.isPlainObject(v) ? _.mapValuesDeep(fn)(v, ...args) : v;
+      return _.isPlainObject(v) ? mapValuesDeep(fn)(v, ...args) : v;
     }), ...args);
   };
 };

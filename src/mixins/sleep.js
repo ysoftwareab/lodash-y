@@ -1,3 +1,9 @@
+import _ from 'lodash';
+
+import {
+  deferred
+} from './deferred';
+
 /**
  * Part of `lodash-firecloud`.
  *
@@ -8,10 +14,9 @@
  * @returns {Promise<void>} .
  */
 export let sleep = async function(ms = 0) {
-  // eslint-disable-next-line consistent-this, babel/no-invalid-this
-  let _ = this;
-
-  let deferred = _.deferred();
-  _.delay(deferred.resolve, ms);
-  await deferred.promise;
+  let d = deferred();
+  _.delay(function() {
+    d.resolve();
+  }, ms);
+  await d.promise;
 };

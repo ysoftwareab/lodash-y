@@ -1,9 +1,9 @@
+// NOTE follows closely Node.js util.promisify
+
 /**
  * @typedef {Function} AsyncFunction
  * @returns {Promise}
  */
-
-// NOTE follows closely Node.js util.promisify
 
 /**
  * Part of `lodash-firecloud`.

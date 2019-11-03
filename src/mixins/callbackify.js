@@ -14,21 +14,23 @@ import _ from 'lodash';
  * @param {boolean} [options.keepCallback='false'] Specifies if the callback arg should be passed to the Promise.
  * @returns {Function} Returns a callback-like function wrapping original `fn`.
  */
-export let callbackify = function(origFn, {
-  callbackFirst = false,
-  errorInCallback = true,
-  keepCallback = false
-} = {}) {
+export let callbackify = function(origFn, options = {}) {
+  _.defaults(options, {
+    callbackFirst: false,
+    errorInCallback: true,
+    keepCallback: false
+  });
+
   let fn = function(...args) {
     let origCallback;
-    if (callbackFirst) {
+    if (options.callbackFirst) {
       origCallback = _.head(args);
-      if (!keepCallback) {
+      if (!options.keepCallback) {
         args.shift();
       }
     } else {
       origCallback = _.last(args);
-      if (!keepCallback) {
+      if (!options.keepCallback) {
         args.pop();
       }
     }
@@ -39,7 +41,7 @@ export let callbackify = function(origFn, {
     };
 
     let onFullfilled = function(result) {
-      if (errorInCallback) {
+      if (options.errorInCallback) {
         setTimeout(callback, 0, undefined, result);
       } else {
         setTimeout(callback, 0, result);
@@ -47,7 +49,7 @@ export let callbackify = function(origFn, {
     };
 
     let onRejected = function(err) {
-      if (errorInCallback) {
+      if (options.errorInCallback) {
         setTimeout(callback, 0, err);
       } else {
         setTimeout(callback, 0);

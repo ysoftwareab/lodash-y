@@ -20,18 +20,19 @@ export class LimitInParallelError extends Error {
  * @param {boolean} [options.throwErr=false] Specifies whether to throw an error when the limit has been reached.
  * @returns {Function} Returns the new limited function.
  */
-export let limitInParallel = function(origFn, {
-  limit = 1,
-  throwErr = false
-} = {}) {
+export let limitInParallel = function(origFn, options = {}) {
+  _.defaults(options, {
+    limit: 1,
+    throwErr: false
+  });
   let activeCount = 0;
 
   // eslint-disable-next-line no-undef
   if (origFn instanceof AsyncFunction) {
     let fn = async function(...args) {
-      if (activeCount >= limit) {
-        let err = new LimitInParallelError(`Can only run this function maximum ${limit} times in parallel.`);
-        if (throwErr) {
+      if (activeCount >= options.limit) {
+        let err = new LimitInParallelError(`Can only run this function maximum ${options.limit} times in parallel.`);
+        if (options.throwErr) {
           throw err;
         }
         return err;
@@ -57,9 +58,9 @@ export let limitInParallel = function(origFn, {
   }
 
   let fn = function(...args) {
-    if (activeCount >= limit) {
-      let err = new LimitInParallelError(`Can only run this function maximum ${limit} times in parallel.`);
-      if (throwErr) {
+    if (activeCount >= options.limit) {
+      let err = new LimitInParallelError(`Can only run this function maximum ${options.limit} times in parallel.`);
+      if (options.throwErr) {
         throw err;
       }
       return err;

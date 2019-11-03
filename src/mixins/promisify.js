@@ -22,15 +22,16 @@ import {
  * @param {boolean} [options.errorInCallback=true] Specifies if error is the first argument to the callback.
  * @returns {AsyncFunction} Returns an async function wrapping the original function.
  */
-export let promisify = function(origFn, {
-  callbackFirst = false,
-  errorInCallback = true
-} = {}) {
+export let promisify = function(origFn, options = {}) {
+  _.defaults(options, {
+    callbackFirst: false,
+    errorInCallback: true
+  });
   let fn = async function(...args) {
     let d = deferred();
 
     let callback = function(...results) {
-      if (errorInCallback) {
+      if (options.errorInCallback) {
         let err = results.shift();
         if (err) {
           d.reject(err);
@@ -53,7 +54,7 @@ export let promisify = function(origFn, {
       }
     };
 
-    if (callbackFirst) {
+    if (options.callbackFirst) {
       args.unshift(callback);
     } else {
       args.push(callback);

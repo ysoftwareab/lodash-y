@@ -86,7 +86,7 @@ export class EventSource {
    * @returns {void}
    */
   on(type, listener) {
-    return this._addEventListener(type, listener);
+    this._addEventListener(type, listener);
   }
 
   /**
@@ -101,7 +101,7 @@ export class EventSource {
       once: true
     };
 
-    return this._addEventListener(type, listener, options);
+    this._addEventListener(type, listener, options);
   }
 
   /**
@@ -112,7 +112,7 @@ export class EventSource {
    * @returns {void}
    */
   off(type, listener) {
-    return this._removeEventListener(type, listener);
+    this._removeEventListener(type, listener);
   }
 
   /**

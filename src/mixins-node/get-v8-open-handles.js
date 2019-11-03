@@ -57,21 +57,17 @@ let _init = function(_) {
  *
  * Gets info about the V8 open handles.
  *
- * @param {Object} args Named args.
- * @param {RegExp[]} [args.skipFiles] RegExps to test against when removing call sites.
+ * @param {Object} options Options.
+ * @param {RegExp[]} [options.skipFiles] RegExps to test against when removing call sites.
  *   By default a RegExp for internal filenames is provided.
  * @returns {V8OpenHandles[]} Returns a list of V8 open handles.
  */
-export let getV8OpenHandles = function(args = {}) {
-  args = _.defaults(args, {
+export let getV8OpenHandles = function(options = {}) {
+  _.defaults(options, {
     skipFiles: [
       /^internal\//
     ]
   });
-
-  let {
-    skipFiles
-  } = args;
 
   // see https://github.com/lodash/lodash/blob/4ea8c2ec249be046a0f4ae32539d652194caf74f/.internal/freeGlobal.js
   // eslint-disable-next-line eqeqeq, no-null/no-null
@@ -89,7 +85,7 @@ export let getV8OpenHandles = function(args = {}) {
   ];
 
   for (let handle of v8OpenHandles) {
-    for (let skipFile of skipFiles) {
+    for (let skipFile of options.skipFiles) {
       handle.stackTrace = _.filter(handle.stackTrace, function(callSite) {
         let fileName = callSite.getFileName();
         if (!_.isUndefined(fileName) && skipFile.test(fileName)) {

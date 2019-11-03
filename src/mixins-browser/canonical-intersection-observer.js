@@ -1,13 +1,12 @@
 import _ from 'lodash';
 import globalThis from './.global-this';
 
-export class CanonicalIntersectionObserver extends IntersectionObserver {
+export class CanonicalIntersectionObserver {
   _cb = undefined;
 
   _observerPairs = [];
 
   constructor(cb) {
-    super(_.noop);
     this._cb = cb;
   }
 

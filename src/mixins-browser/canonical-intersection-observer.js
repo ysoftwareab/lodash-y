@@ -19,13 +19,18 @@ export class CanonicalIntersectionObserver {
       return;
     }
 
-    let observer = _.find(this._observerPairs, {
+    let observerPair = _.find(this._observerPairs, {
       options
     });
-    if (_.isUndefined(observer)) {
+    let observer;
+    if (_.isUndefined(observerPair)) {
       observer = new globalThis.IntersectionObserver((entries) => {
         this._cb(entries, this);
       }, options);
+    } else {
+      ({
+        observer
+      } = observerPair);
     }
 
     observer.observe(element);

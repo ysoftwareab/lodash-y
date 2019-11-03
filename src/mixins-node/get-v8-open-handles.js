@@ -1,16 +1,14 @@
 import _ from 'lodash';
+import asyncHooks from 'async_hooks';
 
-// NOTE global.require is a trick for webpack to ignore bundling the module
-
-let _asyncHooks;
 let _openHandles;
 
 let _init = function(_) {
   _openHandles = new Map();
-  let hook = _asyncHooks.createHook({
+  let hook = asyncHooks.createHook({
     // eslint-disable-next-line max-params
     init: function(asyncId, type, triggerAsyncId, resource) {
-      let executionAsyncId = _asyncHooks.executionAsyncId();
+      let executionAsyncId = asyncHooks.executionAsyncId();
       let stackTrace = _.getStackTrace();
 
       // ignore ourselves
@@ -68,13 +66,6 @@ export let getV8OpenHandles = function(options = {}) {
       /^internal\//
     ]
   });
-
-  // see https://github.com/lodash/lodash/blob/4ea8c2ec249be046a0f4ae32539d652194caf74f/.internal/freeGlobal.js
-  // eslint-disable-next-line eqeqeq, no-null/no-null
-  let freeGlobal = typeof global == 'object' && global !== null && global.Object === Object && global;
-
-  // @ts-ignore
-  _asyncHooks = freeGlobal.require('async_hooks');
 
   if (_.isUndefined(getV8OpenHandles.hook)) {
     getV8OpenHandles.hook = _init(_);

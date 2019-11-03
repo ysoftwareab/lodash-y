@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import globalThis from './.global-this';
 
 export class CanonicalIntersectionObserver extends IntersectionObserver {
   _cb = undefined;
@@ -23,7 +24,7 @@ export class CanonicalIntersectionObserver extends IntersectionObserver {
       options
     });
     if (_.isUndefined(observer)) {
-      observer = new IntersectionObserver((entries) => {
+      observer = new globalThis.IntersectionObserver((entries) => {
         this._cb(entries, this);
       }, options);
     }

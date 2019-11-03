@@ -15,29 +15,29 @@ include support-firecloud/repo/mk/core.misc.release.npg.mk
 # ------------------------------------------------------------------------------
 
 ESLINT_ARGS += \
-	--ignore-pattern '!.global-this.js' \
+	--ignore-pattern '!.global-this.ts' \
 
 JEST_ARGS += \
 	--no-cache \
 
 SF_BUILD_TARGETS := \
-	src/mixins/index.js \
-	src/mixins-browser/index.js \
-	src/mixins-node/index.js \
+	src/mixins/index.ts \
+	src/mixins-browser/index.ts \
+	src/mixins-node/index.ts \
 	$(SF_BUILD_TARGETS) \
 
 # ------------------------------------------------------------------------------
 
-.PHONY: src/mixins/index.js
-src/mixins/index.js: src/mixins/tpl.index.js
+.PHONY: src/mixins/index.ts
+src/mixins/index.ts: src/mixins/tpl.index.js
 	$^ > $@
 
 
-.PHONY: src/mixins-browser/index.js
-src/mixins-browser/index.js: src/mixins-browser/tpl.index.js
+.PHONY: src/mixins-browser/index.ts
+src/mixins-browser/index.ts: src/mixins-browser/tpl.index.js
 	$^ > $@
 
 
-.PHONY: src/mixins-node/index.js
-src/mixins-node/index.js: src/mixins-node/tpl.index.js
+.PHONY: src/mixins-node/index.ts
+src/mixins-node/index.ts: src/mixins-node/tpl.index.js
 	$^ > $@

@@ -2,6 +2,6 @@
 /VERSION
 /coverage/
 /lib/
-/src/mixins/index.js
-/src/mixins-browser/index.js
-/src/mixins-node/index.js
+/src/mixins/index.ts
+/src/mixins-browser/index.ts
+/src/mixins-node/index.ts

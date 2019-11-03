@@ -27,12 +27,12 @@ export class EventSource {
       passive: true
     });
 
-    let listenerProxy = async function(event) {
+    let listenerProxy = function(event) {
       if (event instanceof EventSourceCustomEvent) {
         event = event.detail;
       }
 
-      await listener(event);
+      listener(event);
     };
 
     this._listeners.push({

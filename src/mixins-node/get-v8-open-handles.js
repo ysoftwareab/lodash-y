@@ -60,7 +60,7 @@ let _init = function(_) {
  *   By default a RegExp for internal filenames is provided.
  * @returns {V8OpenHandles[]} Returns a list of V8 open handles.
  */
-export let getV8OpenHandles = function(options = {}) {
+export let getV8OpenHandles = _.assign(function(options = {}) {
   _.defaults(options, {
     skipFiles: [
       /^internal\//
@@ -171,6 +171,6 @@ export let getV8OpenHandles = function(options = {}) {
   });
 
   return v8OpenHandles;
-};
-
-getV8OpenHandles.hook = undefined;
+}, {
+  hook: undefined
+});

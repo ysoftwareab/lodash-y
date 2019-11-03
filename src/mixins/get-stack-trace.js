@@ -1,16 +1,12 @@
 import _ from 'lodash';
 
 /**
- * @typedef {import("callsite").CallSite} CallSite
- */
-
-/**
  * Part of `lodash-firecloud`.
  *
  * Gets the current stacktrace.
  *
  * @param {number} level The maximum stacktrace length.
- * @returns {CallSite[]} Returns a structured stacktrace, that is a list of CallSite objects.
+ * @returns {NodeJS.CallSite[]} Returns a structured stacktrace, that is a list of CallSite objects.
  */
 export let getStackTrace = function(level = Infinity) {
   let {

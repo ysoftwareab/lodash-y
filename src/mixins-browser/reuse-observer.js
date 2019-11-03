@@ -53,7 +53,7 @@ let _observerIsElementObserver = function(observer) {
   return false;
 };
 
-let _memoizeResolver = function(Observer, isEntryMatch = '') {
+let _memoizeResolver = function(Observer, isEntryMatch = _.isMatch) {
   return Observer.toString() + isEntryMatch.toString();
 };
 

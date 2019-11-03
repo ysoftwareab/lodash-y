@@ -14,6 +14,9 @@ include support-firecloud/repo/mk/core.misc.release.npg.mk
 
 # ------------------------------------------------------------------------------
 
+ESLINT_ARGS += \
+	--ignore-pattern '!.global-this.js' \
+
 JEST_ARGS += \
 	--no-cache \
 

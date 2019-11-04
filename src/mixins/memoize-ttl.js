@@ -15,7 +15,7 @@ import _ from 'lodash';
  * @returns {MemoizedFunction} Returns the new memoizing function.
  */
 export let memoizeTtl = _.assign(function(ttl, origFn, resolver) {
-  let fn = function(...args) {
+  let fn = _.assign(function(...args) {
     let key = _.isUndefined(resolver) ? _.head(args) : resolver(...args);
     let {
       cache
@@ -40,8 +40,9 @@ export let memoizeTtl = _.assign(function(ttl, origFn, resolver) {
     }) || cache;
 
     return value;
-  };
-  fn.cache = new (memoizeTtl.Cache || Map)();
+  }, {
+    cache: new (memoizeTtl.Cache || Map)()
+  });
   return fn;
 }, {
   Cache: Map

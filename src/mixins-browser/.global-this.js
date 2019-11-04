@@ -18,7 +18,7 @@ const getGlobalThis = () => {
 // becomes a global variable (as opposed to a variable in the
 // top-level lexical scope) when running in the global scope.
 
-var globalThis = /** @type {typeof window} */ (getGlobalThis());
+var globalThis = /** @type {Window} */ (getGlobalThis());
 
 // -----------------------------------------------------------------------------
 /* eslint-enable */

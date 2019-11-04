@@ -1,9 +1,8 @@
-/* eslint-disable eslint-comments/no-unlimited-disable */
-/* eslint-disable */
-
 // from https://mathiasbynens.be/notes/globalthis
 // and yes... "Don't use this!"
 
+/* eslint-disable eslint-comments/no-unlimited-disable */
+/* eslint-disable */
 // -----------------------------------------------------------------------------
 
 // A naive globalThis shim. Don’t use this!
@@ -22,5 +21,7 @@ const getGlobalThis = () => {
 var globalThis = /** @type {typeof window} */ (getGlobalThis());
 
 // -----------------------------------------------------------------------------
+/* eslint-enable */
 
+// eslint-disable-next-line import/no-default-export
 export default globalThis;

@@ -1,15 +1,19 @@
 import _ from 'lodash';
 import asyncHooks from 'async_hooks';
 
+import {
+  getStackTrace
+} from '../mixins/get-stack-trace';
+
 let _openHandles;
 
-let _init = function(_) {
+let _init = function() {
   _openHandles = new Map();
   let hook = asyncHooks.createHook({
     // eslint-disable-next-line max-params
     init: function(asyncId, type, triggerAsyncId, resource) {
       let executionAsyncId = asyncHooks.executionAsyncId();
-      let stackTrace = _.getStackTrace();
+      let stackTrace = getStackTrace();
 
       // ignore ourselves
       stackTrace.shift();
@@ -68,7 +72,7 @@ export let getV8OpenHandles = _.assign(function(options = {}) {
   });
 
   if (_.isUndefined(getV8OpenHandles.hook)) {
-    getV8OpenHandles.hook = _init(_);
+    getV8OpenHandles.hook = _init();
   }
 
   let v8OpenHandles = [

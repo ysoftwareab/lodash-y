@@ -5,24 +5,23 @@ import _ from 'lodash';
  *
  * Require all Node.js modules in a directory.
  *
- * @param {string} dir The directory.
- * @param {string[]|RegExp|Function} filter The allowed extensions for 'require' or a filtering function.
- * @returns {Array} Returns an array of required modules.
+ * @param dir The directory.
+ * @param filter The allowed extensions for 'require' or a filtering function.
+ * @returns Returns an array of required modules.
  */
-export let requireDir = function(dir, filter = [
+export let requireDir = function(dir: string, filter: string[]|RegExp|Function = [
   '.js',
   '.json',
   '.node'
-]) {
+]): unknown[] {
   if (_.isArray(filter)) {
     let requireExtensions = filter;
-    filter = function(filename) {
+    filter = function(filename): boolean {
       return _.includes(requireExtensions, path.extname(filename));
     };
   } else if (_.isRegExp(filter)) {
-    // let re = filter;
-    let re = /** @type {RegExp} */ (filter);
-    filter = function(filename) {
+    let re = filter;
+    filter = function(filename): boolean {
       return re.test(filename);
     };
   } else if (_.isFunction(filter)) {
@@ -44,11 +43,11 @@ export let requireDir = function(dir, filter = [
 
   files = _.sortBy(files);
 
-  files = _.map(files, function(file) {
+  files = _.map(files, function(file): string {
     return path.join(dir, file);
   });
 
-  let modules = _.map(files, function(file) {
+  let modules = _.map(files, function(file): unknown {
     let getProps = req(file);
     return getProps;
   });

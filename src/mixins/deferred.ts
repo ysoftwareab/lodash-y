@@ -1,30 +1,45 @@
-/**
- * Deferred definition.
- *
- * @typedef {Object} Deferred
- * @property {Promise} promise The internal promise.
- * @property {Function} resolve The resolve callback of the promise.
- * @property {Function} reject The reject callback of the promise.
- * @property {?} value The value that the promise resolved with.
- * @property {Error} err The error that the promise rejected with.
- */
+import {
+  Fn,
+  MaybePromise
+} from '../types';
+
+export interface Deferred<TValue> {
+
+  /**
+   * The internal promise.
+   */
+  promise: Promise<TValue>;
+
+  /**
+   * The resolve callback of the promise.
+   */
+  resolve: Fn<MaybePromise<void>, [TValue?]>;
+
+  /**
+   * The reject callback of the promise.
+   */
+  reject: Fn<MaybePromise<void>, [Error]>;
+
+  /**
+   * The value that the promise resolved with.
+   */
+  value?: TValue;
+
+  /**
+   * The error that the promise rejected with.
+   */
+  err?: Error;
+}
 
 /**
  * Part of `lodash-firecloud`.
  *
  * Create a Deferred object that references the promise, the resolve and reject functions.
  *
- * @returns {Deferred} Returns the Deferred object.
+ * @returns Returns the Deferred object.
  */
-export let deferred = function() {
-  let deferred = {
-    promise: undefined,
-    resolve: undefined,
-    reject: undefined,
-
-    value: undefined,
-    err: undefined
-  };
+export let deferred = function<TValue = unknown>(): Deferred<TValue> {
+  let deferred: Partial<Deferred<TValue>> = {};
 
   deferred.promise = new Promise(function(resolve, reject) {
     deferred.resolve = function(value) {
@@ -38,5 +53,5 @@ export let deferred = function() {
     };
   });
 
-  return deferred;
+  return deferred as Deferred<TValue>;
 };

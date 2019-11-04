@@ -1,3 +1,9 @@
+import _ from 'lodash';
+
+import {
+  Fn
+} from '../types';
+
 /**
  * @typedef {import("lodash").Cancelable} Cancelable
  * @typedef {Function & Cancelable} CancelableFunction
@@ -10,15 +16,15 @@
  * A lightweight version which does not allocate unnecessary timer,
  * comparing to the original _.throttle (which invokes _.debounce under the hood).
  *
- * @param {Function} origFn Function to throttle.
- * @param {number} interval Throttling interval.
- * @returns {CancelableFunction} The throttled function.
+ * @param origFn Function to throttle.
+ * @param interval Throttling interval.
+ * @returns The throttled function.
  */
-export let throttleTrue = function(origFn, interval) {
+export let throttleTrue = function<T extends Fn>(origFn: T, interval: number): T & _.Cancelable {
   let lastInvokeTime = 0;
   let lastInvokeResult;
 
-  let toInvoke = function(...args) {
+  let toInvoke = (function(...args): ReturnType<T> {
     let now = Date.now();
     if (now - lastInvokeTime < interval) {
       return lastInvokeResult;
@@ -27,7 +33,7 @@ export let throttleTrue = function(origFn, interval) {
     lastInvokeTime = now;
     lastInvokeResult = origFn(...args);
     return lastInvokeResult;
-  };
+  }) as T & _.Cancelable;
 
   // special case for direct call
   if (interval === 0) {

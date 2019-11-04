@@ -9,14 +9,22 @@ import _ from 'lodash';
  *
  * Create Proxy to an object object that will throw if a property is not set (nil).
  *
- * @param {Object} env The object.
- * @returns {Proxy} Return a safe Proxy to env.
+ * @param env The object.
+ * @returns Return a safe Proxy to env.
  */
-export let safeProxy = function(env) {
+export let safeProxy = function(env: _.Dictionary<unknown>): _.Dictionary<unknown> {
   // eslint-disable-next-line fp/no-proxy
   return new Proxy(env, {
-    get: function(target, property, _receiver) {
-      if (_.isSymbol(property) || _.includes([
+    get: function(target, property, _receiver): unknown {
+      if (_.isSymbol(property)) {
+        return target[property as any];
+      }
+
+      // ignore symbol
+      // TODO see https://github.com/microsoft/TypeScript/pull/29317
+      property = property as Exclude<typeof property, symbol>;
+
+      if (_.includes([
         'constructor',
         'length'
       ], property)) {
@@ -36,7 +44,6 @@ export let safeProxy = function(env) {
       }
 
       if (_.isNil(target[property])) {
-        // @ts-ignore
         throw new Error(`${property} is not set.`);
       }
 

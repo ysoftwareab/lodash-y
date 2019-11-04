@@ -1,13 +1,20 @@
+import {
+  MaybePromise
+} from '../types';
+
 /**
  * Part of `lodash-firecloud`.
  *
  * Log execution time of a function.
  *
- * @param {string} label Label for current measurement, that will be displayed in the console.
- * @param {Function} fn A function to measure execution time of.
- * @returns {Promise<?>} Returns the return value of the function.
+ * @param label Label for current measurement, that will be displayed in the console.
+ * @param fn A function to measure execution time of.
+ * @returns Returns the return value of the function.
  */
-export let consoleLogTime = async function(label, fn) {
+export let consoleLogTime = async function<TReturn extends MaybePromise<unknown>>(
+  label: string,
+  fn: () => TReturn
+): Promise<TReturn> {
   // eslint-disable-next-line no-console
   console.log(label);
 

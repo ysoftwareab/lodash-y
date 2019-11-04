@@ -12,12 +12,10 @@ export class EventTargetObserver {
   observe({
     target,
     type
-  }, options = {}) {
-    _.defaults(options, {
-      capture: undefined,
-      once: undefined,
-      passive: undefined
-    });
+  }: {
+    target: Node,
+    type: string
+  }, options: AddEventListenerOptions = {}): void {
     let cacheEntry = _.find(this._cache, {
       target,
       type,
@@ -27,7 +25,7 @@ export class EventTargetObserver {
     if (isObserving) {
       return;
     }
-    let listener = (e) => {
+    let listener = (e): void => {
       let entries = [
         e
       ];
@@ -44,10 +42,10 @@ export class EventTargetObserver {
   unobserve({
     target,
     type
-  }, options = {}) {
-    _.defaults(options, {
-      capture: undefined
-    });
+  }: {
+    target: Node,
+    type: string
+  }, options: EventListenerOptions = {}): void {
     let cacheEntry = _.find(this._cache, {
       target,
       type,
@@ -62,7 +60,7 @@ export class EventTargetObserver {
     _.pull(this._cache, cacheEntry);
   }
 
-  disconnect() {
+  disconnect(): void {
     _.forEach(this._cache, ({
       target,
       type,

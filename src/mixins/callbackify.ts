@@ -1,5 +1,10 @@
 import _ from 'lodash';
 
+import {
+  AsyncFn,
+  CallbackFn
+} from '../types';
+
 // NOTE follows closely Node.js util.callbackify
 
 /**
@@ -7,21 +12,26 @@ import _ from 'lodash';
  *
  * Convert Promise into callback-like function.
  *
- * @param {Function} origFn Promise to callbackify.
- * @param {Object} options Options object.
- * @param {boolean} [options.callbackFirst='false'] Specifies if callback is a first arg.
- * @param {boolean} [options.errorInCallback='true'] Specifies if the first arg of callback is an error.
- * @param {boolean} [options.keepCallback='false'] Specifies if the callback arg should be passed to the Promise.
- * @returns {Function} Returns a callback-like function wrapping original `fn`.
+ * @param origFn Promise to callbackify.
+ * @param options Options object.
+ * @param [options.callbackFirst=false] Specifies if callback is a first arg.
+ * @param [options.errorInCallback=true] Specifies if the first arg of callback is an error.
+ * @param [options.keepCallback=false] Specifies if the callback arg should be passed to the Promise.
+ * @returns Returns a callback-like function wrapping original `fn`.
  */
-export let callbackify = function(origFn, options = {}) {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export let callbackify = function(origFn: AsyncFn, options: {
+  callbackFirst?: boolean,
+  errorInCallback?: boolean,
+  keepCallback?: boolean
+} = {}): CallbackFn {
   _.defaults(options, {
     callbackFirst: false,
     errorInCallback: true,
     keepCallback: false
   });
 
-  let fn = function(...args) {
+  let fn = function(...args): void {
     let origCallback;
     if (options.callbackFirst) {
       origCallback = _.head(args);
@@ -34,13 +44,13 @@ export let callbackify = function(origFn, options = {}) {
         args.pop();
       }
     }
-    let callback = (...args) => {
+    let callback = (...args): void => {
       // eslint-disable-next-line babel/no-invalid-this
       Reflect.apply(origCallback, this, args);
       // origCallback(...args);
     };
 
-    let onFullfilled = function(result) {
+    let onFullfilled = function(result): void {
       if (options.errorInCallback) {
         setTimeout(callback, 0, undefined, result);
       } else {
@@ -48,7 +58,7 @@ export let callbackify = function(origFn, options = {}) {
       }
     };
 
-    let onRejected = function(err) {
+    let onRejected = function(err): void {
       if (options.errorInCallback) {
         setTimeout(callback, 0, err);
       } else {

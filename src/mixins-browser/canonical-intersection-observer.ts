@@ -4,13 +4,17 @@ import globalThis from './.global-this';
 export class CanonicalIntersectionObserver {
   _cb = undefined;
 
-  _observerPairs = [];
+  _observerPairs: {
+    element: Element,
+    options: IntersectionObserverInit,
+    observer: IntersectionObserver
+  }[] = [];
 
   constructor(cb) {
     this._cb = cb;
   }
 
-  observe(element, options) {
+  observe(element: Element, options: IntersectionObserverInit): void {
     let alreadyObserving = _.some(this._observerPairs, {
       element,
       options
@@ -22,7 +26,7 @@ export class CanonicalIntersectionObserver {
     let observerPair = _.find(this._observerPairs, {
       options
     });
-    let observer;
+    let observer: IntersectionObserver;
     if (_.isUndefined(observerPair)) {
       observer = new globalThis.IntersectionObserver((entries) => {
         this._cb(entries, this);
@@ -30,7 +34,7 @@ export class CanonicalIntersectionObserver {
     } else {
       ({
         observer
-      } = observerPair);
+       } = observerPair);
     }
 
     observer.observe(element);
@@ -41,13 +45,13 @@ export class CanonicalIntersectionObserver {
     });
   }
 
-  unobserve(element, options) {
+  unobserve(element: Element, options: IntersectionObserverInit): void {
     let observerPairs = _.filter(this._observerPairs, {
       element,
       options
     });
 
-    _.forEach(observerPairs, function({element, _options, observer}) {
+    _.forEach(observerPairs, function({element, observer}) {
       observer.unobserve(element);
     });
 
@@ -58,8 +62,10 @@ export class CanonicalIntersectionObserver {
     });
   }
 
-  disconnect() {
-    let observers = _.map(this._observerPairs, 'observers');
+  disconnect(): void {
+    let observers = _.map(this._observerPairs, function(observerPair) {
+      return observerPair.observer;
+    });
     observers = _.uniq(observers);
     _.forEach(observers, function(observer) {
       observer.disconnect();

@@ -1,6 +1,10 @@
 import _ from 'lodash';
 import globalThis from './.global-this';
 
+import {
+  CallbackFn
+} from '../types';
+
 // Create an reusable matchy-match (and normalized) observer.
 // - reusable because it's the observe method that takes a callback, which will only fire for the matching entries
 // - matchy-match because the observe method takes a _.isMatch object to filter matching entries
@@ -40,7 +44,17 @@ import globalThis from './.global-this';
 //
 // Similarly
 
-let _observerIsElementObserver = function(observer) {
+export interface Observer {
+  new(cb: (entries: unknown[], ...args: unknown[]) => void);
+  observe(...args: unknown[]): CallbackFn | unknown;
+  unobserve(...args: unknown[]): unknown;
+}
+
+type isEntryMatchFn = (source: object, object: object) => boolean;
+
+type ElementObserver = IntersectionObserver | MutationObserver | ResizeObserver;
+
+let _observerIsElementObserver = function(observer: ElementObserver | unknown): observer is ElementObserver {
   if (observer instanceof globalThis.IntersectionObserver) {
     return true;
   }
@@ -53,30 +67,23 @@ let _observerIsElementObserver = function(observer) {
   return false;
 };
 
-let _memoizeResolver = function(Observer, isEntryMatch = _.isMatch) {
+let _memoizeResolver = function(Observer: Observer, isEntryMatch: isEntryMatchFn): string {
   return Observer.toString() + isEntryMatch.toString();
 };
-
-/**
- * @typedef {Object} Observer
- * @class
- * @property {Function} observe
- * @property {Function} [unobserve]
- */
 
 /**
  * Part of `lodash-firecloud`.
  *
  * Gets info about the V8 open handles.
  *
- * @param {Observer} Observer The Observer class.
- * @param {Function} [isEntryMatch=_.isMatch] The function to check if entries match.
- * @returns {Observer} Returns a reused Observer.
+ * @param Observer The Observer class.
+ * @param [isEntryMatch=_.isMatch] The function to check if entries match.
+ * @returns Returns a reused Observer.
  *
  */
-export let reuseObserver = _.memoize(function(Observer, isEntryMatch = _.isMatch) {
+export let reuseObserver = _.memoize(function(Observer: Observer, isEntryMatch: isEntryMatchFn = _.isMatch): Observer {
   let matchListenerPairs = []; // [{match, listeners}]
-  let cb = function(entries, ...args) {
+  let cb = function(entries, ...args): void {
     // normalize cb signature to always pass a reference to the observer
     // eslint-disable-next-line babel/no-invalid-this
     if (_.includes(args, this)) {
@@ -84,12 +91,12 @@ export let reuseObserver = _.memoize(function(Observer, isEntryMatch = _.isMatch
       args.push(this);
     }
 
-    _.forEach(matchListenerPairs, function({match, listeners}) {
-      let matchingEntries = _.filter(entries, function(entry) {
+    _.forEach(matchListenerPairs, function({match, listeners}): void {
+      let matchingEntries = _.filter(entries, function(entry): boolean {
         return isEntryMatch(entry, match);
       });
 
-      _.forEach(listeners, function(listener) {
+      _.forEach(listeners, function(listener): void {
         listener(matchingEntries, ...args);
       });
     });
@@ -99,7 +106,7 @@ export let reuseObserver = _.memoize(function(Observer, isEntryMatch = _.isMatch
   observer._cb = cb.bind(observer);
   let originalObserve = observer.observe;
   originalObserve = originalObserve.bind(observer);
-  observer.observe = function(match, listener, ...observeArgs) {
+  observer.observe = function(match, listener, ...observeArgs): CallbackFn {
     // convenience for known element observers
     if (_observerIsElementObserver(observer)) {
       if (_.isElement(match)) {
@@ -125,7 +132,7 @@ export let reuseObserver = _.memoize(function(Observer, isEntryMatch = _.isMatch
     matchListenersPair.listeners.push(listener);
     originalObserve(...observeArgs);
 
-    let unobserve = (...args) => {
+    let unobserve = (...args): void => {
       this.unobserve(match, listener, ...args);
     };
     return unobserve;
@@ -135,7 +142,7 @@ export let reuseObserver = _.memoize(function(Observer, isEntryMatch = _.isMatch
   if (_.isFunction(originalUnobserve)) {
     originalUnobserve = originalUnobserve.bind(observer);
   }
-  observer.unobserve = function(match, listener, ...unobserveArgs) {
+  observer.unobserve = function(match, listener, ...unobserveArgs): void {
     if (_.isFunction(originalUnobserve)) {
       // convenience for known element observers
       if (_observerIsElementObserver(observer)) {
@@ -160,7 +167,7 @@ export let reuseObserver = _.memoize(function(Observer, isEntryMatch = _.isMatch
 
   let originalDisconnect = observer.disconnect;
   originalDisconnect = originalDisconnect.bind(observer);
-  observer.disconnect = function() {
+  observer.disconnect = function(): void {
     originalDisconnect();
     matchListenerPairs = [];
   };

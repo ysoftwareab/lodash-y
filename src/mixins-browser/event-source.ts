@@ -1,7 +1,9 @@
 import _ from 'lodash';
 import globalThis from './.global-this';
 
-export class EventSourceCustomEvent extends globalThis.CustomEvent {
+export type EventSourceListener = (eventDetail: EventSourceCustomEvent['detail']) => void;
+
+export class EventSourceCustomEvent<T = any> extends globalThis.CustomEvent<T> {
 }
 
 /**
@@ -12,22 +14,14 @@ export class EventSource {
 
   _listeners = [];
 
-  /**
-   * @param {string} type
-   * @param {Function} listener
-   * @param {Object} options
-   * @param {boolean} [options.capture=true]
-   * @param {boolean} [options.once]
-   * @param {boolean} [options.passive=true]
-   * @returns {void}
-   */
-  _addEventListener(type, listener, options = {}) {
+  _addEventListener(type: string, listener: EventSourceListener, options?: AddEventListenerOptions): void {
     _.defaults(options, {
       capture: true,
       passive: true
     });
-
-    let listenerProxy = function(event) {
+    let listenerProxy = function(
+      event: EventSourceCustomEvent | EventSourceCustomEvent['detail']
+    ): void {
       if (event instanceof EventSourceCustomEvent) {
         event = event.detail;
       }
@@ -44,16 +38,7 @@ export class EventSource {
     this._element.addEventListener(type, listenerProxy, options);
   }
 
-  /**
-   * @param {string} type
-   * @param {Function} listener
-   * @param {Object} options
-   * @param {boolean} [options.capture=true]
-   * @param {boolean} [options.once]
-   * @param {boolean} [options.passive=true]
-   * @returns {void}
-   */
-  _removeEventListener(type, listener, options = {}) {
+  _removeEventListener(type: string, listener: EventSourceListener, options?: AddEventListenerOptions): void {
     _.defaults(options, {
       capture: true,
       passive: true
@@ -81,22 +66,22 @@ export class EventSource {
   /**
    * Add a listener for a specific event type.
    *
-   * @param {string} type
-   * @param {Function} listener
-   * @returns {void}
+   * @param type
+   * @param listener
+   * @returns .
    */
-  on(type, listener) {
+  on(type: string, listener: EventSourceListener): void {
     this._addEventListener(type, listener);
   }
 
   /**
    * Add a listener for a specific event type, that will only be called once.
    *
-   * @param {string} type
-   * @param {Function} listener
-   * @returns {void}
+   * @param type
+   * @param listener
+   * @returns .
    */
-  once(type, listener) {
+  once(type: string, listener: EventSourceListener): void {
     let options = {
       once: true
     };
@@ -107,23 +92,23 @@ export class EventSource {
   /**
    * Remove a listener for a specific event type.
    *
-   * @param {string} type
-   * @param {Function} listener
-   * @returns {void}
+   * @param type
+   * @param listener
+   * @returns .
    */
-  off(type, listener) {
+  off(type: string, listener: EventSourceListener): void {
     this._removeEventListener(type, listener);
   }
 
   /**
    * Emit an event and call relevant listeners.
    *
-   * @param {string | Event} eventOrType
-   * @param {Object} [detail={}]
-   * @returns {void}
+   * @param eventOrType
+   * @param detail
+   * @returns .
    */
-  emit(eventOrType, detail = {}) {
-    let event;
+  emit(eventOrType: string | Event, detail: EventSourceCustomEvent['detail']): void {
+    let event: Event;
 
     if (eventOrType instanceof Event) {
       event = eventOrType;

@@ -6,6 +6,6 @@ import _hardRejection from 'hard-rejection';
  * Install the hard-rejection handler.
  * See https://www.npmjs.com/package/hard-rejection
  *
- * @returns {void}
+ * @returns .
  */
 export let hardRejection = _hardRejection;

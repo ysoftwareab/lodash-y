@@ -1,21 +1,25 @@
 import _ from 'lodash';
 
-/**
- * @typedef {import("lodash").MemoizedFunction} MemoizedFunction
- */
+import {
+  Fn
+} from '../types';
 
 /**
  * Part of `lodash-firecloud`.
  *
  * Create a function that memoizes the result of origFn for a specific TTL time window.
  *
- * @param {number} ttl The number of milliseconds to keep the output memoized.
- * @param {Function} origFn The function to have its output memoized.
- * @param {Function=} resolver The function to resolve the cache key.
- * @returns {MemoizedFunction} Returns the new memoizing function.
+ * @param ttl The number of milliseconds to keep the output memoized.
+ * @param origFn The function to have its output memoized.
+ * @param resolver The function to resolve the cache key.
+ * @returns Returns the new memoizing function.
  */
-export let memoizeTtl = _.assign(function(ttl, origFn, resolver) {
-  let fn = _.assign(function(...args) {
+export let memoizeTtl = _.assign(function<T extends Fn>(
+  ttl: number,
+  origFn: T,
+  resolver?: (...args: Parameters<T>) => string
+): T {
+  let fn = _.assign(function(...args: Parameters<T>): ReturnType<T> {
     let key = _.isUndefined(resolver) ? _.head(args) : resolver(...args);
     let {
       cache
@@ -39,10 +43,12 @@ export let memoizeTtl = _.assign(function(ttl, origFn, resolver) {
       expires
     }) || cache;
 
-    return value;
+    return value as ReturnType<T>;
   }, {
     cache: new (memoizeTtl.Cache || Map)()
   });
+
+  // @ts-ignore
   return fn;
 }, {
   Cache: Map

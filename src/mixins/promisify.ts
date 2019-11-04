@@ -4,33 +4,38 @@ import {
   deferred
 } from './deferred';
 
-// NOTE follows closely Node.js util.promisify
+import {
+  AsyncFn,
+  Fn,
+  CallbackFn
+} from '../types';
 
-/**
- * @typedef {Function} AsyncFunction
- * @returns {Promise}
- */
+// NOTE follows closely Node.js util.promisify
 
 /**
  * Part of `lodash-firecloud`.
  *
  * Convert callback-like function into Promise.
  *
- * @param {Function} origFn Callback-based function to promisify.
- * @param {Object} options Options.
- * @param {boolean} [options.callbackFirst=false] Specifies if the callback is the first argument to origFn.
- * @param {boolean} [options.errorInCallback=true] Specifies if error is the first argument to the callback.
- * @returns {AsyncFunction} Returns an async function wrapping the original function.
+ * @param origFn Callback-based function to promisify.
+ * @param options Options.
+ * @param [options.callbackFirst=false] Specifies if the callback is the first argument to origFn.
+ * @param [options.errorInCallback=true] Specifies if error is the first argument to the callback.
+ * @returns Returns an async function wrapping the original function.
  */
-export let promisify = function(origFn, options = {}) {
+export let promisify = function(origFn: Fn, options: {
+  callbackFirst?: boolean,
+  errorInCallback?: boolean
+} = {}): AsyncFn {
   _.defaults(options, {
     callbackFirst: false,
     errorInCallback: true
   });
-  let fn = async function(...args) {
+
+  let fn = async function(...args): Promise<unknown> {
     let d = deferred();
 
-    let callback = function(...results) {
+    let callback = function(...results): CallbackFn {
       if (options.errorInCallback) {
         let err = results.shift();
         if (err) {

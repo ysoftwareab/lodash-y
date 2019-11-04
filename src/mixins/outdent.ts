@@ -5,8 +5,8 @@ import _outdent from 'outdent';
  *
  * Tag to outdent template literals.
  *
- * @param {Array} strings Template strings.
- * @param {...?} values Values.
- * @returns {string} Returns an outdented string.
+ * @param strings Template strings.
+ * @param values Values.
+ * @returns Returns an outdented string.
  */
 export let outdent = _outdent;

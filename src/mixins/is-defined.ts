@@ -5,9 +5,9 @@ import _ from 'lodash';
  *
  * Checks if value is defined.
  *
- * @param {?} value The value to check.
- * @returns {boolean} Returns true if value is defined, else false.
+ * @param value The value to check.
+ * @returns Returns true if value is defined, else false.
  */
-export let isDefined = function(value) {
+export let isDefined = function(value: unknown): boolean {
   return !_.isUndefined(value);
 };

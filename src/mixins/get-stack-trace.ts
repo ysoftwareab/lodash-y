@@ -5,16 +5,16 @@ import _ from 'lodash';
  *
  * Gets the current stacktrace.
  *
- * @param {number} level The maximum stacktrace length.
- * @returns {NodeJS.CallSite[]} Returns a structured stacktrace, that is a list of CallSite objects.
+ * @param level The maximum stacktrace length.
+ * @returns Returns a structured stacktrace, that is a list of CallSite objects.
  */
-export let getStackTrace = function(level = Infinity) {
+export let getStackTrace = function(level = Infinity): NodeJS.CallSite[] {
   let {
     prepareStackTrace,
     stackTraceLimit
   } = Error;
 
-  let structuredStackTrace = [];
+  let structuredStackTrace = [] as NodeJS.CallSite[];
   Error.stackTraceLimit = level + 1;
   Error.prepareStackTrace = function(err, structuredStackTrace2) {
     structuredStackTrace = [

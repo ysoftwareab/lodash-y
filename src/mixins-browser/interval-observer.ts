@@ -9,7 +9,7 @@ export class IntervalObserver {
     this._cb = cb;
   }
 
-  observe({interval}) {
+  observe({interval}): void {
     let cacheEntry = _.find(this._cache, {
       interval
     });
@@ -29,7 +29,7 @@ export class IntervalObserver {
     });
   }
 
-  unobserve({interval}) {
+  unobserve({interval}): void {
     let cacheEntry = _.find(this._cache, {
       interval
     });
@@ -42,7 +42,7 @@ export class IntervalObserver {
     _.pull(this._cache, cacheEntry);
   }
 
-  disconnect() {
+  disconnect(): void {
     _.forEach(this._cache, ({interval}) => {
       this.unobserve(interval);
     });

@@ -2,21 +2,16 @@ import * as _mixins from './mixins';
 import * as _mixinsBrowser from './mixins-browser';
 import __ from 'lodash';
 
-/**
- * @typedef {import('lodash').LoDashStatic} LoDashStatic
- * @typedef {typeof _mixins & typeof _mixinsBrowser} FirecloudBrowserLoDashMixins
- * @typedef {LoDashStatic & FirecloudBrowserLoDashMixins} FirecloudBrowserLoDashStatic
- */
+// eslint-disable-next-line @typescript-eslint/no-type-alias
+export type FirecloudBrowserLoDashStatic = __.LoDashStatic & typeof _mixins & typeof _mixinsBrowser;
 
-/** @type {FirecloudBrowserLoDashMixins} */
+
 export let mixins = {
   ..._mixins,
   ..._mixinsBrowser
 };
 
-/** @type {FirecloudBrowserLoDashStatic} */
-// @ts-ignore TS2345
 // eslint-disable-next-line firecloud/no-underscore-prefix-exported
-export let _ = __.runInContext().mixin(mixins);
+export let _ = __.runInContext().mixin(mixins as any) as FirecloudBrowserLoDashStatic;
 
 export default _;

@@ -5,10 +5,10 @@ import _ from 'lodash';
  *
  * Calculate a naïve checksum of a string.
  *
- * @param {string} string String to calculate checksum of.
- * @returns {string} Returns checksum.
+ * @param string String to calculate checksum of.
+ * @returns Returns checksum.
  */
-export let naiveChecksum = function(string) {
+export let naiveChecksum = function(string: string): string {
   let checksums = [];
   let checksum = 0;
 

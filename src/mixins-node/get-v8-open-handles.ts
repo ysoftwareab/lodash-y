@@ -5,9 +5,18 @@ import {
   getStackTrace
 } from '../mixins/get-stack-trace';
 
-let _openHandles;
+export interface V8OpenHandle {
+  time: number;
+  asyncId: number;
+  triggerAsyncId: number;
+  resource: object;
+  executionAsyncId: number;
+  stackTrace: NodeJS.CallSite[];
+}
 
-let _init = function() {
+let _openHandles: Map<V8OpenHandle['asyncId'], V8OpenHandle>;
+
+let _init = function(): asyncHooks.AsyncHook {
   _openHandles = new Map();
   let hook = asyncHooks.createHook({
     // eslint-disable-next-line max-params
@@ -45,26 +54,18 @@ let _init = function() {
 };
 
 /**
- * @typedef {Object} V8OpenHandles
- * @property {number} time,
- * @property {number} asyncId
- * @property {number} triggerAsyncId
- * @property {Object} resource,
- * @property {number} executionAsyncId
- * @property {string[]} stackTrace
- */
-
-/**
  * Part of `lodash-firecloud`.
  *
  * Gets info about the V8 open handles.
  *
- * @param {Object} options Options.
- * @param {RegExp[]} [options.skipFiles] RegExps to test against when removing call sites.
+ * @param options Options.
+ * @param [options.skipFiles] RegExps to test against when removing call sites.
  *   By default a RegExp for internal filenames is provided.
- * @returns {V8OpenHandles[]} Returns a list of V8 open handles.
+ * @returns Returns a list of V8 open handles.
  */
-export let getV8OpenHandles = _.assign(function(options = {}) {
+export let getV8OpenHandles = _.assign(function(options: {
+  skipFiles?: RegExp[]
+} = {}): V8OpenHandle[] {
   _.defaults(options, {
     skipFiles: [
       /^internal\//

@@ -5,11 +5,11 @@ import _ from 'lodash';
  *
  * Same as _.merge but don't merge arrays. Just concat them.
  *
- * @param {Object} object The destination object.
- * @param {...Object} sources The source objects.
- * @returns {Object} Returns object.
+ * @param object The destination object.
+ * @param ources The source objects.
+ * @returns Returns object.
  */
-export let mergeConcatArrays = function(object, ...sources) {
+export let mergeConcatArrays = function(object, ...sources): unknown {
   return _.mergeWith(object, ...sources, function(objValue, srcValue) {
     // treat arrays as concat-merge, don't deep merge by index
     if (_.isArray(objValue) && _.isArray(srcValue)) {

@@ -19,7 +19,6 @@ import {
  * @param [options.keepCallback=false] Specifies if the callback arg should be passed to the Promise.
  * @returns Returns a callback-like function wrapping original `fn`.
  */
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export let callbackify = function(origFn: AsyncFn, options: {
   callbackFirst?: boolean,
   errorInCallback?: boolean,

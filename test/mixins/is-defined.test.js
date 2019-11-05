@@ -19,9 +19,8 @@ let falsey = [
 ];
 
 let toArgs = function(array) {
-  return (function() {
-    // eslint-disable-next-line fp/no-arguments
-    return arguments;
+  return (function(...args) {
+    return args;
   })(...array);
 };
 
@@ -75,6 +74,7 @@ describe('isDefined', function() {
     }
   });
 
+  // eslint-disable-next-line jest/no-commented-out-tests
   // it('should work with `undefined` from another realm', function() {
   //   if (realm.object) {
   //     expect(_.isDefined(realm.undefined)).toBe(false);

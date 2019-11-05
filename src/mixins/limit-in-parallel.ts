@@ -63,16 +63,17 @@ export let limitInParallel = function<
       } catch (err2) {
         err = err2;
       } finally {
+        // eslint-disable-next-line require-atomic-updates
         activeCount = activeCount - 1;
       }
 
-      if (err) {
+      if (!_.isUndefined(err)) {
         throw err;
       }
       return result;
     };
-  // @ts-ignore
-  return fn;
+    // @ts-ignore
+    return fn;
   }
 
   let fn = function(...args: unknown[]): ReturnType<T> | LimitInParallelError {
@@ -95,7 +96,7 @@ export let limitInParallel = function<
       activeCount = activeCount - 1;
     }
 
-    if (err) {
+    if (!_.isUndefined(err)) {
       throw err;
     }
     return result;

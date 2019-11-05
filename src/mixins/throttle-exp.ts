@@ -18,7 +18,7 @@ import {
  * @param [options.multiplier=2] Specifies a multiplier for `wait` applied on every actual invocation.
  * @param [options.divider=Infinity] Specifies a divider for `wait` used on actual invocation
  * if the previous call was not throttled.
- * @returns {Function} The throttled function.
+ * @returns The throttled function.
  */
 export let throttleExp = function<T extends Fn>(origFn: T, wait: number, options: {
   leading?: boolean,
@@ -60,14 +60,14 @@ export let throttleExp = function<T extends Fn>(origFn: T, wait: number, options
   };
 
   let tryTrailing = function(): void {
-    if (options.trailing && lastCall) {
+    if (options.trailing && !_.isUndefined(lastCall)) {
       setTimer();
       invokeFn();
     }
   };
 
   let clearTimer = function(): void {
-    if (!timer) {
+    if (_.isUndefined(timer)) {
       return;
     }
 
@@ -81,11 +81,11 @@ export let throttleExp = function<T extends Fn>(origFn: T, wait: number, options
   };
 
   let setTimer = function(): void {
-    if (timer) {
+    if (!_.isUndefined(timer)) {
       return;
     }
 
-    if (!curWait) {
+    if (_.isUndefined(curWait)) {
       curWait = wait; // first call
     } else if (wasThrottled) {
       curWait = curWait * options.multiplier;
@@ -100,14 +100,14 @@ export let throttleExp = function<T extends Fn>(origFn: T, wait: number, options
     timer = setTimeout(onTimer, curWait);
   };
 
-  let fn = (function(...args): ReturnType<T> {
+  let fn = _.assign(function(...args: Parameters<T>): ReturnType<T> {
     lastCall = {
       // eslint-disable-next-line babel/no-invalid-this
       lastThis: this,
       lastArgs: args
     };
 
-    if (timer) {
+    if (!_.isUndefined(timer)) {
       wasThrottled = true;
       return lastResult;
     }
@@ -115,18 +115,18 @@ export let throttleExp = function<T extends Fn>(origFn: T, wait: number, options
     tryLeading();
 
     return lastResult;
-  }) as T & _.Cancelable;
+  } as T, {
+    cancel: function() {
+      clearTimer();
+      lastCall = undefined;
+    },
 
-  fn.cancel = function() {
-    clearTimer();
-    lastCall = undefined;
-  };
-
-  fn.flush = function() {
-    clearTimer();
-    tryTrailing();
-    return lastResult; // as per original _.debounce
-  };
+    flush: function() {
+      clearTimer();
+      tryTrailing();
+      return lastResult; // as per original _.debounce
+    }
+  });
 
   return fn;
 };

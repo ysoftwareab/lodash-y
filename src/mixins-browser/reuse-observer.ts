@@ -81,7 +81,10 @@ let _memoizeResolver = function(Observer: Observer, isEntryMatch: isEntryMatchFn
  * @returns Returns a reused Observer.
  *
  */
-export let reuseObserver = _.memoize(function(Observer: Observer, isEntryMatch: isEntryMatchFn = _.isMatch): Observer {
+export let reuseObserver = _.memoize(function(
+  Observer: Observer,
+  isEntryMatch: isEntryMatchFn = _.isMatch.bind(_)
+): Observer {
   let matchListenerPairs = []; // [{match, listeners}]
   let cb = function(entries, ...args): void {
     // normalize cb signature to always pass a reference to the observer

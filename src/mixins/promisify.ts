@@ -38,7 +38,7 @@ export let promisify = function(origFn: Fn, options: {
     let callback = function(...results): CallbackFn {
       if (options.errorInCallback) {
         let err = results.shift();
-        if (err) {
+        if (!_.isUndefined(err)) {
           d.reject(err);
           return;
         }

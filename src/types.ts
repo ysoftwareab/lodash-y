@@ -17,8 +17,8 @@ export type AsyncFn<
 
 export type Unpromise<TMaybePromise extends any> =
   TMaybePromise extends Promise<infer TValue>
-  ? TValue
-  : TMaybePromise
+    ? TValue
+    : TMaybePromise
 
 export type MaybePromiseReturn<
   TReturn,
@@ -31,8 +31,8 @@ export type FnChangeReturnType<
   TReturn = Unpromise<ReturnType<T>>
 > =
   ReturnType<T> extends Promise<any> ?
-  (...args: Parameters<T>) => Promise<TReturn> :
-  (...args: Parameters<T>) => TReturn;
+    (...args: Parameters<T>) => Promise<TReturn> :
+    (...args: Parameters<T>) => TReturn;
 
 /* Callbacks */
 

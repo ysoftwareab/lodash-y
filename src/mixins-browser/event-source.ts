@@ -65,10 +65,6 @@ export class EventSource {
 
   /**
    * Add a listener for a specific event type.
-   *
-   * @param type
-   * @param listener
-   * @returns .
    */
   on(type: string, listener: EventSourceListener): void {
     this._addEventListener(type, listener);
@@ -76,10 +72,6 @@ export class EventSource {
 
   /**
    * Add a listener for a specific event type, that will only be called once.
-   *
-   * @param type
-   * @param listener
-   * @returns .
    */
   once(type: string, listener: EventSourceListener): void {
     let options = {
@@ -91,10 +83,6 @@ export class EventSource {
 
   /**
    * Remove a listener for a specific event type.
-   *
-   * @param type
-   * @param listener
-   * @returns .
    */
   off(type: string, listener: EventSourceListener): void {
     this._removeEventListener(type, listener);
@@ -102,10 +90,6 @@ export class EventSource {
 
   /**
    * Emit an event and call relevant listeners.
-   *
-   * @param eventOrType
-   * @param detail
-   * @returns .
    */
   emit(eventOrType: string | Event, detail: EventSourceCustomEvent['detail']): void {
     let event: Event;

@@ -1,6 +1,5 @@
 import {
-  Fn,
-  MaybePromise
+  Fn
 } from '../types';
 
 export interface Deferred<TValue> {
@@ -13,12 +12,12 @@ export interface Deferred<TValue> {
   /**
    * The resolve callback of the promise.
    */
-  resolve: Fn<MaybePromise<void>, [TValue?]>;
+  resolve: Fn<void, [TValue?]>;
 
   /**
    * The reject callback of the promise.
    */
-  reject: Fn<MaybePromise<void>, [Error]>;
+  reject: Fn<void, [Error]>;
 
   /**
    * The value that the promise resolved with.

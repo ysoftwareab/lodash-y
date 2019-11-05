@@ -104,7 +104,7 @@ export let getV8OpenHandles = _.assign(function(options: {
           'resource'
         ]);
 
-        entry.stackTrace = _.map(entry.stackTrace, function(callSite) {
+        entry.stackTrace = _.map(entry.stackTrace, function(callSite: NodeJS.CallSite) {
           let staticCallSite = {
             _toString: callSite.toString(),
 
@@ -121,13 +121,16 @@ export let getV8OpenHandles = _.assign(function(options: {
             isEval: callSite.isEval(),
             isNative: callSite.isNative(),
             isConstructor: callSite.isConstructor(),
+            // @ts-ignore
             isAsync: callSite.isAsync(),
+            // @ts-ignore
             isPromiseAll: callSite.isPromiseAll(),
+            // @ts-ignore
             getPromiseIndex: callSite.getPromiseIndex()
           };
 
           if (callSite.isEval()) {
-            let matched = callSite.getEvalOrigin().match(/\((.*):(\d*):(\d*)\)/) || {};
+            let matched = /\((.*):(\d*):(\d*)\)/.exec(callSite.getEvalOrigin());
             _.merge(staticCallSite, {
               functionName: '<eval>',
               fileName: matched[1],

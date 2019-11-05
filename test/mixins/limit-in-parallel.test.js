@@ -8,7 +8,7 @@ describe('limitInParallel', function() {
       return ok;
     };
     fn = _.limitInParallel(fn);
-    await expect(fn()).resolves.toStrictEqual(ok);
+    expect(await fn()).toStrictEqual(ok);
   });
 
   it('should work as usual for parallelism limit=2', async function() {
@@ -21,7 +21,7 @@ describe('limitInParallel', function() {
       limit: 2
     });
     fn();
-    await expect(fn()).resolves.toStrictEqual(ok);
+    expect(await fn()).toStrictEqual(ok);
   });
 
   it('should return a LimitInParallelError after parallelism limit is reached', async function() {
@@ -32,7 +32,7 @@ describe('limitInParallel', function() {
     };
     fn = _.limitInParallel(fn);
     fn();
-    await expect(fn()).resolves.toBeInstanceOf(_.LimitInParallelError);
+    expect(await fn()).toBeInstanceOf(_.LimitInParallelError);
   });
 
   it('should throw a LimitInParallelError after parallelism limit is reached, when throwErr=true', async function() {

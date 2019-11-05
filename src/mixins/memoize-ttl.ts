@@ -41,11 +41,11 @@ export let memoizeTtl = _.assign(function<T extends Fn>(
     fn.cache = cache.set(key, {
       value,
       expires
-    }) || cache;
+    });
 
     return value as ReturnType<T>;
   }, {
-    cache: new (memoizeTtl.Cache || Map)()
+    cache: new memoizeTtl.Cache()
   });
 
   // @ts-ignore

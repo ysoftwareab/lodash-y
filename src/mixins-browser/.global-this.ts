@@ -28,5 +28,5 @@ export default globalThis as {
   CustomEvent: (typeof window)['CustomEvent'],
   IntersectionObserver: (typeof window)['IntersectionObserver'],
   MutationObserver: (typeof window)['MutationObserver'],
-  ResizeObserver: (typeof window)['ResizeObserver'],
+  ResizeObserver: (typeof window)['ResizeObserver']
 };

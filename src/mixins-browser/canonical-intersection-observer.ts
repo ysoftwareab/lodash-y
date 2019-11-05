@@ -34,7 +34,7 @@ export class CanonicalIntersectionObserver {
     } else {
       ({
         observer
-       } = observerPair);
+      } = observerPair);
     }
 
     observer.observe(element);

@@ -7,7 +7,7 @@ import {
  *
  * Part of `lodash-firecloud`.
  *
- * A "true" _.throttle with 'trailing': false"
+ * A "true" _.throttle with 'trailing': false".
  * A lightweight version which does not allocate unnecessary timer,
  * comparing to the original _.throttle (which invokes _.debounce under the hood).
  *

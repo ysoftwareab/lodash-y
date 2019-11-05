@@ -6,7 +6,7 @@ import _ from 'lodash';
  * Same as _.merge but don't merge arrays. Just concat them.
  *
  * @param object The destination object.
- * @param ources The source objects.
+ * @param sources The source objects.
  * @returns Returns object.
  */
 export let mergeConcatArrays = function(object, ...sources): unknown {

@@ -38,7 +38,6 @@ let symbol = Symbol('a');
 
 describe('isDefined', function() {
   it('should return `false` for `undefined` values', function() {
-    expect(_.isDefined()).toBe(false);
     expect(_.isDefined(undefined)).toBe(false);
   });
 
@@ -48,7 +47,7 @@ describe('isDefined', function() {
     });
 
     let actual = _.map(falsey, function(value, index) {
-      return index ? _.isDefined(value) : _.isDefined();
+      return index ? _.isDefined(value) : _.isDefined(undefined);
     });
 
     expect(actual).toMatchObject(expected);

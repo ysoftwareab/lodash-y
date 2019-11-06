@@ -18,13 +18,6 @@ module.exports = {
 
     extends: [
       'firecloud/configs/typescript'
-    ],
-
-    rules: {
-      // FIXME gives Allocation failed - JavaScript heap out of memory
-      'firecloud/order-imports': 'off',
-
-      'lodash/prefer-lodash-method': 'error'
-    }
+    ]
   }]
 };

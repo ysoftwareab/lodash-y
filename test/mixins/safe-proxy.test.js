@@ -13,7 +13,7 @@ describe('safeProxy', function() {
 
   it('forwards (some) internals of the target object', function() {
     // eslint-disable-next-line lines-around-comment
-    /** @type {import('lodash').Dictionary<unknown>} */
+    /** @type {import('lodash').Dictionary<any>} */
     let target = {};
     let proxy = _.safeProxy(target);
     expect(proxy.constructor).toStrictEqual(target.constructor);
@@ -23,7 +23,7 @@ describe('safeProxy', function() {
 
   it('throws on non-string properties', async function() {
     // eslint-disable-next-line lines-around-comment
-    /** @type {import('lodash').Dictionary<unknown>} */
+    /** @type {import('lodash').Dictionary<any>} */
     let target = {};
     let proxy = _.safeProxy(target);
     expect(function() {

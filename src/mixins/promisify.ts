@@ -1,14 +1,14 @@
 import _ from 'lodash';
 
 import {
-  deferred
-} from './deferred';
+  AsyncFn,
+  CallbackFn,
+  Fn
+} from '../types';
 
 import {
-  AsyncFn,
-  Fn,
-  CallbackFn
-} from '../types';
+  deferred
+} from './deferred';
 
 // NOTE follows closely Node.js util.promisify
 

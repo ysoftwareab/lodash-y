@@ -19,9 +19,8 @@ let falsey = [
 ];
 
 let toArgs = function(array) {
-  return (function() {
-    // eslint-disable-next-line fp/no-arguments
-    return arguments;
+  return (function(...args) {
+    return args;
   })(...array);
 };
 
@@ -39,7 +38,6 @@ let symbol = Symbol('a');
 
 describe('isDefined', function() {
   it('should return `false` for `undefined` values', function() {
-    expect(_.isDefined()).toBe(false);
     expect(_.isDefined(undefined)).toBe(false);
   });
 
@@ -49,7 +47,7 @@ describe('isDefined', function() {
     });
 
     let actual = _.map(falsey, function(value, index) {
-      return index ? _.isDefined(value) : _.isDefined();
+      return index ? _.isDefined(value) : _.isDefined(undefined);
     });
 
     expect(actual).toMatchObject(expected);
@@ -75,6 +73,7 @@ describe('isDefined', function() {
     }
   });
 
+  // eslint-disable-next-line jest/no-commented-out-tests
   // it('should work with `undefined` from another realm', function() {
   //   if (realm.object) {
   //     expect(_.isDefined(realm.undefined)).toBe(false);

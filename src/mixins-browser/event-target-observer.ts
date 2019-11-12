@@ -9,13 +9,17 @@ export class EventTargetObserver {
     this._cb = cb;
   }
 
-  observe({
-    target,
-    type
-  }: {
-    target: Node,
-    type: string
-  }, options: AddEventListenerOptions = {}): void {
+  observe(
+    args: {
+      target: Node,
+      type: string
+    },
+    options: AddEventListenerOptions = {}
+  ): void {
+    let {
+      target,
+      type
+    } = args;
     let cacheEntry = _.find(this._cache, {
       target,
       type,
@@ -39,13 +43,17 @@ export class EventTargetObserver {
     target.addEventListener(type, listener, options);
   }
 
-  unobserve({
-    target,
-    type
-  }: {
-    target: Node,
-    type: string
-  }, options: EventListenerOptions = {}): void {
+  unobserve(
+    args: {
+      target: Node,
+      type: string
+    },
+    options: EventListenerOptions = {}
+  ): void {
+    let {
+      target,
+      type
+    } = args;
     let cacheEntry = _.find(this._cache, {
       target,
       type,

@@ -1,4 +1,10 @@
 /**
+ * An optional value of type T.
+ */
+export type Maybe<T = unknown> =
+  T | undefined;
+
+/**
  * A value or the Promise of a value of type T.
  */
 export type MaybePromise<T = unknown> =

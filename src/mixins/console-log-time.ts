@@ -11,7 +11,7 @@ import {
  * @param fn A function to measure execution time of.
  * @returns Returns the return value of the function.
  */
-export let consoleLogTime = async function<TReturn extends MaybePromise<unknown>>(
+export let consoleLogTime = async function<TReturn extends MaybePromise>(
   label: string,
   fn: () => TReturn
 ): Promise<TReturn> {

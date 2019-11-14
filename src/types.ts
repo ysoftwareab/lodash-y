@@ -1,46 +1,75 @@
-export type MaybePromise<T> =
+/**
+ * A value or the Promise of a value of type T.
+ */
+export type MaybePromise<T = unknown> =
   T | Promise<T>;
 
+// -----------------------------------------------------------------------------
 /* Functions */
 
+/**
+ * A Function that returns TReturn, with TArgs as arguments.
+ */
 export type Fn<
   TReturn = unknown,
   TArgs extends unknown[] = unknown[]
 > =
   (...args: TArgs) => TReturn;
 
+/**
+ * A Function that returns Promise<TReturn>, with TArgs as arguments.
+ */
 export type AsyncFn<
   TReturn = unknown,
   TArgs extends unknown[] = unknown[]
 > =
   (...args: TArgs) => Promise<TReturn>;
 
+/**
+ * Obtain the type of a Promise resolution.
+ */
 export type Unpromise<TMaybePromise extends any> =
   TMaybePromise extends Promise<infer TValue>
     ? TValue
     : TMaybePromise
 
+/**
+ * Promise<T> or T dependending on whether TFn returns a Promise or not.
+ */
 export type MaybePromiseReturn<
-  TReturn,
-  T extends Fn
+  T,
+  TFn extends Fn
 > =
-  ReturnType<T> extends Promise<any> ? Promise<TReturn> : TReturn;
+  ReturnType<TFn> extends Promise<any> ? Promise<T> : T;
 
+/**
+ * Change the return type of TFn, without changing the arguments.
+ */
 export type FnChangeReturnType<
-  T extends Fn,
-  TReturn = Unpromise<ReturnType<T>>
+  TFn extends Fn,
+  TReturn = Unpromise<ReturnType<TFn>>
 > =
-  ReturnType<T> extends Promise<any> ?
-    (...args: Parameters<T>) => Promise<TReturn> :
-    (...args: Parameters<T>) => TReturn;
+  ReturnType<TFn> extends Promise<any> ?
+    Fn<Promise<TReturn>, Parameters<TFn>> :
+    Fn<TReturn, Parameters<TFn>>;
 
+// -----------------------------------------------------------------------------
 /* Callbacks */
 
+/**
+ * A callback Function.
+ */
 export type CallbackFn =
   Fn<MaybePromise<void>>;
 
-export type NodeCallbackFn<TResult = unknown> =
+/**
+ * A NodeJS-style callback function that resolves with TResult.
+ */
+export type NodeJSCallbackFn<TResult = unknown> =
   Fn<MaybePromise<void>, [Error, TResult]>;
 
-export type NodeCallbackErrorLastFn<TResult = unknown> =
+/**
+ * An error-last-style callback function that resolves with TResult.
+ */
+export type NodeJSCallbackErrorLastFn<TResult = unknown> =
   Fn<MaybePromise<void>, [TResult, Error]>;

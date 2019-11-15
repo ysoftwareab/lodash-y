@@ -63,7 +63,6 @@ export let limitInParallel = function<
       } catch (err2) {
         err = err2;
       } finally {
-        // eslint-disable-next-line require-atomic-updates
         activeCount = activeCount - 1;
       }
 

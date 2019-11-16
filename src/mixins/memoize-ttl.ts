@@ -18,7 +18,7 @@ export let memoizeTtl = _.assign(function<T extends Fn>(
   ttl: number,
   origFn: T,
   resolver?: (...args: Parameters<T>) => string
-): T {
+): T & _.MemoizedFunction {
   let fn = _.assign(function(...args: Parameters<T>): ReturnType<T> {
     let key = _.isUndefined(resolver) ? _.head(args) : resolver(...args);
     let {

@@ -14,8 +14,8 @@ export class LimitInParallelError extends Error {
 }
 
 export interface LimitInParallelOptions {
-  limit?: number,
-  throwErr?: boolean
+  limit?: number;
+  throwErr?: boolean;
 }
 
 // TODO is there a way not to duplicate the function just because origFn is sync or async?
@@ -35,8 +35,8 @@ export interface LimitInParallelOptions {
 export let limitInParallel = function<
   T extends Fn
 >(origFn: T, options: {
-  limit?: number,
-  throwErr?: boolean
+  limit?: number;
+  throwErr?: boolean;
 } = {}): FnChangeReturnType<T, Unpromise<ReturnType<T>> | LimitInParallelError> {
   _.defaults(options, {
     limit: 1,

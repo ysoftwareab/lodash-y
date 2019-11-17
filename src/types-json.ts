@@ -2,7 +2,7 @@
 export interface JsonArray extends Array<JsonValue> {}
 
 export type JsonObject = {
-  [key: string]: JsonValue
+  [key: string]: JsonValue;
 };
 
 export type JsonValue =

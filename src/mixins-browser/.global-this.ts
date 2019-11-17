@@ -25,8 +25,8 @@ var globalThis = getGlobalThis();
 
 // eslint-disable-next-line import/no-default-export
 export default globalThis as {
-  CustomEvent: (typeof window)['CustomEvent'],
-  IntersectionObserver: (typeof window)['IntersectionObserver'],
-  MutationObserver: (typeof window)['MutationObserver'],
-  ResizeObserver: (typeof window)['ResizeObserver']
+  CustomEvent: (typeof window)['CustomEvent'];
+  IntersectionObserver: (typeof window)['IntersectionObserver'];
+  MutationObserver: (typeof window)['MutationObserver'];
+  ResizeObserver: (typeof window)['ResizeObserver'];
 };

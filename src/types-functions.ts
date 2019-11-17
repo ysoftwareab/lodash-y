@@ -22,7 +22,7 @@ export type AsyncFn<
 export type Unpromise<TMaybePromise extends any> =
   TMaybePromise extends Promise<infer TValue> ?
     TValue :
-    TMaybePromise
+    TMaybePromise;
 
 /**
  * Promise<T> or T dependending on whether TFn returns a Promise or not.

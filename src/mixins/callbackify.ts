@@ -20,9 +20,9 @@ import {
  * @returns Returns a callback-like function wrapping original `fn`.
  */
 export let callbackify = function(origFn: AsyncFn, options: {
-  callbackFirst?: boolean,
-  errorInCallback?: boolean,
-  keepCallback?: boolean
+  callbackFirst?: boolean;
+  errorInCallback?: boolean;
+  keepCallback?: boolean;
 } = {}): CallbackFn {
   _.defaults(options, {
     callbackFirst: false,

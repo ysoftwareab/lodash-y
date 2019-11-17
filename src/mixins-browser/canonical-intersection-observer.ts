@@ -5,9 +5,9 @@ export class CanonicalIntersectionObserver {
   _cb = undefined;
 
   _observerPairs: {
-    element: Element,
-    options: IntersectionObserverInit,
-    observer: IntersectionObserver
+    element: Element;
+    options: IntersectionObserverInit;
+    observer: IntersectionObserver;
   }[] = [];
 
   constructor(cb) {

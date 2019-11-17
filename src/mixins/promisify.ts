@@ -24,8 +24,8 @@ import {
  * @returns Returns an async function wrapping the original function.
  */
 export let promisify = function(origFn: Fn, options: {
-  callbackFirst?: boolean,
-  errorInCallback?: boolean
+  callbackFirst?: boolean;
+  errorInCallback?: boolean;
 } = {}): AsyncFn {
   _.defaults(options, {
     callbackFirst: false,

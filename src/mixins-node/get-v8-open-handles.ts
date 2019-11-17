@@ -64,7 +64,7 @@ let _init = function(): asyncHooks.AsyncHook {
  * @returns Returns a list of V8 open handles.
  */
 export let getV8OpenHandles = _.assign(function(options: {
-  skipFiles?: RegExp[]
+  skipFiles?: RegExp[];
 } = {}): V8OpenHandle[] {
   _.defaults(options, {
     skipFiles: [

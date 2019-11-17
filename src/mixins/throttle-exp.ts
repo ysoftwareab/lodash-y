@@ -21,11 +21,11 @@ import {
  * @returns The throttled function.
  */
 export let throttleExp = function<T extends Fn>(origFn: T, wait: number, options: {
-  leading?: boolean,
-  trailing?: boolean,
-  multiplier?: number,
-  divider?: number,
-  maxWait?: number
+  leading?: boolean;
+  trailing?: boolean;
+  multiplier?: number;
+  divider?: number;
+  maxWait?: number;
 } = {}): T & _.Cancelable {
   _.defaults(options, {
     leading: true,

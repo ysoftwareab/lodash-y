@@ -11,8 +11,8 @@ export class EventTargetObserver {
 
   observe(
     args: {
-      target: Node,
-      type: string
+      target: Node;
+      type: string;
     },
     options: AddEventListenerOptions = {}
   ): void {
@@ -45,8 +45,8 @@ export class EventTargetObserver {
 
   unobserve(
     args: {
-      target: Node,
-      type: string
+      target: Node;
+      type: string;
     },
     options: EventListenerOptions = {}
   ): void {

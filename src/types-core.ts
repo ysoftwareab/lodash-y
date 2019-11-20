@@ -23,3 +23,23 @@ export type Primitive =
   | null
   | undefined
   | symbol;
+
+/**
+ * Expand one-level-only of a type (e.g. Class) for debugging purposes.
+ */
+export type Expand<T> =
+T extends infer TInferred
+  ? {
+    [TKey in keyof TInferred]: TInferred[TKey]
+  }
+  : never;
+
+/**
+ * Expand all-levels of a type (e.g. Class) for debugging purposes.
+ */
+export type ExpandDeep<T> =
+T extends infer TInferred
+  ? {
+    [TKey in keyof TInferred]: ExpandDeep<TInferred[TKey]>
+  }
+  : never;

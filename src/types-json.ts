@@ -6,9 +6,9 @@ export type JsonObject = {
 };
 
 export type JsonValue =
-  string |
-  number |
-  boolean |
-  null |
-  JsonArray |
-  JsonObject;
+  | string
+  | number
+  | boolean
+  | null
+  | JsonArray
+  | JsonObject;

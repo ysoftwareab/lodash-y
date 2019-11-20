@@ -1,8 +1,11 @@
 /**
  * A class type (i.e. A constructor type).
  */
-export type Class = {
-  new(...args: any[]): any;
+export type Class<
+  TReturn = unknown,
+  TArgs extends unknown[] = unknown[]
+> = {
+  new(...args: TArgs): TReturn;
 };
 
 /**

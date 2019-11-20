@@ -1,3 +1,7 @@
+import {
+  Unpromise
+} from './types-core';
+
 /**
  * A Function that returns TReturn, with TArgs as arguments.
  */
@@ -15,16 +19,6 @@ export type AsyncFn<
   TArgs extends unknown[] = unknown[]
 > =
   (...args: TArgs) => Promise<TReturn>;
-
-/**
- * Obtain the type of a Promise resolution.
- */
-export type Unpromise<
-  TMaybePromise extends any
-> =
-  TMaybePromise extends Promise<infer TValue>
-    ? TValue
-    : TMaybePromise;
 
 /**
  * Promise<T> or T dependending on whether TFn returns a Promise or not.

@@ -43,3 +43,13 @@ T extends infer TInferred
     [TKey in keyof TInferred]: ExpandDeep<TInferred[TKey]>
   }
   : never;
+
+/**
+ * Obtain the type of a Promise resolution.
+ */
+export type Unpromise<
+  TMaybePromise extends any
+> =
+TMaybePromise extends Promise<infer TValue>
+  ? TValue
+  : TMaybePromise;

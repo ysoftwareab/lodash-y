@@ -1,7 +1,7 @@
 /**
  * A class type (i.e. A constructor type).
  */
-export type Class<
+export type Constructor<
   TReturn = unknown,
   TArgs extends unknown[] = unknown[]
 > = {
@@ -9,38 +9,38 @@ export type Class<
 };
 
 /**
- * Construct a class type with the static properties of TClass except for those in type TKey.
+ * Construct a class type with the static properties of TConstructor except for those in type TKey.
  */
 export type OmitClassStatic<
-  TClass extends Class,
+  TConstructor extends Constructor,
   TKey extends keyof any
 > =
-  TClass extends {
+  TConstructor extends {
     new(...args: infer TArgs): infer TInstance;
   }
     ? (
       & {
         new(...args: TArgs): TInstance;
       }
-      & Omit<TClass, TKey>
+      & Omit<TConstructor, TKey>
     )
     : never;
 
 /**
- * Construct a class type with the instance properties of TClass except for those in type TKey.
+ * Construct a class type with the instance properties of TConstructor except for those in type TKey.
  */
 export type OmitClassInstance<
-  TClass extends Class,
+  TConstructor extends Constructor,
   TKey extends keyof any
 > =
-  TClass extends {
+  TConstructor extends {
     new(...args: infer TArgs): infer TInstance;
   }
     ? (
       & {
         new(...args: TArgs): Omit<TInstance, TKey>;
       }
-      & Omit<TClass, 'prototype'>
+      & Omit<TConstructor, 'prototype'>
       & {
         prototype: Omit<TInstance, TKey>;
       }

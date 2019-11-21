@@ -11,7 +11,7 @@ export type Constructor<
 /**
  * Construct a class type with the static properties of TConstructor except for those in type TKey.
  */
-export type OmitClassStatic<
+export type ConstructorOmit<
   TConstructor extends Constructor,
   TKey extends keyof any
 > =
@@ -29,7 +29,7 @@ export type OmitClassStatic<
 /**
  * Construct a class type with the instance properties of TConstructor except for those in type TKey.
  */
-export type OmitClassInstance<
+export type InstanceOmit<
   TConstructor extends Constructor,
   TKey extends keyof any
 > =

@@ -10,8 +10,8 @@ export class IntervalObserver {
   }
 
   observe({interval}): void {
-    let cacheEntry = _.find(this._cache, {
-      interval
+    let cacheEntry = _.find(this._cache, function(cacheEntry) {
+      return cacheEntry.interval === interval;
     });
     let isObserving = !_.isUndefined(cacheEntry);
     if (isObserving) {
@@ -30,8 +30,8 @@ export class IntervalObserver {
   }
 
   unobserve({interval}): void {
-    let cacheEntry = _.find(this._cache, {
-      interval
+    let cacheEntry = _.find(this._cache, function(cacheEntry) {
+      return cacheEntry.interval === interval;
     });
     let isObserving = !_.isUndefined(cacheEntry);
     if (!isObserving) {

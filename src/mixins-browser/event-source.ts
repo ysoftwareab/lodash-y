@@ -16,7 +16,7 @@ export class EventSourceCustomEvent<T = any> extends globalThis.CustomEvent<T> {
 export class EventSource {
   _element = document.createElement('div');
 
-  _listeners = [] as {
+  _listenerInfos = [] as {
     type: EventSourceType;
     listener: EventSourceListener;
     options: AddEventListenerOptions;
@@ -39,7 +39,7 @@ export class EventSource {
       listener(eventDetail);
     };
 
-    this._listeners.push({
+    this._listenerInfos.push({
       type,
       listener,
       options,
@@ -54,10 +54,8 @@ export class EventSource {
       passive: true
     });
 
-    let existingListener = _.find(this._listeners, {
-      type,
-      listener,
-      options
+    let existingListener = _.find(this._listenerInfos, function(listenerInfo) {
+      return listenerInfo.type === type && listenerInfo.listener === listener && listenerInfo.options === options;
     });
 
     if (_.isUndefined(existingListener)) {
@@ -69,7 +67,7 @@ export class EventSource {
     } = existingListener;
 
     // eslint-disable-next-line lodash/prefer-immutable-method
-    _.pull(this._listeners, existingListener);
+    _.pull(this._listenerInfos, existingListener);
     this._element.removeEventListener(type, listenerProxy, options);
   }
 

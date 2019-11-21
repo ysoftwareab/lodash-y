@@ -15,16 +15,15 @@ export class CanonicalIntersectionObserver {
   }
 
   observe(element: Element, options: IntersectionObserverInit): void {
-    let alreadyObserving = _.some(this._observerPairs, {
-      element,
-      options
+    let alreadyObserving = _.some(this._observerPairs, function(observerPair) {
+      return observerPair.element === element && observerPair.options === options;
     });
     if (alreadyObserving) {
       return;
     }
 
-    let observerPair = _.find(this._observerPairs, {
-      options
+    let observerPair = _.find(this._observerPairs, function(observerPair) {
+      return observerPair.options === options;
     });
     let observer: IntersectionObserver;
     if (_.isUndefined(observerPair)) {
@@ -46,9 +45,8 @@ export class CanonicalIntersectionObserver {
   }
 
   unobserve(element: Element, options: IntersectionObserverInit): void {
-    let observerPairs = _.filter(this._observerPairs, {
-      element,
-      options
+    let observerPairs = _.filter(this._observerPairs, function(observerPair) {
+      return observerPair.element === element && observerPair.options === options;
     });
 
     _.forEach(observerPairs, function({element, observer}) {
@@ -56,9 +54,8 @@ export class CanonicalIntersectionObserver {
     });
 
     // eslint-disable-next-line lodash/prefer-immutable-method
-    _.remove(this._observerPairs, {
-      element,
-      options
+    _.remove(this._observerPairs, function(observerPair) {
+      return observerPair.element === element && observerPair.options === options;
     });
   }
 

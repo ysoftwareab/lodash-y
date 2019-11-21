@@ -20,10 +20,8 @@ export class EventTargetObserver {
       target,
       type
     } = args;
-    let cacheEntry = _.find(this._cache, {
-      target,
-      type,
-      capture: options.capture
+    let cacheEntry = _.find(this._cache, function(cacheEntry) {
+      return cacheEntry.target === target && cacheEntry.type === type && cacheEntry.capture === options.capture;
     });
     let isObserving = !_.isUndefined(cacheEntry);
     if (isObserving) {
@@ -54,10 +52,8 @@ export class EventTargetObserver {
       target,
       type
     } = args;
-    let cacheEntry = _.find(this._cache, {
-      target,
-      type,
-      capture: options.capture
+    let cacheEntry = _.find(this._cache, function(cacheEntry) {
+      return cacheEntry.target === target && cacheEntry.type === type && cacheEntry.capture === options.capture;
     });
     let isObserving = !_.isUndefined(cacheEntry);
     if (!isObserving) {

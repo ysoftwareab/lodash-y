@@ -122,8 +122,8 @@ export let reuseObserver = _.memoize(function(
       }
     }
 
-    let matchListenersPair = _.find(matchListenerPairs, {
-      match
+    let matchListenersPair = _.find(matchListenerPairs, function(matchListenersPair) {
+      return matchListenersPair.match === match;
     });
     if (_.isUndefined(matchListenersPair)) {
       matchListenersPair = {
@@ -161,9 +161,8 @@ export let reuseObserver = _.memoize(function(
     }
 
     // eslint-disable-next-line lodash/prefer-immutable-method
-    _.remove(matchListenerPairs, {
-      match,
-      listener
+    _.remove(matchListenerPairs, function(matchListenersPair) {
+      return matchListenersPair.match === match && matchListenersPair.listener === listener;
     });
     originalUnobserve(...unobserveArgs);
   };

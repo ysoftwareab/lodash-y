@@ -10,6 +10,11 @@ export interface Deferred<TValue> {
   promise: Promise<TValue>;
 
   /**
+   * The state of the promise.
+   */
+  state: 'pending' | 'resolved' | 'rejected';
+
+  /**
    * The resolve callback of the promise.
    */
   resolve: Fn<void, [TValue?]>;
@@ -38,16 +43,20 @@ export interface Deferred<TValue> {
  * @returns Returns the Deferred object.
  */
 export let deferred = function<TValue = unknown>(): Deferred<TValue> {
-  let deferred: Partial<Deferred<TValue>> = {};
+  let deferred: Partial<Deferred<TValue>> = {
+    state: 'pending'
+  };
 
   deferred.promise = new Promise(function(resolve, reject) {
     deferred.resolve = function(value) {
       deferred.value = value;
+      deferred.state = 'resolved';
       resolve(value);
     };
 
     deferred.reject = function(err) {
       deferred.err = err;
+      deferred.state = 'rejected';
       reject(err);
     };
   });

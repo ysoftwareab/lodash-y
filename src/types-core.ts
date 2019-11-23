@@ -75,3 +75,24 @@ export type RequiredDeep<T> = {
       ? readonly RequiredDeep<TValue>[]
       : RequiredDeep<T[TKey]>
 };
+
+/**
+ * Make all nested properties in T readonly.
+ */
+export type ReadonlyDeep<T> = {
+  readonly [TKey in keyof T]: ReadonlyDeep<T[TKey]>
+};
+
+/**
+ * Make all properties in T writeable (not readonly).
+ */
+export type Writeable<T> = {
+  -readonly [TKey in keyof T]: T[TKey]
+};
+
+/**
+ * Make all nested properties in T writeable (not readonly).
+ */
+export type WriteableDeep<T> = {
+  -readonly [TKey in keyof T]: WriteableDeep<T[TKey]>
+};

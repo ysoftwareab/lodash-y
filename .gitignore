@@ -1,7 +1,0 @@
-/BUILD
-/VERSION
-/coverage/
-/lib/
-/src/mixins/index.ts
-/src/mixins-browser/index.ts
-/src/mixins-node/index.ts

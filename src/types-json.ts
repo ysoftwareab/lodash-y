@@ -7,10 +7,13 @@ export type JsonObject = {
   [key: string]: JsonValue;
 };
 
-export type JsonValue =
+export type JsonPrimitive =
   | string
   | number
   | boolean
-  | null
+  | null;
+
+export type JsonValue =
+  | JsonPrimitive
   | JsonArray
   | JsonObject;

@@ -47,7 +47,7 @@ T extends infer TInferred
 /**
  * Obtain the type of a Promise resolution.
  */
-export type Unpromise<
+export type PromiseType<
   TMaybePromise extends any
 > =
 TMaybePromise extends Promise<infer TValue>

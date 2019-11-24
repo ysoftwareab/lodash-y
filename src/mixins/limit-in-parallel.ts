@@ -3,7 +3,7 @@ import _ from 'lodash';
 import {
   Fn,
   FnChangeReturnType,
-  Unpromise
+  PromiseType
 } from '../types';
 
 // eslint-disable-next-line firecloud/underscore-prefix-non-exported, @typescript-eslint/explicit-function-return-type
@@ -37,7 +37,7 @@ export let limitInParallel = function<
 >(origFn: T, options: {
   limit?: number;
   throwErr?: boolean;
-} = {}): FnChangeReturnType<T, Unpromise<ReturnType<T>> | LimitInParallelError> {
+} = {}): FnChangeReturnType<T, PromiseType<ReturnType<T>> | LimitInParallelError> {
   _.defaults(options, {
     limit: 1,
     throwErr: false
@@ -46,7 +46,7 @@ export let limitInParallel = function<
 
   // eslint-disable-next-line no-undef
   if (origFn instanceof AsyncFunction) {
-    let fn = async function(...args: Parameters<T>): Promise<Unpromise<ReturnType<T>> | LimitInParallelError> {
+    let fn = async function(...args: Parameters<T>): Promise<PromiseType<ReturnType<T>> | LimitInParallelError> {
       if (activeCount >= options.limit) {
         let err = new LimitInParallelError(`Can only run this function maximum ${options.limit} times in parallel.`);
         if (options.throwErr) {

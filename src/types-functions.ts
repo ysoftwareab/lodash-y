@@ -1,5 +1,5 @@
 import {
-  Unpromise
+  PromiseType
 } from './types-core';
 
 /**
@@ -36,7 +36,7 @@ export type MaybePromiseReturn<
  */
 export type FnChangeReturnType<
   TFn extends Fn,
-  TReturn = Unpromise<ReturnType<TFn>>
+  TReturn = PromiseType<ReturnType<TFn>>
 > =
   ReturnType<TFn> extends Promise<any>
     ? Fn<Promise<TReturn>, Parameters<TFn>>

@@ -84,15 +84,15 @@ export type ReadonlyDeep<T> = {
 };
 
 /**
- * Make all properties in T writeable (not readonly).
+ * Make all properties in T mutable (not readonly).
  */
-export type Writeable<T> = {
+export type Mutable<T> = {
   -readonly [TKey in keyof T]: T[TKey]
 };
 
 /**
- * Make all nested properties in T writeable (not readonly).
+ * Make all nested properties in T mutable (not readonly).
  */
-export type WriteableDeep<T> = {
-  -readonly [TKey in keyof T]: WriteableDeep<T[TKey]>
+export type MutableDeep<T> = {
+  -readonly [TKey in keyof T]: MutableDeep<T[TKey]>
 };

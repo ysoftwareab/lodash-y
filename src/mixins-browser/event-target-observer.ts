@@ -1,11 +1,21 @@
 import _ from 'lodash';
 
-export class EventTargetObserver {
+import {
+  ReuseObserver,
+  ReuseObserverCallbackFn
+} from './reuse-observer';
+
+export class EventTargetObserver implements ReuseObserver {
   _cb = undefined;
 
-  _cache = [];
+  _cache = [] as {
+    target: Node;
+    type: string;
+    capture: AddEventListenerOptions['capture'];
+    listener: EventListener;
+  }[];
 
-  constructor(cb) {
+  constructor(cb: ReuseObserverCallbackFn) {
     this._cb = cb;
   }
 
@@ -27,7 +37,7 @@ export class EventTargetObserver {
     if (isObserving) {
       return;
     }
-    let listener = (e): void => {
+    let listener = (e: Event): void => {
       let entries = [
         e
       ];
@@ -36,7 +46,8 @@ export class EventTargetObserver {
     this._cache.push({
       target,
       type,
-      capture: options.capture
+      capture: options.capture,
+      listener
     });
     target.addEventListener(type, listener, options);
   }

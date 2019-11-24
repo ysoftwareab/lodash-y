@@ -1,43 +1,48 @@
 import _ from 'lodash';
 import globalThis from './.global-this';
 
-export class CanonicalIntersectionObserver {
+import {
+  ReuseObserver,
+  ReuseObserverCallbackFn
+} from './reuse-observer';
+
+export class CanonicalIntersectionObserver implements ReuseObserver {
   _cb = undefined;
 
-  _observerPairs: {
+  _cache = [] as {
     element: Element;
     options: IntersectionObserverInit;
     observer: IntersectionObserver;
-  }[] = [];
+  }[];
 
-  constructor(cb) {
+  constructor(cb: ReuseObserverCallbackFn) {
     this._cb = cb;
   }
 
   observe(element: Element, options: IntersectionObserverInit): void {
-    let alreadyObserving = _.some(this._observerPairs, function(observerPair) {
-      return observerPair.element === element && observerPair.options === options;
+    let alreadyObserving = _.some(this._cache, function(cacheEntry) {
+      return cacheEntry.element === element && cacheEntry.options === options;
     });
     if (alreadyObserving) {
       return;
     }
 
-    let observerPair = _.find(this._observerPairs, function(observerPair) {
-      return observerPair.options === options;
+    let cacheEntry = _.find(this._cache, function(cacheEntry) {
+      return cacheEntry.options === options;
     });
     let observer: IntersectionObserver;
-    if (_.isUndefined(observerPair)) {
+    if (_.isUndefined(cacheEntry)) {
       observer = new globalThis.IntersectionObserver((entries) => {
         this._cb(entries, this);
       }, options);
     } else {
       ({
         observer
-      } = observerPair);
+      } = cacheEntry);
     }
 
     observer.observe(element);
-    this._observerPairs.push({
+    this._cache.push({
       element,
       options,
       observer
@@ -45,28 +50,28 @@ export class CanonicalIntersectionObserver {
   }
 
   unobserve(element: Element, options: IntersectionObserverInit): void {
-    let observerPairs = _.filter(this._observerPairs, function(observerPair) {
-      return observerPair.element === element && observerPair.options === options;
+    let cache = _.filter(this._cache, function(cacheEntry) {
+      return cacheEntry.element === element && cacheEntry.options === options;
     });
 
-    _.forEach(observerPairs, function({element, observer}) {
+    _.forEach(cache, function({element, observer}) {
       observer.unobserve(element);
     });
 
     // eslint-disable-next-line lodash/prefer-immutable-method
-    _.remove(this._observerPairs, function(observerPair) {
-      return observerPair.element === element && observerPair.options === options;
+    _.remove(this._cache, function(cacheEntry) {
+      return cacheEntry.element === element && cacheEntry.options === options;
     });
   }
 
   disconnect(): void {
-    let observers = _.map(this._observerPairs, function(observerPair) {
-      return observerPair.observer;
+    let observers = _.map(this._cache, function(cacheEntry) {
+      return cacheEntry.observer;
     });
     observers = _.uniq(observers);
     _.forEach(observers, function(observer) {
       observer.disconnect();
     });
-    this._observerPairs = [];
+    this._cache = [];
   }
 }

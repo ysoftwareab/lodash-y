@@ -1,15 +1,28 @@
 import _ from 'lodash';
 
-export class IntervalObserver {
+import {
+  ReuseObserver,
+  ReuseObserverCallbackFn
+} from './reuse-observer';
+
+export class IntervalObserver implements ReuseObserver {
   _cb = undefined;
 
-  _cache = [];
+  _cache = [] as {
+    interval: number;
+    intervalId: NodeJS.Timeout;
+  }[];
 
-  constructor(cb) {
+  constructor(cb: ReuseObserverCallbackFn) {
     this._cb = cb;
   }
 
-  observe({interval}): void {
+  observe(args: {
+    interval: number;
+  }): void {
+    let {
+      interval
+    } = args;
     let cacheEntry = _.find(this._cache, function(cacheEntry) {
       return cacheEntry.interval === interval;
     });
@@ -29,7 +42,12 @@ export class IntervalObserver {
     });
   }
 
-  unobserve({interval}): void {
+  unobserve(args: {
+    interval: number;
+  }): void {
+    let {
+      interval
+    } = args;
     let cacheEntry = _.find(this._cache, function(cacheEntry) {
       return cacheEntry.interval === interval;
     });
@@ -44,7 +62,7 @@ export class IntervalObserver {
 
   disconnect(): void {
     _.forEach(this._cache, ({interval}) => {
-      this.unobserve(interval);
+      this.unobserve({interval});
     });
   }
 }

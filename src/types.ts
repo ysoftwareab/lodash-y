@@ -14,3 +14,5 @@ export * from './types-core';
 export * from './types-functions';
 
 export * from './types-json';
+
+export * from './types-struct';

@@ -45,6 +45,18 @@ T extends infer TInferred
   : never;
 
 /**
+ * If T1 = T2, then return TIf, else return TElse.
+ */
+export type IfEquals<
+  T1,
+  T2,
+  TIf = T1,
+  TElse = never
+> = (<T>() => T extends T1 ? 1 : 2) extends <T>() => T extends T2 ? 1 : 2
+  ? TIf
+  : TElse;
+
+/**
  * Obtain the type of a Promise resolution.
  */
 export type PromiseType<

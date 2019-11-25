@@ -10,6 +10,13 @@ export type PartialDeep<T> = {
 };
 
 /**
+ * Make specific properties in T optional.
+ */
+export type PartialKeys<T, TKeys extends keyof T = keyof T> =
+  & Omit<T, TKeys>
+  & Partial<Pick<T, TKeys>>;
+
+/**
  * Make all nested properties in T required.
  */
 export type RequiredDeep<T> = {
@@ -21,6 +28,13 @@ export type RequiredDeep<T> = {
 };
 
 /**
+ * Make specific properties in T required.
+ */
+export type RequiredKeys<T, TKeys extends keyof T = keyof T> =
+  & Omit<T, TKeys>
+  & Required<Pick<T, TKeys>>;
+
+/**
  * Make all nested properties in T readonly.
  */
 export type ReadonlyDeep<T> = {
@@ -28,11 +42,25 @@ export type ReadonlyDeep<T> = {
 };
 
 /**
+ * Make specific properties in T readonly.
+ */
+export type ReadonlyKeys<T, TKeys extends keyof T = keyof T> =
+  & Omit<T, TKeys>
+  & Readonly<Pick<T, TKeys>>;
+
+/**
  * Make all properties in T mutable (not readonly).
  */
 export type Mutable<T> = {
   -readonly [TKey in keyof T]: T[TKey]
 };
+
+/**
+ * Make specific properties in T mutable.
+ */
+export type MutableKeys<T, TKeys extends keyof T = keyof T> =
+  & Omit<T, TKeys>
+  & Mutable<Pick<T, TKeys>>;
 
 /**
  * Make all nested properties in T mutable (not readonly).

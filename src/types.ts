@@ -16,3 +16,5 @@ export * from './types-functions';
 export * from './types-json';
 
 export * from './types-struct';
+
+export * from './types-struct-keys';

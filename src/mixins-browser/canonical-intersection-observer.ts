@@ -2,11 +2,11 @@ import _ from 'lodash';
 import globalThis from './.global-this';
 
 import {
-  ReuseObserver,
+  Observer,
   ReuseObserverCallbackFn
 } from './reuse-observer';
 
-export class CanonicalIntersectionObserver implements ReuseObserver {
+export class CanonicalIntersectionObserver implements Observer {
   _cb = undefined;
 
   _cache = [] as {
@@ -20,10 +20,11 @@ export class CanonicalIntersectionObserver implements ReuseObserver {
   }
 
   observe(element: Element, options: IntersectionObserverInit): void {
-    let alreadyObserving = _.some(this._cache, function(cacheEntry) {
-      return cacheEntry.element === element && cacheEntry.options === options;
+    let isObserving = _.some(this._cache, function(cacheEntry) {
+      return cacheEntry.element === element &&
+        cacheEntry.options === options;
     });
-    if (alreadyObserving) {
+    if (isObserving) {
       return;
     }
 
@@ -51,16 +52,18 @@ export class CanonicalIntersectionObserver implements ReuseObserver {
 
   unobserve(element: Element, options: IntersectionObserverInit): void {
     let cache = _.filter(this._cache, function(cacheEntry) {
-      return cacheEntry.element === element && cacheEntry.options === options;
+      return cacheEntry.element === element &&
+        cacheEntry.options === options;
     });
 
-    _.forEach(cache, function({element, observer}) {
+    _.forEach(cache, (cacheEntry) => {
+      let {
+        element,
+        observer
+      } = cacheEntry;
       observer.unobserve(element);
-    });
-
-    // eslint-disable-next-line lodash/prefer-immutable-method
-    _.remove(this._cache, function(cacheEntry) {
-      return cacheEntry.element === element && cacheEntry.options === options;
+      // eslint-disable-next-line lodash/prefer-immutable-method
+      _.pull(this._cache, cacheEntry);
     });
   }
 
@@ -69,9 +72,13 @@ export class CanonicalIntersectionObserver implements ReuseObserver {
       return cacheEntry.observer;
     });
     observers = _.uniq(observers);
-    _.forEach(observers, function(observer) {
+    _.forEach(observers, (observer) => {
       observer.disconnect();
+
+      // eslint-disable-next-line lodash/prefer-immutable-method
+      _.remove(this._cache, function(cacheEntry) {
+        return cacheEntry.observer === observer;
+      });
     });
-    this._cache = [];
   }
 }

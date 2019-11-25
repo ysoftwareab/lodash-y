@@ -2,8 +2,7 @@ import _ from 'lodash';
 import globalThis from './.global-this';
 
 import {
-  CallbackFn,
-  Expand
+  CallbackFn
 } from '../types';
 
 // Create an reusable matchy-match (and normalized) observer.
@@ -49,17 +48,19 @@ export interface ReuseObserverCallbackFn {
   (entries: unknown[], ...args: unknown[]): void;
 }
 
-export interface ReuseObserver {
-  _cb?: CallbackFn;
-  observe(...args: unknown[]): CallbackFn | unknown;
-  unobserve(...args: unknown[]): unknown;
+export interface Observer {
+  observe(...args: unknown[]): void;
+  unobserve?(...args: unknown[]): void;
   disconnect?(): void;
 }
 
-export interface ReuseObserverConstructor {
-  new(cb: ReuseObserverCallbackFn): Expand<ReuseObserver & {
-    disconnect(): void;
-  }>;
+export interface ObserverConstructor {
+  new(...args: any[]): Observer;
+}
+
+export interface ReuseObserver extends Observer {
+  _cb: CallbackFn;
+  observe(...args: unknown[]): CallbackFn;
 }
 
 export interface IsEntryMatchFn {
@@ -81,7 +82,7 @@ let _observerIsElementObserver = function(observer: ElementObserver | unknown): 
   return false;
 };
 
-let _memoizeResolver = function(Observer: ReuseObserverConstructor, isEntryMatch: IsEntryMatchFn): string {
+let _memoizeResolver = function(Observer: ObserverConstructor, isEntryMatch: IsEntryMatchFn): string {
   return Observer.toString() + isEntryMatch.toString();
 };
 
@@ -96,9 +97,9 @@ let _memoizeResolver = function(Observer: ReuseObserverConstructor, isEntryMatch
  *
  */
 export let reuseObserver = _.memoize(function(
-  Observer: ReuseObserverConstructor,
+  Observer: ObserverConstructor,
   isEntryMatch: IsEntryMatchFn = _.isMatch.bind(_)
-): ReuseObserver {
+) {
   let matchListenerPairs = []; // [{match, listeners}]
   let cb = function(entries, ...args): void {
     // normalize cb signature to always pass a reference to the observer
@@ -119,8 +120,7 @@ export let reuseObserver = _.memoize(function(
     });
   };
 
-  let observer = new Observer(cb);
-  observer._cb = cb.bind(observer);
+  let observer = new Observer(cb) as ReuseObserver;
   let originalObserve = observer.observe.bind(observer);
   observer.observe = function(match: any, listener, ...observeArgs): CallbackFn {
     // convenience for known element observers
@@ -154,10 +154,7 @@ export let reuseObserver = _.memoize(function(
     return unobserve;
   };
 
-  let originalUnobserve = observer.observe.bind(observer);
-  if (_.isFunction(originalUnobserve)) {
-    originalUnobserve = originalUnobserve.bind(observer);
-  }
+  let originalUnobserve = _.defaultTo(observer.observe, _.noop).bind(observer);
   observer.unobserve = function(match: any, listener, ...unobserveArgs): void {
     if (_.isFunction(originalUnobserve)) {
       // convenience for known element observers
@@ -180,7 +177,7 @@ export let reuseObserver = _.memoize(function(
     originalUnobserve(...unobserveArgs);
   };
 
-  let originalDisconnect = _.defaultTo(observer.disconnect.bind(observer), _.noop.bind(_));
+  let originalDisconnect = _.defaultTo(observer.disconnect, _.noop).bind(observer);
   observer.disconnect = function(): void {
     originalDisconnect();
     matchListenerPairs = [];

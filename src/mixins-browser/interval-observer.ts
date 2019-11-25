@@ -1,11 +1,11 @@
 import _ from 'lodash';
 
 import {
-  ReuseObserver,
+  Observer,
   ReuseObserverCallbackFn
 } from './reuse-observer';
 
-export class IntervalObserver implements ReuseObserver {
+export class IntervalObserver implements Observer {
   _cb = undefined;
 
   _cache = [] as {

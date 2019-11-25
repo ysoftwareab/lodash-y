@@ -1,11 +1,11 @@
 import _ from 'lodash';
 
 import {
-  ReuseObserver,
+  Observer,
   ReuseObserverCallbackFn
 } from './reuse-observer';
 
-export class EventTargetObserver implements ReuseObserver {
+export class EventTargetObserver implements Observer {
   _cb = undefined;
 
   _cache = [] as {
@@ -31,7 +31,9 @@ export class EventTargetObserver implements ReuseObserver {
       type
     } = args;
     let cacheEntry = _.find(this._cache, function(cacheEntry) {
-      return cacheEntry.target === target && cacheEntry.type === type && cacheEntry.capture === options.capture;
+      return cacheEntry.target === target &&
+        cacheEntry.type === type &&
+        cacheEntry.capture === options.capture;
     });
     let isObserving = !_.isUndefined(cacheEntry);
     if (isObserving) {
@@ -43,13 +45,13 @@ export class EventTargetObserver implements ReuseObserver {
       ];
       this._cb(entries);
     };
+    target.addEventListener(type, listener, options);
     this._cache.push({
       target,
       type,
       capture: options.capture,
       listener
     });
-    target.addEventListener(type, listener, options);
   }
 
   unobserve(
@@ -64,7 +66,9 @@ export class EventTargetObserver implements ReuseObserver {
       type
     } = args;
     let cacheEntry = _.find(this._cache, function(cacheEntry) {
-      return cacheEntry.target === target && cacheEntry.type === type && cacheEntry.capture === options.capture;
+      return cacheEntry.target === target &&
+        cacheEntry.type === type &&
+        cacheEntry.capture === options.capture;
     });
     let isObserving = !_.isUndefined(cacheEntry);
     if (!isObserving) {

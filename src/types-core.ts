@@ -10,7 +10,7 @@ export type Maybe<T = unknown> =
  */
 export type MaybePromise<T = unknown> =
   | T
-  | Promise<T>;
+  | Promise<PromiseType<T>>;
 
 /**
  * A primitive value as per https://developer.mozilla.org/en-US/docs/Glossary/Primitive .

@@ -4,9 +4,10 @@
 export type Constructor<
   TReturn = unknown,
   TArgs extends unknown[] = unknown[]
-> = {
-  new(...args: TArgs): TReturn;
-};
+> =
+  {
+    new(...args: TArgs): TReturn;
+  };
 
 /**
  * Construct a class type with the static properties of TConstructor except for those in type TKeys.
@@ -51,7 +52,8 @@ export type InstanceReplace<
 export type InstanceOmit<
   TConstructor extends Constructor,
   TKeys extends keyof InstanceType<TConstructor>
-> = InstanceReplace<
-TConstructor,
-Omit<InstanceType<TConstructor>, TKeys>
->;
+> =
+  InstanceReplace<
+  TConstructor,
+  Omit<InstanceType<TConstructor>, TKeys>
+  >;

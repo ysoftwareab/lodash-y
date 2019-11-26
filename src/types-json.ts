@@ -3,9 +3,10 @@
 // export type JsonArray = JsonValue[];
 export interface JsonArray extends Array<JsonValue> {}
 
-export type JsonObject = {
-  [key: string]: JsonValue;
-};
+export type JsonObject =
+  {
+    [key: string]: JsonValue;
+  };
 
 export type JsonPrimitive =
   | string

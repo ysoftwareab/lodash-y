@@ -16,10 +16,16 @@ export type CallbackFn =
  * A NodeJS-style callback function that resolves with TResult.
  */
 export type NodeJSCallbackFn<TResult = unknown> =
-  Fn<MaybePromise<void>, [Error] | [undefined, TResult]>;
+  Fn<
+  MaybePromise<void>,
+  [Error] | [undefined, TResult]
+  >;
 
 /**
  * An error-last-style callback function that resolves with TResult.
  */
 export type NodeJSCallbackErrorLastFn<TResult = unknown> =
-  Fn<MaybePromise<void>, [TResult] | [undefined, Error]>;
+  Fn<
+  MaybePromise<void>,
+  [TResult] | [undefined, Error]
+  >;

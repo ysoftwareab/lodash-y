@@ -28,21 +28,21 @@ export type Primitive =
  * Expand one-level-only of a type (e.g. Class) for debugging purposes.
  */
 export type Expand<T> =
-T extends infer TInferred
-  ? {
-    [TKey in keyof TInferred]: TInferred[TKey]
-  }
-  : never;
+  T extends infer TInferred
+    ? {
+      [TKey in keyof TInferred]: TInferred[TKey]
+    }
+    : never;
 
 /**
  * Expand all-levels of a type (e.g. Class) for debugging purposes.
  */
 export type ExpandDeep<T> =
-T extends infer TInferred
-  ? {
-    [TKey in keyof TInferred]: ExpandDeep<TInferred[TKey]>
-  }
-  : never;
+  T extends infer TInferred
+    ? {
+      [TKey in keyof TInferred]: ExpandDeep<TInferred[TKey]>
+    }
+    : never;
 
 /**
  * If T1 = T2, then return TIf, else return TElse.
@@ -62,6 +62,6 @@ export type IfEquals<
 export type PromiseType<
   TMaybePromise extends any
 > =
-TMaybePromise extends Promise<infer TValue>
-  ? TValue
-  : TMaybePromise;
+  TMaybePromise extends Promise<infer TValue>
+    ? TValue
+    : TMaybePromise;

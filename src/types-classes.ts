@@ -9,11 +9,11 @@ export type Constructor<
 };
 
 /**
- * Construct a class type with the static properties of TConstructor except for those in type TKey.
+ * Construct a class type with the static properties of TConstructor except for those in type TKeys.
  */
 export type ConstructorOmit<
   TConstructor extends Constructor,
-  TKey extends keyof any
+  TKeys extends keyof any
 > =
   TConstructor extends {
     new(...args: infer TArgs): infer TInstance;
@@ -22,27 +22,36 @@ export type ConstructorOmit<
       & {
         new(...args: TArgs): TInstance;
       }
-      & Omit<TConstructor, TKey>
+      & Omit<TConstructor, TKeys>
     )
     : never;
 
 /**
- * Construct a class type with the instance properties of TConstructor except for those in type TKey.
+ * Construct a class type with the instance of type TInstance.
  */
-export type InstanceOmit<
+export type InstanceReplace<
   TConstructor extends Constructor,
-  TKey extends keyof any
+  TInstance
 > =
   TConstructor extends {
-    new(...args: infer TArgs): infer TInstance;
+    new(...args: infer TArgs): any;
   }
     ? (
       & {
-        new(...args: TArgs): Omit<TInstance, TKey>;
+        prototype: TInstance;
+        new(...args: TArgs): TInstance;
       }
-      & Omit<TConstructor, 'prototype'>
-      & {
-        prototype: Omit<TInstance, TKey>;
-      }
+      & Omit<TConstructor, 'prototype'> // the constructor function 'new' is omitted by default
     )
     : never;
+
+/**
+ * Construct a class type with the instance properties of TConstructor except for those in type TKeys.
+ */
+export type InstanceOmit<
+  TConstructor extends Constructor,
+  TKeys extends keyof InstanceType<TConstructor>
+> = InstanceReplace<
+TConstructor,
+Omit<InstanceType<TConstructor>, TKeys>
+>;

@@ -1,1 +1,1 @@
-module.exports = require('./lib/browser').default;
+module.exports = require('./lib/index-browser').default;

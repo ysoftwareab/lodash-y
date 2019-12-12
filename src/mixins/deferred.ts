@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import {
   Fn
 } from '../types';
@@ -40,9 +42,10 @@ export interface Deferred<TValue> {
  *
  * Create a Deferred object that references the promise, the resolve and reject functions.
  *
+ * @param [promise] A promise to automatically resolve/reject the Deferred object with.
  * @returns Returns the Deferred object.
  */
-export let deferred = function<TValue = unknown>(): Deferred<TValue> {
+export let deferred = function<TValue = unknown>(promise?: Promise<any>): Deferred<TValue> {
   let deferred: Partial<Deferred<TValue>> = {
     state: 'pending'
   };
@@ -60,6 +63,16 @@ export let deferred = function<TValue = unknown>(): Deferred<TValue> {
       reject(err);
     };
   });
+
+  if (!_.isUndefined(promise)) {
+    _.defer(async function() {
+      try {
+        deferred.resolve(await promise);
+      } catch (err) {
+        deferred.reject(err);
+      }
+    });
+  }
 
   return deferred as Deferred<TValue>;
 };

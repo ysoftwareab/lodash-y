@@ -6,8 +6,9 @@ import {
   PromiseType
 } from '../types';
 
-// eslint-disable-next-line firecloud/underscore-prefix-non-exported, @typescript-eslint/explicit-function-return-type
-let AsyncFunction = Object.getPrototypeOf(async function() { /* noop */ }).constructor;
+import {
+  isAsyncFunction
+} from './is-async-function';
 
 // useful for checks like `err instanceof _.LimitInParallelError`
 export class LimitInParallelError extends Error {
@@ -44,8 +45,7 @@ export let limitInParallel = function<
   });
   let activeCount = 0;
 
-  // eslint-disable-next-line no-undef
-  if (origFn instanceof AsyncFunction) {
+  if (isAsyncFunction(origFn)) {
     let fn = async function(...args: Parameters<T>): Promise<PromiseType<ReturnType<T>> | LimitInParallelError> {
       if (activeCount >= options.limit) {
         let err = new LimitInParallelError(`Can only run this function maximum ${options.limit} times in parallel.`);

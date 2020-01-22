@@ -1,41 +1,14 @@
 import _ from 'lodash';
 
 import {
-  Fn
+  Deferred
 } from '../types';
 
-export interface Deferred<TValue> {
-
-  /**
-   * The internal promise.
-   */
-  promise: Promise<TValue>;
-
-  /**
-   * The state of the promise.
-   */
-  state: 'pending' | 'resolved' | 'rejected';
-
-  /**
-   * The resolve callback of the promise.
-   */
-  resolve: Fn<void, [TValue?]>;
-
-  /**
-   * The reject callback of the promise.
-   */
-  reject: Fn<void, [Error]>;
-
-  /**
-   * The value that the promise resolved with.
-   */
-  value?: TValue;
-
-  /**
-   * The error that the promise rejected with.
-   */
-  err?: Error;
-}
+// deprecated. remove in a major release
+// import type from `lodash-firecloud/types` instead
+export {
+  Deferred
+} from '../types';
 
 /**
  * Part of `lodash-firecloud`.

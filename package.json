@@ -16,7 +16,6 @@
   ],
   "dependencies": {
     "@types/lodash": "^4.14.129",
-    "@types/node": "^13.5.1",
     "@types/resize-observer-browser": "^0.1.2",
     "hard-rejection": "^2.1.0",
     "lodash": "^4.17.5",
@@ -32,6 +31,7 @@
     "@babel/runtime": "^7.2.0",
     "@getify/eslint-plugin-proper-arrows": "^8.0.1",
     "@types/jest": "^24.0.19",
+    "@types/node": "^10.17.14",
     "@typescript-eslint/eslint-plugin": "^2.6.0",
     "@typescript-eslint/parser": "^2.6.0",
     "babel-core": "^7.0.0-bridge.0",
@@ -55,6 +55,9 @@
     "jest": "^24.1.0",
     "npm-publish-git": "git://github.com/andreineculau/npm-publish-git.git#semver:~0.0.8",
     "typescript": "^3.7.2"
+  },
+  "peerDependencies": {
+    "@types/node": ">=10.x"
   },
   "scripts": {
     "prepare": "make package-json-prepare"

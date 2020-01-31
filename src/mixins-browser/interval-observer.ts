@@ -10,7 +10,7 @@ export class IntervalObserver implements Observer {
 
   _cache = [] as {
     interval: number;
-    intervalId: NodeJS.Timeout;
+    intervalId: ReturnType<typeof setInterval>;
   }[];
 
   constructor(cb: ReuseObserverCallbackFn) {

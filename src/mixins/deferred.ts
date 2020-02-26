@@ -4,10 +4,6 @@ import {
   Deferred
 } from '../types';
 
-import {
-  asyncCb
-} from './async-cb';
-
 // deprecated. remove in a major release
 // import type from `lodash-firecloud/types` instead
 export {
@@ -42,13 +38,13 @@ export let deferred = function<TValue = unknown>(promise?: Promise<any>): Deferr
   });
 
   if (!_.isUndefined(promise)) {
-    _.defer(asyncCb(async function() {
+    _.defer(async function() {
       try {
         deferred.resolve(await promise);
       } catch (err) {
         deferred.reject(err);
       }
-    }));
+    });
   }
 
   return deferred as Deferred<TValue>;

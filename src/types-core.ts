@@ -65,3 +65,16 @@ export type PromiseType<
   TMaybePromise extends Promise<infer TValue>
     ? TValue
     : TMaybePromise;
+
+/**
+ * Create an nominal type.
+ * NOTE: For nominal classes, use 'private __tsNominalType: void' instead.
+ */
+export type Nominal<
+  T,
+  TNominal extends string
+> =
+  & {
+    __tsNominalType: TNominal;
+  }
+  & T;

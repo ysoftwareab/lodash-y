@@ -37,5 +37,5 @@ _.mixin({promisify});
 [Apache 2.0](LICENSE)
 
 
-  [1]: https://travis-ci.com/tobiipro/lodash-firecloud
-  [2]: https://travis-ci.com/tobiipro/lodash-firecloud.svg?branch=master
+  [1]: https://travis-ci.com/rokmoln/lodash-firecloud
+  [2]: https://travis-ci.com/rokmoln/lodash-firecloud.svg?branch=master

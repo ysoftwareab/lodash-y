@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`envsubst should replace \${VAR} pattern 1`] = `
+Array [
+  "key",
+  "prefixkey",
+  "prefix key",
+  "keysuffix",
+  "key suffix",
+]
+`;
+
+exports[`envsubst should replace $VAR pattern 1`] = `
+Array [
+  "key",
+  "prefixkey",
+  "prefix key",
+  "$VARsuffix",
+  "key suffix",
+]
+`;

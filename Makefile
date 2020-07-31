@@ -29,8 +29,10 @@ ESLINT_ARGS += \
 JEST_ARGS += \
 	--no-cache \
 
-SF_BUILD_TARGETS := \
+SF_DEPS_TARGETS := \
 	$(SRC_MIXINS_INDEX_TS_FILES) \
+
+SF_BUILD_TARGETS := \
 	$(SF_BUILD_TARGETS) \
 
 # ------------------------------------------------------------------------------

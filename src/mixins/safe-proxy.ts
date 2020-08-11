@@ -20,10 +20,6 @@ export let safeProxy = function(env: _.Dictionary<unknown>): _.Dictionary<unknow
         return target[property as any];
       }
 
-      // ignore symbol
-      // TODO see https://github.com/microsoft/TypeScript/pull/29317
-      property = property as Exclude<typeof property, symbol>;
-
       if (_.includes([
         'constructor',
         'length'

@@ -27,7 +27,7 @@ export {
  * @param [promise] A promise to automatically resolve/reject the Deferred object with.
  * @returns Returns the Deferred object.
  */
-export let deferred = function<TValue = unknown>(promise?: Promise<any>): Deferred<TValue> {
+export let deferred = function<TValue = unknown>(promise?: Promise<TValue>): Deferred<TValue> {
   let deferred: Partial<Deferred<TValue>> = {
     state: 'pending'
   };
@@ -47,13 +47,7 @@ export let deferred = function<TValue = unknown>(promise?: Promise<any>): Deferr
   });
 
   if (!_.isUndefined(promise)) {
-    _.defer(async function() {
-      try {
-        deferred.resolve(await promise);
-      } catch (err) {
-        deferred.reject(err);
-      }
-    });
+    promise.then(deferred.resolve).catch(deferred.reject);
   }
 
   return deferred as Deferred<TValue>;

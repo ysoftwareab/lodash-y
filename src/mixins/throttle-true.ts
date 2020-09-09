@@ -15,7 +15,7 @@ import {
  * @param interval Throttling interval.
  * @returns The throttled function.
  */
-export let throttleTrue = function<T extends Fn>(origFn: T, interval: number): _.DebouncedFunc<T> {
+export let throttleTrue = function<T extends Fn>(origFn: T, interval: number): T & _.Cancelable {
   let lastInvokeTime = 0;
   let lastInvokeResult;
 

@@ -26,7 +26,7 @@ export let throttleExp = function<T extends Fn>(origFn: T, wait: number, options
   multiplier?: number;
   divider?: number;
   maxWait?: number;
-} = {}): T & _.Cancelable {
+} = {}): _.DebouncedFunc<T> {
   _.defaults(options, {
     leading: true,
     trailing: true,

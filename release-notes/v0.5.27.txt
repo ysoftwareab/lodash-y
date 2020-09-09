@@ -1,0 +1,14 @@
+lodash-firecloud v0.5.27 Release Notes
+
+Highlights since v0.5.26-src:
+
+* None
+
+Breaking commits since v0.5.26-src:
+
+* None
+
+Commits since v0.5.26-src:
+
+* b92f6a8 2020-09-09 updated support-firecloud to v0.2.69
+o 02bb943 2020-09-09 0.5.26

@@ -37,5 +37,5 @@ _.mixin({promisify});
 [Apache 2.0](LICENSE)
 
 
-  [1]: https://travis-ci.com/rokmoln/lodash-firecloud
-  [2]: https://travis-ci.com/rokmoln/lodash-firecloud.svg?branch=master
+  [1]: https://github.com/rokmoln/lodash-firecloud/actions?query=workflow%3ACI+branch%3Amaster
+  [2]: https://github.com/rokmoln/lodash-firecloud/workflows/CI/badge.svg?branch=master

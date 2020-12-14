@@ -38,6 +38,10 @@ SF_BUILD_TARGETS := \
 
 # ------------------------------------------------------------------------------
 
+.github/workflows/main.yml: .github/workflows/main.yml.tpl .github/workflows.src/main.yml
+	$(call sf-generate-from-template)
+
+
 .PHONY: src/mixins/index.ts
 src/mixins/index.ts: src/mixins/tpl.index.js
 	$^ > $@

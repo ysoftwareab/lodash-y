@@ -1,0 +1,89 @@
+name: CI
+on:
+  push:
+    branches:
+      - github* # github branches
+      - master
+    tags:
+      - 'v*' # version tags
+  pull_request:
+    branches:
+      - '**'
+  schedule:
+    - cron:  '0 0 * * *'
+
+aliases:
+  env: &env
+    GITHUB_MATRIX_OS: ${{ matrix.os }}
+    SF_LOG_BOOTSTRAP: ${{ secrets.SF_LOG_BOOTSTRAP }}
+    SF_PRINTENV_BOOTSTRAP: ${{ secrets.SF_PRINTENV_BOOTSTRAP }}
+    V: ${{ secrets.V }}
+  checkout: &checkout
+    # run: /support-firecloud/repo/dot.ci.sh sf_ga_checkout
+    uses: actions/checkout@v2
+  checkout-submodules: &checkout-submodules
+    name: Run actions/checkout@v2 (submodules)
+    shell: bash
+    run: |
+      set -x
+      auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+      git submodule sync --recursive
+      git -c "http.extraheader=$auth_header" -c protocol.version=2 \
+      submodule update --init --force --recursive --depth=1
+
+# ------------------------------------------------------------------------------
+
+jobs:
+  main:
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        node:
+          - 10
+          - latest
+    name: main-node-${{ matrix.node }}
+    container:
+      image: rokmoln/sf-ubuntu-bionic-common:ENVSUBST_SF_VSN__
+      options: '--user sf:sf'
+      env:
+        <<: *env
+        GITHUB_JOB_NAME: main-node-${{ matrix.node }}
+        HOME: '/home/sf' # github forces this to /github/home owned by 1001:116
+        SF_NODE_VSN: ${{ matrix.node }}
+    steps:
+      - shell: bash
+        run: sudo chown sf:sf . # owned by 1001:116 otherwise
+      - *checkout
+      - *checkout-submodules
+
+      - shell: bash
+        run: ./.ci.sh before_install
+
+      - shell: bash
+        run: ./.ci.sh install
+
+      - shell: bash
+        run: ./.ci.sh before_script
+
+      - shell: bash
+        run: ./.ci.sh script
+
+      - if: failure()
+        shell: bash
+        run: ./.ci.sh after_failure || true
+
+      - shell: bash
+        run: ./.ci.sh after_success || true
+
+      - if: always()
+        shell: bash
+        run: ./.ci.sh after_script || true
+
+      - if: always()
+        shell: bash
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: cloud-ci
+          CI_STATUS: ${{ job.status }}
+        run: ./.ci.sh notifications || true

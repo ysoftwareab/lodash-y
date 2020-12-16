@@ -1,0 +1,72 @@
+# WARNING: DO NOT EDIT. AUTO-GENERATED CODE (.github/workflows.src/main.yml)
+name: CI
+'on':
+  push:
+    branches:
+      - github*
+      - master
+    tags:
+      - v*
+  pull_request:
+    branches:
+      - '**'
+  schedule:
+    - cron: 0 0 * * *
+jobs:
+  main:
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        node:
+          - 10
+          - node
+    name: 'main-node-${{ matrix.node }}'
+    runs-on: ubuntu-latest
+    container:
+      image: 'rokmoln/sf-ubuntu-bionic-common:0.2.80'
+      options: '--user sf:sf'
+      env:
+        GITHUB_MATRIX_OS: '${{ matrix.os }}'
+        GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+        SF_LOG_BOOTSTRAP: '${{ secrets.SF_LOG_BOOTSTRAP }}'
+        SF_PRINTENV_BOOTSTRAP: '${{ secrets.SF_PRINTENV_BOOTSTRAP }}'
+        V: '${{ secrets.V }}'
+        GITHUB_JOB_NAME: 'main-node-${{ matrix.node }}'
+        HOME: /home/sf
+        SF_NODE_VSN: '${{ matrix.node }}'
+    steps:
+      - shell: bash
+        run: 'sudo chown sf:sf .'
+      - uses: actions/checkout@v2
+      - name: Run actions/checkout@v2 (submodules)
+        shell: bash
+        run: |
+          set -x
+          auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+          git submodule sync --recursive
+          git -c "http.extraheader=$auth_header" -c protocol.version=2 \
+          submodule update --init --force --recursive --depth=1
+      - shell: bash
+        run: ./.ci.sh before_install
+      - shell: bash
+        run: ./.ci.sh install
+      - shell: bash
+        run: ./.ci.sh before_script
+      - shell: bash
+        run: ./.ci.sh script
+      - if: failure()
+        shell: bash
+        run: ./.ci.sh after_failure || true
+      - shell: bash
+        run: ./.ci.sh after_success || true
+      - if: always()
+        shell: bash
+        run: ./.ci.sh after_script || true
+      - if: always()
+        shell: bash
+        env:
+          SLACK_WEBHOOK: '${{ secrets.SLACK_WEBHOOK }}'
+          SLACK_CHANNEL: cloud-ci
+          CI_STATUS: '${{ job.status }}'
+        run: ./.ci.sh notifications || true

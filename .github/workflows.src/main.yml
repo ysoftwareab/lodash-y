@@ -14,23 +14,6 @@ on:
 
 aliases:
   env: &env
-    GITHUB_MATRIX_OS: ${{ matrix.os }}
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    SF_LOG_BOOTSTRAP: ${{ secrets.SF_LOG_BOOTSTRAP }}
-    SF_PRINTENV_BOOTSTRAP: ${{ secrets.SF_PRINTENV_BOOTSTRAP }}
-    V: ${{ secrets.V }}
-  checkout: &checkout
-    # run: /support-firecloud/repo/dot.ci.sh sf_ga_checkout
-    uses: actions/checkout@v2
-  checkout-submodules: &checkout-submodules
-    name: Run actions/checkout@v2 (submodules)
-    shell: bash
-    run: |
-      set -x
-      auth_header="$(git config --local --get http.https://github.com/.extraheader)"
-      git submodule sync --recursive
-      git -c "http.extraheader=$auth_header" -c protocol.version=2 \
-      submodule update --init --force --recursive --depth=1
 
 # ------------------------------------------------------------------------------
 
@@ -49,14 +32,19 @@ jobs:
       image: rokmoln/sf-ubuntu-bionic-common:${ENVSUBST_SF_VSN}
       options: '--user sf:sf'
       env:
-        <<: *env
         GITHUB_JOB_NAME: main-node-${{ matrix.node }}
-        SF_NODE_VSN: ${{ matrix.node }}
+        GITHUB_MATRIX_NODE: ${{ matrix.node }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SF_LOG_BOOTSTRAP: ${{ secrets.SF_LOG_BOOTSTRAP }}
+        SF_PRINTENV_BOOTSTRAP: ${{ secrets.SF_PRINTENV_BOOTSTRAP }}
+        V: ${{ secrets.V }}
     steps:
       - shell: bash
         run: sudo chown sf:sf . # owned by 1001:116 otherwise
-      - *checkout
-      - *checkout-submodules
+
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
 
       - shell: bash
         run: ./.ci.sh before_install

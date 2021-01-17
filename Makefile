@@ -38,7 +38,7 @@ SF_BUILD_TARGETS := \
 
 # ------------------------------------------------------------------------------
 
-.github/workflows/main.yml: .github/workflows/main.yml.tpl .github/workflows.src/main.yml
+.github/workflows/main.yml: .github/workflows/main.yml.tpl .github/workflows.src/main.yml support-firecloud/package.json
 	$(call sf-generate-from-template)
 
 

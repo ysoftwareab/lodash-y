@@ -43,8 +43,6 @@ jobs:
         run: sudo chown sf:sf . # owned by 1001:116 otherwise
 
       - uses: actions/checkout@v2
-        with:
-          submodules: recursive
 
       - shell: bash
         run: ./.ci.sh before_install

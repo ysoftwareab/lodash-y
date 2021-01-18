@@ -37,8 +37,6 @@ jobs:
       - shell: bash
         run: sudo chown sf:sf .
       - uses: actions/checkout@v2
-        with:
-          submodules: recursive
       - shell: bash
         run: ./.ci.sh before_install
       - shell: bash

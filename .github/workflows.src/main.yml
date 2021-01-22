@@ -41,7 +41,7 @@ jobs:
     steps:
       - uses: rokmoln/support-firecloud@${ENVSUBST_SF_VSN}
         with:
-          command: |
+          run: |
             sudo chown sf:sf ${GITHUB_WORKSPACE} # owned by 1001:116 otherwise
             bin/github-checkout
 

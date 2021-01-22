@@ -39,7 +39,7 @@ jobs:
         SF_PRINTENV_BOOTSTRAP: ${{ secrets.SF_PRINTENV_BOOTSTRAP }}
         V: ${{ secrets.V }}
     steps:
-      - uses: rokmoln/support-firecloud@v${ENVSUBST_SF_VSN}
+      - uses: rokmoln/support-firecloud@action
         with:
           run: |
             sudo chown sf:sf ${GITHUB_WORKSPACE} # owned by 1001:116 otherwise

@@ -3,7 +3,7 @@ import {
 } from '../types';
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Create a stub function that throws an error when invoked. Supposed to be overriden.
  *

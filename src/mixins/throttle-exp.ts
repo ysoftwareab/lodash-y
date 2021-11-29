@@ -5,7 +5,7 @@ import {
 } from '../types';
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Throttle a function exponentially.
  *

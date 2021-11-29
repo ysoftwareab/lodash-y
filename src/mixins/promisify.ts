@@ -13,7 +13,7 @@ import {
 // NOTE follows closely Node.js util.promisify
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Convert callback-like function into Promise.
  *

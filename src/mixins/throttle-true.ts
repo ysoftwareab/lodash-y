@@ -5,7 +5,7 @@ import {
 } from '../types';
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * A "true" _.throttle with 'trailing': false".
  * A lightweight version which does not allocate unnecessary timer,

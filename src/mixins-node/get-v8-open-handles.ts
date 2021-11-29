@@ -54,7 +54,7 @@ let _init = function(): asyncHooks.AsyncHook {
 };
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Gets info about the V8 open handles.
  *

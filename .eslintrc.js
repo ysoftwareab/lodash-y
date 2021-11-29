@@ -4,7 +4,7 @@ module.exports = {
   root: true,
 
   extends: [
-    'firecloud/node'
+    'y/node'
   ],
 
   rules: {
@@ -17,7 +17,7 @@ module.exports = {
     ],
 
     extends: [
-      'firecloud/configs/typescript'
+      'y/configs/typescript'
     ]
   }]
 };

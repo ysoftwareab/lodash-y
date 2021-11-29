@@ -1,7 +1,7 @@
 import _hardRejection from 'hard-rejection';
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Install the hard-rejection handler.
  * See https://www.npmjs.com/package/hard-rejection.

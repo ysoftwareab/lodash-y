@@ -5,7 +5,7 @@ import {
 } from '../types';
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Map an object and all of its plain-object properties' values depth-wise with a given `fn`.
  *

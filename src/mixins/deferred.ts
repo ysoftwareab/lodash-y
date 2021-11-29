@@ -5,13 +5,13 @@ import {
 } from '../types';
 
 // deprecated. remove in a major release
-// import type from `lodash-firecloud/types` instead
+// import type from `lodash-y/types` instead
 export {
   Deferred
 } from '../types';
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Create a Deferred object that references the promise, the resolve and reject functions.
  *

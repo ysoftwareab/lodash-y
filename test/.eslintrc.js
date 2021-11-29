@@ -2,6 +2,6 @@ module.exports = {
   root: false,
 
   extends: [
-    'firecloud/configs/jest'
+    'y/configs/jest'
   ]
 };

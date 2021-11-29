@@ -5,7 +5,7 @@ import {
 } from './deferred';
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * An async function that is resolved after a desired sleep time.
  *

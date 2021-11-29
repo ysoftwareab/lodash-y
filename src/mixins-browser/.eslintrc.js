@@ -1,7 +1,7 @@
 module.exports = {
   root: false,
   extends: [
-    'firecloud/configs/browser.js'
+    'y/configs/browser.js'
   ],
   env: {
     node: false

@@ -5,7 +5,7 @@ import {
 } from '../types';
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Create a function that memoizes the result of origFn for a specific TTL time window.
  *

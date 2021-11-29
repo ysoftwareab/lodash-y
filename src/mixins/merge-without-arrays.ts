@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Same as _.merge but don't merge arrays. Just override them.
  *

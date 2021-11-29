@@ -1,7 +1,7 @@
 import _outdent from 'outdent';
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Tag to outdent template literals.
  *

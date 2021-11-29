@@ -1,5 +1,5 @@
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Decode a Base64-encoded string.
  *

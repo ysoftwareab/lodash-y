@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Substitute environment variables á la envsubst.
  *

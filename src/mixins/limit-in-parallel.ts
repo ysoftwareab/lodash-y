@@ -22,7 +22,7 @@ export interface LimitInParallelOptions {
 // TODO is there a way not to duplicate the function just because origFn is sync or async?
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Create a function that can only run maximum n times in parallel.
  *

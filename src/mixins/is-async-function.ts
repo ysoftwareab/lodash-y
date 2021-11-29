@@ -1,8 +1,8 @@
-// eslint-disable-next-line firecloud/underscore-prefix-non-exported, @typescript-eslint/explicit-function-return-type
+// eslint-disable-next-line y/underscore-prefix-non-exported, @typescript-eslint/explicit-function-return-type
 let AsyncFunction = Object.getPrototypeOf(async function() { /* noop */ }).constructor;
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Checks if value is classified as an async Function object.
  *

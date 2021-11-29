@@ -12,13 +12,13 @@ declare module 'lodash' {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-type-alias
-export type FirecloudLoDashStatic = __.LoDashStatic & typeof _mixins;
+export type YLoDashStatic = __.LoDashStatic & typeof _mixins;
 
 export let mixins = {
   ..._mixins
 };
 
-// eslint-disable-next-line firecloud/no-underscore-prefix-exported
-export let _ = __.runInContext().mixin(mixins as any) as FirecloudLoDashStatic;
+// eslint-disable-next-line y/no-underscore-prefix-exported
+export let _ = __.runInContext().mixin(mixins as any) as YLoDashStatic;
 
 export default _;

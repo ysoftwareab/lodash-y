@@ -87,7 +87,7 @@ let _memoizeResolver = function(Observer: ObserverConstructor, isEntryMatch: IsE
 };
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Create an observer that reuses an instance of a given Observer class.
  *

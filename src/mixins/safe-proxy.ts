@@ -5,7 +5,7 @@ import _ from 'lodash';
 // e.g. if ('PATH' in _.safeProxy(process.env)) { ...do smth with _.safeProxy(process.env).PATH... }
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Create Proxy to an object object that will throw if a property is not set (nil).
  *

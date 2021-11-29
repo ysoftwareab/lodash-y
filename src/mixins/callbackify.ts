@@ -8,7 +8,7 @@ import {
 // NOTE follows closely Node.js util.callbackify
 
 /**
- * Part of `lodash-firecloud`.
+ * Part of `lodash-y`.
  *
  * Convert Promise into callback-like function.
  *
